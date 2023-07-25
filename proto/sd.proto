@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option cc_generic_services = true;
+
+//定义服务接口
+service SdService {
+    rpc text2img (SdText2ImgRequest) returns (SdText2ImgResponse) {};
+    rpc img2img (SdImg2ImgRequest) returns (SdImg2ImgResponse) {}
+}
+
+//请求的参数
+message SdText2ImgRequest {
+    string prompt = 1;
+    string negative_prompt = 2;
+    int32 width = 3;
+    int32 height= 4;
+    int32 seed = 5;
+    int32 steps = 6;
+    int32 batch_size = 7;
+};
+
+//返回的对象
+message SdText2ImgResponse {
+    repeated string base64 = 1;
+}
+
+message SdImg2ImgRequest {
+    repeated string base64_images = 1;
+    string mask = 2;
+    string prompt = 3;
+    string negative_prompt = 4;
+    int32 width = 5;
+    int32 height= 6;
+    int32 seed = 7;
+    int32 steps = 8;
+    int32 batch_size = 9;
+};
+
+//返回的对象
+message SdImg2ImgResponse {
+    repeated string base64 = 1;
+}
