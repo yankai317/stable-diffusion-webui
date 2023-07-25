@@ -14,8 +14,6 @@ def base64_to_image(base64_str):  # 用 b.show()可以展示
     image = Image.open(image)
     return image
 
-MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-
 def run_txt2img():
     '''
     模拟请求服务方法信息
@@ -62,15 +60,16 @@ def run_img2img():
         mask = mask_base64,
         prompt = "nothing",
         negative_prompt = None,
-        width = 512,
-        height = 512,
+        width = 768,
+        height = 768,
         seed = -1,
         steps = 50,
-        batch_size = 4)
+        batch_size = 1)
     respnse = client.img2img(request)
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
         img.save(f'result_img2img_{i}_{time.time()}.jpg')
 
 if __name__ == '__main__':
+    MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
     run_img2img()

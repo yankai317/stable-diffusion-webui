@@ -227,25 +227,25 @@ class SDService(sd_pb2_grpc.SdServiceServicer):
     def text2img(self, request, context):
         prompt = request.prompt
         negative_prompt = request.negative_prompt
-        width = request.width
-        height = request.height
-        seed = request.seed
-        steps = request.steps
-        batch_size = request.batch_size
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
 
         imgs_base64 = self.sd_handler.run_text2img(prompt, negative_prompt, width, height, seed, steps, batch_size)
         return sd_pb2.SdText2ImgResponse(base64=imgs_base64)
     
     def img2img(self, request, context):
         base64_images = request.base64_images
-        mask = request.mask
+        mask = request.mask if request.mask != "" else None
         prompt = request.prompt
         negative_prompt = request.negative_prompt
-        width = request.width
-        height = request.height
-        seed = request.seed
-        steps = request.steps
-        batch_size = request.batch_size
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
 
         imgs_base64 = self.sd_handler.run_img2img(base64_images, mask, prompt, negative_prompt, width, height, seed, steps, batch_size)
         return sd_pb2.SdImg2ImgResponse(base64=imgs_base64)
@@ -260,7 +260,7 @@ def run():
                 ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH),
                 ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH)])
     sd_pb2_grpc.add_SdServiceServicer_to_server(SDService(),server)
-    server.add_insecure_port('[::]:50052')
+    server.add_insecure_port('0.0.0.0:50052')
     server.start()
     print("start service...")
     try:
