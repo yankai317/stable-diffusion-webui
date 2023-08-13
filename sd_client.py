@@ -42,7 +42,7 @@ def run_txt2img():
         height = 512,
         seed = -1,
         steps = 30,
-        batch_size = 8,
+        batch_size = 4,
         enable_hr = True,
         hr_scale = 2,
         hr_upscaler = "R-ESRGAN 4x+"
