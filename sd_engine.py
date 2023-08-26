@@ -469,7 +469,7 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             imgs_base64 = self.sd_inference.run_img2img(base64_images, mask, prompt, negative_prompt, width, height, seed, steps, batch_size)
         except Exception as e:
             status = 500
-            message = "success"
+            message = e.__str__()
             imgs_base64 = ""
         return sd_pb2.SdResponse(status=status, message=message, base64=imgs_base64)
 
