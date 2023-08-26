@@ -22,6 +22,7 @@ class SdDispatch(object):
         self.txt2img_task_queue = Queue()
         self.img2img_task_queue = Queue()
         self.task_status = {}
+        self.task_timest = {}
         self.results = {}
         self.max_queue_size = max_queue_size
         
@@ -45,15 +46,19 @@ class SdDispatch(object):
                 
         self.txt2img_dispatch()
         self.img2img_dispatch()
-    
+        self.clean_timeout_result()
+        
     def get_task_status(self, task_id):
         if task_id in self.task_status.keys():
             return self.task_status[task_id]
+        else:
+            return None
         
     def get_task_result(self, task_id):
         if self.task_status[task_id] == 2 or self.task_status[task_id] == -1:
             result = self.results[task_id]
             self.results.pop(task_id)
+            self.task_timest.pop(task_id)
             self.task_status.pop(task_id)
             return result
         else:
@@ -77,11 +82,18 @@ class SdDispatch(object):
         try:
             with sd_client_handler:
                 result = sd_client_handler.run_txt2img(args)
-            self.task_status[task_id] = 2
-            self.results[task_id] = result
+            if result.status == 200:
+                self.task_status[task_id] = 2
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+            else:
+                self.task_status[task_id] = -1
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
         except Exception as e:
             self.task_status[task_id] = -1
             self.results[task_id] = e
+            self.task_timest[task_id] = time.time()
 
     
     @async_infer
@@ -112,12 +124,18 @@ class SdDispatch(object):
         try:
             with sd_client_handler:
                 result = sd_client_handler.run_img2img(args)
-            self.task_status[task_id] = 2
-            self.results[task_id] = result
+            if result.status == 200:
+                self.task_status[task_id] = 2
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+            else:
+                self.task_status[task_id] = -1
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
         except Exception as e:
             self.task_status[task_id] = -1
             self.results[task_id] = e
-
+            self.task_timest[task_id] = time.time()
     
     @async_infer
     def img2img_dispatch(self):
@@ -128,8 +146,18 @@ class SdDispatch(object):
                     data = self.img2img_task_queue.get()
                     self.img2img(sd_client_handler, data)
                     self.task_status[data['task_id']] = 1
-
-
+                    
+    @async_infer
+    def clean_timeout_result(self):
+        while True:
+            time.sleep(2)
+            for task_id in list(self.task_timest.keys()):
+                timest = self.task_timest[task_id]
+                if time.time() - timest > 30:
+                    self.results.pop(task_id)
+                    self.task_timest.pop(task_id)
+                    self.task_status.pop(task_id)
+                    
 from PIL import Image
 import base64
 from io import BytesIO

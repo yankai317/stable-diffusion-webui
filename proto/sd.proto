@@ -5,7 +5,12 @@ option cc_generic_services = true;
 //定义服务接口
 service SdService {
     rpc text2img (SdText2ImgRequest) returns (SdResponse) {};
-    rpc img2img (SdImg2ImgRequest) returns (SdResponse) {}
+    rpc img2img (SdImg2ImgRequest) returns (SdResponse) {};
+
+    rpc text2img_asyn (SdText2ImgRequest) returns (SdAsynTaskResponse) {};
+    rpc img2img_asyn (SdImg2ImgRequest) returns (SdAsynTaskResponse) {};
+
+    rpc query(SdQueryRequest) returns (SdResponse) {};
 }
 service SdEngine {
     rpc text2img (SdText2ImgRequest) returns (SdResponse) {};
@@ -43,3 +48,13 @@ message SdResponse {
     int32 status = 2;
     repeated string base64 = 3;
 }
+
+message SdAsynTaskResponse {
+    string message = 1;
+    int32 status = 2;
+    string task_id = 3;
+}
+
+message SdQueryRequest {
+    string task_id = 1;
+};

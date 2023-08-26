@@ -49,7 +49,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         if task_status == 2:
             return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
         else:
-            return sd_pb2.SdResponse(status=500, message=result, base64="")
+            return sd_pb2.SdResponse(status=500, message=result.message, base64="")
     
     def img2img(self, request, context):
         base64_images = request.base64_images
@@ -85,7 +85,84 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         if task_status == 2:
             return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
         else:
-            return sd_pb2.SdResponse(status=500, message=result, base64="")
+            return sd_pb2.SdResponse(status=500, message=result.message, base64="")
+
+    def text2img_asyn(self, request, context):
+        prompt = request.prompt
+        negative_prompt = request.negative_prompt
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
+
+        enable_hr = request.enable_hr
+        hr_scale = request.hr_scale if request.hr_scale != 0 else 2
+        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "Latent"
+
+        args = {
+            "prompt": prompt,
+            "negative_prompt": negative_prompt,
+            "width": width,
+            "height": height,
+            "seed":seed,
+            "steps": steps,
+            "batch_size":batch_size,
+            "enable_hr":enable_hr,
+            "hr_scale": hr_scale,
+            "hr_upscaler":hr_upscaler
+        }
+        try:
+            task_id = self.dispatch.txt2img_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+
+    def img2img_asyn(self, request, context):
+        base64_images = request.base64_images
+        mask = request.mask if request.mask != "" else None
+        prompt = request.prompt
+        negative_prompt = request.negative_prompt
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
+
+        args = {
+            "base64_images":base64_images,
+            "mask": mask,
+            "prompt": prompt,
+            "negative_prompt": negative_prompt,
+            "width": width,
+            "height": height,
+            "seed":seed,
+            "steps": steps,
+            "batch_size":batch_size
+        }
+        try:
+            task_id = self.dispatch.img2img_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+
+    def query(self, request, context):
+        task_id = request.task_id
+        task_status = self.dispatch.get_task_status(task_id)
+        if task_status is None:
+            return sd_pb2.SdResponse(status=500, message="task not exist, please check task id.", 
+                                     base64="")
+        if task_status == 2 or task_status == -1:
+            result = self.dispatch.get_task_result(task_id)
+            if task_status == 2:
+                return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
+            else:
+                return sd_pb2.SdResponse(status=500, message=result.message, base64="")
+        else:
+            if task_status == 0:
+                return sd_pb2.SdResponse(status=200, message="queueing", base64="")
+            if task_status == 1:
+                return sd_pb2.SdResponse(status=200, message="processing", base64="")
         
 def run(configs, host="127.0.0.1", port=7860, max_messave_length=256 * 1024 * 1024,):
 
