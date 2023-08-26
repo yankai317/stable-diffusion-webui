@@ -14,7 +14,7 @@ class SdServiceHandler(object):
     def __init__(self, host="127.0.0.1", port=8000, device_id=0, config_path="config.json", log_save_path="log.txt", err_log_save_path="log_err.txt", max_messave_length=256 * 1024 * 1024) -> None:
         with open(log_save_path, 'w') as log_write:
             with open(err_log_save_path, 'w') as err_log_wirte:
-                self.sd_server = subprocess.Popen(["python sd_engine.py --port {} --device-id {} --ui-settings-file {} --server-name {}".format(port, device_id, config_path, host)], shell=True, stdout=log_write, stderr=err_log_wirte)
+                self.sd_server = subprocess.Popen(["python sd_engine.py --port {} --device-id {} --ui-settings-file {} --server-name {} --xformers".format(port, device_id, config_path, host)], shell=True, stdout=log_write, stderr=err_log_wirte)
         
         self.device_id = device_id
         self.port = port

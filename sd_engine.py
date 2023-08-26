@@ -361,6 +361,7 @@ class SdInference:
                     hr_upscaler: str = "Latent",
                     sampler_index: str = "DPM++ 2M SDE Karras",
                     denoising_strength: float = 0.7,
+                    hr_second_pass_steps: int = 0,
                     **kwargs):
         txt2imgreq = StableDiffusionTxt2ImgProcessingAPI(prompt=prompt, 
                                                          negative_prompt=negative_prompt,
@@ -374,6 +375,7 @@ class SdInference:
                                                          hr_scale=hr_scale, 
                                                          hr_upscaler=hr_upscaler, 
                                                          denoising_strength = denoising_strength,
+                                                         hr_second_pass_steps = hr_second_pass_steps,
                                                          **kwargs)
 
         try:

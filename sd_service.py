@@ -87,7 +87,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         else:
             return sd_pb2.SdResponse(status=500, message=result, base64="")
         
-def run(configs, host="127.0.0.1", port=7860, max_messave_length=256 * 1024 * 1024,):
+def run(configs, host="0.0.0.0", port=7860, max_messave_length=256 * 1024 * 1024,):
 
     MAX_MESSAGE_LENGTH = max_messave_length
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10),options=[
@@ -106,7 +106,13 @@ def run(configs, host="127.0.0.1", port=7860, max_messave_length=256 * 1024 * 10
 
 if __name__ == "__main__":
     configs = [
-        {"host": "127.0.0.1", "port": 8000, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8001, "device_id": 1, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "img2img"}
+        {"host": "127.0.0.1", "port": 8001, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_0.txt","err_log_save_path":"logs/log_err_0.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8002, "device_id": 1, "config_path":"setting_configs/config_1.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8003, "device_id": 2, "config_path":"setting_configs/config_2.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8004, "device_id": 3, "config_path":"setting_configs/config_3.json","log_save_path":"logs/log_3.txt","err_log_save_path":"logs/log_err_3.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8005, "device_id": 4, "config_path":"setting_configs/config_4.json","log_save_path":"logs/log_4.txt","err_log_save_path":"logs/log_err_4.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8006, "device_id": 5, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_5.txt","err_log_save_path":"logs/log_err_5.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8007, "device_id": 6, "config_path":"setting_configs/config_6.json","log_save_path":"logs/log_6.txt","err_log_save_path":"logs/log_err_6.txt", "task_type": "img2img"},
+        {"host": "127.0.0.1", "port": 8008, "device_id": 7, "config_path":"setting_configs/config_7.json","log_save_path":"logs/log_7.txt","err_log_save_path":"logs/log_err_7.txt", "task_type": "img2img"}
     ]
     run(configs)

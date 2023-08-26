@@ -76,7 +76,7 @@
     "training_enable_tensorboard": false,
     "training_tensorboard_save_images": false,
     "training_tensorboard_flush_every": 120,
-    "sd_model_checkpoint": "Realistic_Vision_V5.1.safetensors [00445494c8]",
+    "sd_model_checkpoint": "Realistic_Vision_V5.1-inpainting.safetensors [befb05f117]",
     "sd_checkpoint_cache": 0,
     "sd_vae_checkpoint_cache": 0,
     "sd_vae": "Automatic",
@@ -202,5 +202,5 @@
     "disabled_extensions": [],
     "disable_all_extensions": "none",
     "restore_config_state_file": "",
-    "sd_checkpoint_hash": "00445494c80979e173c267644ea2d7c67a37fe3c50c9f4d5a161d8ecdd96cb2f"
+    "sd_checkpoint_hash": "befb05f117278b063dac594a3406d861c8e148a16db356a95cf0deee25c94cdc"
 }

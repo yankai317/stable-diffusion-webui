@@ -76,7 +76,7 @@
     "training_enable_tensorboard": false,
     "training_tensorboard_save_images": false,
     "training_tensorboard_flush_every": 120,
-    "sd_model_checkpoint": "v1-5-pruned-emaonly.safetensors [6ce0161689]",
+    "sd_model_checkpoint": "Realistic_Vision_V5.1.safetensors [00445494c8]",
     "sd_checkpoint_cache": 0,
     "sd_vae_checkpoint_cache": 0,
     "sd_vae": "Automatic",

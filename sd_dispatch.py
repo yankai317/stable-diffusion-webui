@@ -33,7 +33,7 @@ class SdDispatch(object):
             log_save_path = sd_node_service_config['log_save_path']
             err_log_save_path = sd_node_service_config['err_log_save_path']
             task_type = sd_node_service_config['task_type']
-            
+            time.sleep(1)
             sd_service_handler = SdServiceHandler(host=host, port=port, device_id=device_id, config_path=config_path, log_save_path=log_save_path,err_log_save_path=err_log_save_path )
             sd_client_handler = SdClientHandler(host=host, port=port)
             if task_type == "txt2img":
