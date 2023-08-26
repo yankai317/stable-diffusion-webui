@@ -360,8 +360,8 @@ class SdInference:
                     hr_scale: float = 2.0,
                     hr_upscaler: str = "Latent",
                     sampler_index: str = "DPM++ 2M SDE Karras",
-                    denoising_strength: float = 0.7,
-                    hr_second_pass_steps: int = 0,
+                    denoising_strength: float = 0.5,
+                    hr_second_pass_steps: int = 20,
                     **kwargs):
         txt2imgreq = StableDiffusionTxt2ImgProcessingAPI(prompt=prompt, 
                                                          negative_prompt=negative_prompt,
@@ -440,7 +440,7 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
 
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
-        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "Latent"
+        hr_upscaler = request.hr_upscaler if request.hr_upscaler else "Latent"
         
         try:
             status = 200
