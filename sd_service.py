@@ -18,16 +18,19 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         width = request.width if request.width != 0 else 512
         height = request.height if request.height != 0 else 512
         seed = request.seed if request.seed != 0 else -1
-        steps = request.steps if request.steps != 0 else 20
+        steps = request.steps if request.steps != 0 else 25
         batch_size = request.batch_size if request.batch_size != 0 else 1
 
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
-        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
-
+        hr_upscaler = request.hr_upscaler if request.hr_upscaler else "R-ESRGAN 4x+"
+        
+        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        default_negative_prompt = ""
+        
         args = {
-            "prompt": prompt,
-            "negative_prompt": negative_prompt,
+            "prompt":default_prompt + prompt,
+            "negative_prompt": default_negative_prompt,
             "width": width,
             "height": height,
             "seed":seed,
@@ -59,7 +62,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         width = request.width if request.width != 0 else 512
         height = request.height if request.height != 0 else 512
         seed = request.seed if request.seed != 0 else -1
-        steps = request.steps if request.steps != 0 else 20
+        steps = request.steps if request.steps != 0 else 25
         batch_size = request.batch_size if request.batch_size != 0 else 1
 
         args = {
@@ -116,7 +119,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         width = request.width if request.width != 0 else 512
         height = request.height if request.height != 0 else 512
         seed = request.seed if request.seed != 0 else -1
-        steps = request.steps if request.steps != 0 else 20
+        steps = request.steps if request.steps != 0 else 25
         batch_size = request.batch_size if request.batch_size != 0 else 1
 
         enable_hr = request.enable_hr
@@ -124,8 +127,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
 
         args = {
-            "prompt": prompt,
-            "negative_prompt": negative_prompt,
+            "prompt": default_prompt + prompt,
+            "negative_prompt": default_negative_prompt,
             "width": width,
             "height": height,
             "seed":seed,
@@ -228,7 +231,7 @@ if __name__ == "__main__":
         {"host": "127.0.0.1", "port": 8004, "device_id": 3, "config_path":"setting_configs/config_3.json","log_save_path":"logs/log_3.txt","err_log_save_path":"logs/log_err_3.txt", "task_type": "txt2img"},
         {"host": "127.0.0.1", "port": 8005, "device_id": 4, "config_path":"setting_configs/config_4.json","log_save_path":"logs/log_4.txt","err_log_save_path":"logs/log_err_4.txt", "task_type": "txt2img"},
         {"host": "127.0.0.1", "port": 8006, "device_id": 5, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_5.txt","err_log_save_path":"logs/log_err_5.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8007, "device_id": 6, "config_path":"setting_configs/config_6.json","log_save_path":"logs/log_6.txt","err_log_save_path":"logs/log_err_6.txt", "task_type": "img2img"},
-        {"host": "127.0.0.1", "port": 8008, "device_id": 7, "config_path":"setting_configs/config_7.json","log_save_path":"logs/log_7.txt","err_log_save_path":"logs/log_err_7.txt", "task_type": "img2img"}
+        {"host": "127.0.0.1", "port": 8007, "device_id": 6, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_6.txt","err_log_save_path":"logs/log_err_6.txt", "task_type": "img2img"},
+        {"host": "127.0.0.1", "port": 8008, "device_id": 7, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_7.txt","err_log_save_path":"logs/log_err_7.txt", "task_type": "img2img"}
     ]
     run(configs)
