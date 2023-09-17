@@ -1,10 +1,11 @@
 from sd_handler import SdServiceHandler, SdClientHandler
 from queue import Queue
-from threading import Thread
+from threading import Thread, Lock
 import uuid
 import time
 
-            
+lock = Lock()
+
 def async_infer(f):
     def wrapper(*args, **kwargs):
         thr = Thread(target=f, args=args, kwargs=kwargs)
@@ -13,14 +14,13 @@ def async_infer(f):
     
 class SdDispatch(object):
     def __init__(self, max_queue_size=100, sd_node_service_configs = []) -> None:
-        self.sd_service_txt2img_handlers = []
-        self.sd_client_txt2img_handlers = []
-        
-        self.sd_service_img2img_handlers = []
-        self.sd_client_img2img_handlers = []
+        self.sd_service_handlers_queue = Queue()
+        self.sd_client_handlers_queue = Queue()
         
         self.txt2img_task_queue = Queue()
         self.img2img_task_queue = Queue()
+        self.upscale_task_queue = Queue()
+        
         self.task_status = {}
         self.task_timest = {}
         self.results = {}
@@ -37,15 +37,13 @@ class SdDispatch(object):
             time.sleep(1)
             sd_service_handler = SdServiceHandler(host=host, port=port, device_id=device_id, config_path=config_path, log_save_path=log_save_path,err_log_save_path=err_log_save_path )
             sd_client_handler = SdClientHandler(host=host, port=port)
-            if task_type == "txt2img":
-                self.sd_service_txt2img_handlers.append(sd_service_handler)
-                self.sd_client_txt2img_handlers.append(sd_client_handler)
-            if task_type == "img2img":
-                self.sd_service_img2img_handlers.append(sd_service_handler)
-                self.sd_client_img2img_handlers.append(sd_client_handler)
+            
+            self.sd_service_handlers_queue.put(sd_service_handler)
+            self.sd_client_handlers_queue.put(sd_client_handler)
                 
         self.txt2img_dispatch()
         self.img2img_dispatch()
+        self.upscale_dispatch()
         self.clean_timeout_result()
         
     def get_task_status(self, task_id):
@@ -76,7 +74,7 @@ class SdDispatch(object):
                 return task_id
             
     @async_infer
-    def txt2img(self, sd_client_handler, data):
+    def txt2img(self, sd_client_handler, data, callback):
         task_id = data['task_id']
         args = data['args']
         try:
@@ -94,17 +92,17 @@ class SdDispatch(object):
             self.task_status[task_id] = -1
             self.results[task_id] = e
             self.task_timest[task_id] = time.time()
-
+        callback(sd_client_handler)
     
     @async_infer
     def txt2img_dispatch(self):
         while True:
             time.sleep(1)
-            for sd_client_handler in self.sd_client_txt2img_handlers:
-                if sd_client_handler.isFree and not self.txt2img_task_queue.empty():
-                    data = self.txt2img_task_queue.get()
-                    self.txt2img(sd_client_handler, data)
-                    self.task_status[data['task_id']] = 1
+            if not self.sd_client_handlers_queue.empty() and not self.txt2img_task_queue.empty():
+                data = self.txt2img_task_queue.get()
+                sd_client_handler = self.sd_client_handlers_queue.get()
+                self.txt2img(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
                     
     # img2img
     def img2img_in_queue(self, args):
@@ -118,7 +116,7 @@ class SdDispatch(object):
                 return task_id
             
     @async_infer
-    def img2img(self, sd_client_handler, data):
+    def img2img(self, sd_client_handler, data, callback):
         task_id = data['task_id']
         args = data['args']
         try:
@@ -136,17 +134,60 @@ class SdDispatch(object):
             self.task_status[task_id] = -1
             self.results[task_id] = e
             self.task_timest[task_id] = time.time()
-    
+        callback(sd_client_handler)
+        
     @async_infer
     def img2img_dispatch(self):
         while True:
             time.sleep(1)
-            for sd_client_handler in self.sd_client_img2img_handlers:
-                if sd_client_handler.isFree and not self.img2img_task_queue.empty():
-                    data = self.img2img_task_queue.get()
-                    self.img2img(sd_client_handler, data)
-                    self.task_status[data['task_id']] = 1
-                    
+            if not self.sd_client_handlers_queue.empty() and not self.img2img_task_queue.empty():
+                data = self.img2img_task_queue.get()
+                sd_client_handler = self.sd_client_handlers_queue.get()
+                self.img2img(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
+
+
+    def upscale_in_queue(self, args):
+        task_id = str(uuid.uuid1())
+        data = {"task_id": task_id, "args": args}
+        while True:
+            time.sleep(1)
+            if self.upscale_task_queue.qsize() < self.max_queue_size:
+                self.upscale_task_queue.put(data)
+                self.task_status[task_id] = 0
+                return task_id
+    
+    @async_infer
+    def upscale(self, sd_client_handler, data, callback):
+        task_id = data['task_id']
+        args = data['args']
+        try:
+            with sd_client_handler:
+                result = sd_client_handler.run_upscale(args)
+            if result.status == 200:
+                self.task_status[task_id] = 2
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+            else:
+                self.task_status[task_id] = -1
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+        except Exception as e:
+            self.task_status[task_id] = -1
+            self.results[task_id] = e
+            self.task_timest[task_id] = time.time()
+        callback(sd_client_handler)
+        
+    @async_infer
+    def upscale_dispatch(self):
+        while True:
+            time.sleep(1)
+            if not self.sd_client_handlers_queue.empty() and not self.upscale_task_queue.empty():
+                data = self.upscale_task_queue.get()
+                sd_client_handler = self.sd_client_handlers_queue.get()
+                self.upscale(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
+    
     @async_infer
     def clean_timeout_result(self):
         while True:
