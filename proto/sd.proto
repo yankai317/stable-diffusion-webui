@@ -6,15 +6,18 @@ option cc_generic_services = true;
 service SdService {
     rpc text2img (SdText2ImgRequest) returns (SdResponse) {};
     rpc img2img (SdImg2ImgRequest) returns (SdResponse) {};
+    rpc upscale (SdUpscaleRequest) returns (SdResponse) {};
 
     rpc text2img_asyn (SdText2ImgRequest) returns (SdAsynTaskResponse) {};
     rpc img2img_asyn (SdImg2ImgRequest) returns (SdAsynTaskResponse) {};
+    rpc upscale_asyn (SdUpscaleRequest) returns (SdAsynTaskResponse) {};
 
     rpc query(SdQueryRequest) returns (SdResponse) {};
 }
 service SdEngine {
     rpc text2img (SdText2ImgRequest) returns (SdResponse) {};
     rpc img2img (SdImg2ImgRequest) returns (SdResponse) {}
+    rpc upscale (SdUpscaleRequest) returns (SdResponse) {}
 }
 //请求的参数
 message SdText2ImgRequest {
@@ -40,6 +43,12 @@ message SdImg2ImgRequest {
     int32 seed = 7;
     int32 steps = 8;
     int32 batch_size = 9;
+};
+
+message SdUpscaleRequest {
+    string base64_image = 1;
+    int32 upscaling_resize = 2;
+    string upscaler_1= 3;
 };
 
 //返回的对象

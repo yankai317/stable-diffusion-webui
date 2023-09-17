@@ -79,8 +79,8 @@ import modules.ui
 from modules import modelloader
 from modules.shared import cmd_opts
 import modules.hypernetworks.hypernetwork
-from modules.api.simple_api import SimpleApi
-from modules.api.models import  StableDiffusionTxt2ImgProcessingAPI, StableDiffusionImg2ImgProcessingAPI
+from modules.api.simple_api import SimpleApi, decode_base64_to_image
+from modules.api.models import  StableDiffusionTxt2ImgProcessingAPI, StableDiffusionImg2ImgProcessingAPI, ExtrasSingleImageRequest
 from modules.processing import StableDiffusionProcessingTxt2Img, StableDiffusionProcessingImg2Img
 
 startup_timer.record("other imports")
@@ -264,6 +264,7 @@ def initialize():
     startup_timer.record("setup gfpgan")
 
     initialize_rest(reload_script_modules=False)
+    modules.script_callbacks.before_ui_callback()
 
 
 def initialize_rest(*, reload_script_modules=False):
@@ -354,14 +355,30 @@ class SdInference:
                     width: int = 512,
                     height: int = 512,
                     seed: int = -1,
-                    steps: int = 50,
+                    steps: int = 20,
                     batch_size: int = 1,
                     enable_hr: bool = False,
                     hr_scale: float = 2.0,
-                    hr_upscaler: str = "Latent",
-                    sampler_index: str = "DPM++ 2M SDE Karras",
+                    hr_upscaler: str = "R-ESRGAN 4x+",
+                    sampler_index: str = "Euler a",
                     denoising_strength: float = 0.2,
                     hr_second_pass_steps: int = 20,
+                    prompt_styles: list = [],
+                    restore_faces: bool = False,
+                    tiling: bool = False,
+                    n_iter: int = 1,
+                    cfg_scale: float = 7, 
+                    subseed: int = -1, 
+                    subseed_strength: float = 0, 
+                    seed_resize_from_h: int = 0, 
+                    seed_resize_from_w: int = 0, 
+                    seed_enable_extras: bool = False, 
+                    hr_resize_x: int = 0, 
+                    hr_resize_y: int = 0, 
+                    hr_sampler_index: int = 0, 
+                    hr_prompt: str = "", 
+                    hr_negative_prompt: str = "", 
+                    override_settings_texts = None,
                     **kwargs):
         txt2imgreq = StableDiffusionTxt2ImgProcessingAPI(prompt=prompt, 
                                                          negative_prompt=negative_prompt,
@@ -376,6 +393,22 @@ class SdInference:
                                                          hr_upscaler=hr_upscaler, 
                                                          denoising_strength = denoising_strength,
                                                          hr_second_pass_steps = hr_second_pass_steps,
+                                                         prompt_styles = prompt_styles,
+                                                         restore_faces = restore_faces,
+                                                         tiling = tiling,
+                                                         n_iter = n_iter,
+                                                         cfg_scale = cfg_scale, 
+                                                         subseed = subseed, 
+                                                         subseed_strength = subseed_strength, 
+                                                         seed_resize_from_h = seed_resize_from_h, 
+                                                         seed_resize_from_w = seed_resize_from_h, 
+                                                         seed_enable_extras = seed_enable_extras, 
+                                                         hr_resize_x = hr_resize_x, 
+                                                         hr_resize_y = hr_resize_y, 
+                                                         hr_sampler_index = hr_sampler_index, 
+                                                         hr_prompt = hr_prompt, 
+                                                         hr_negative_prompt = hr_negative_prompt, 
+                                                         override_settings_texts = override_settings_texts,
                                                          **kwargs)
 
         try:
@@ -396,12 +429,12 @@ class SdInference:
                     width: int = 512,
                     height: int = 512,
                     seed: int = -1,
-                    steps: int = 50,
+                    steps: int = 20,
                     batch_size: int = 1,
                     **kwargs):
         init_images = []
         for base64_image in base64_images:
-            init_images.append(base64_to_image(base64_image))
+            init_images.append(decode_base64_to_image(base64_image))
         # in_mask = base64_to_image(mask)
         img2imgreq = StableDiffusionImg2ImgProcessingAPI(init_images=init_images,
                                                          mask=mask,
@@ -418,6 +451,46 @@ class SdInference:
             raise e
         return response.images
 
+    def run_upscale(self,
+                    image : str,
+                    resize_mode: int = 0,
+                    show_extras_results: bool = True,
+                    gfpgan_visibility: float = 0,
+                    codeformer_visibility: float = 0,
+                    codeformer_weight: float = 0,
+                    upscaling_resize: float = 2,
+                    upscaling_resize_w: int = 512,
+                    upscaling_resize_h: int = 512,
+                    upscaling_crop: bool = True,
+                    upscaler_1: str = "R-ESRGAN 4x+",
+                    upscaler_2: str = "None",
+                    extras_upscaler_2_visibility: float = 0,
+                    upscale_first: bool = False,
+                    **kwargs):
+
+
+        upscalereq = ExtrasSingleImageRequest(image=image,
+                                                resize_mode=resize_mode,
+                                                show_extras_results=show_extras_results,
+                                                gfpgan_visibility=gfpgan_visibility,
+                                                codeformer_visibility=codeformer_visibility,
+                                                codeformer_weight=codeformer_weight,
+                                                upscaling_resize=upscaling_resize,
+                                                upscaling_resize_w=upscaling_resize_w,
+                                                upscaling_resize_h=upscaling_resize_h,
+                                                upscaling_crop=upscaling_crop,
+                                                upscaler_1=upscaler_1,
+                                                upscaler_2=upscaler_2,
+                                                extras_upscaler_2_visibility=extras_upscaler_2_visibility,
+                                                upscale_first=upscale_first,
+                                                **kwargs)
+
+        try:
+            response = self.api.extras_single_image_api(upscalereq)
+        except Exception as e:
+            raise e
+        return response.image
+    
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
@@ -473,6 +546,21 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             imgs_base64 = ""
         return sd_pb2.SdResponse(status=status, message=message, base64=imgs_base64)
 
+    def upscale(self, request, context):
+        base64_image = request.base64_image
+        upscaling_resize = request.upscaling_resize if request.upscaling_resize != 0 else 2
+        upscaler_1 = request.upscaler_1 if request.upscaler_1 else "R-ESRGAN 4x+"
+
+        try:
+            status = 200
+            message = "success"
+            img_base64 = self.sd_inference.run_upscale(image = base64_image, upscaling_resize=upscaling_resize, upscaler_1=upscaler_1)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            img_base64 = ""
+        return sd_pb2.SdResponse(status=status, message=message, base64=[img_base64])
+
 def run(host="127.0.0.1", port=8000, max_messave_length=256 * 1024 * 1024):
 
     MAX_MESSAGE_LENGTH = max_messave_length
@@ -496,3 +584,5 @@ if __name__ == '__main__':
         run(host=host, port=port)
     else:
         run(port=port)
+    while True:
+        time.sleep(10)

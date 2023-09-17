@@ -23,7 +23,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
 
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
-        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "Latent"
+        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
 
         args = {
             "prompt": prompt,
@@ -87,6 +87,29 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         else:
             return sd_pb2.SdResponse(status=500, message=result.message, base64="")
 
+    def upscale(self, request, context):
+        base64_image = request.base64_image
+        upscaling_resize = request.upscaling_resize if request.upscaling_resize != 0 else 2
+        upscaler_1 = request.upscaler_1 if not request.upscaler_1 else "R-ESRGAN 4x+"
+        
+        args = {
+            "base64_image": base64_image,
+            "upscaling_resize": upscaling_resize,
+            "upscaler_1": upscaler_1
+        }
+        task_id = self.dispatch.upscale_in_queue(args)
+        
+        while True:
+            time.sleep(0.5)
+            task_status = self.dispatch.get_task_status(task_id)
+            if task_status == 2 or task_status == -1:
+                result = self.dispatch.get_task_result(task_id)
+                break
+        if task_status == 2:
+            return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
+        else:
+            return sd_pb2.SdResponse(status=500, message=result.message, base64="")
+    
     def text2img_asyn(self, request, context):
         prompt = request.prompt
         negative_prompt = request.negative_prompt
@@ -98,7 +121,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
 
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
-        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "Latent"
+        hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
 
         args = {
             "prompt": prompt,
@@ -146,6 +169,22 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         except Exception as e:
             return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
 
+    def upscale_asyn(self, request, context):
+        base64_image = request.base64_image
+        upscaling_resize = request.upscaling_resize if request.upscaling_resize != 0 else 2
+        upscaler_1 = request.upscaler_1 if not request.upscaler_1 else "R-ESRGAN 4x+"
+        
+        args = {
+            "base64_image": base64_image,
+            "upscaling_resize": upscaling_resize,
+            "upscaler_1": upscaler_1
+        }
+        try:
+            task_id = self.dispatch.upscale_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+        
     def query(self, request, context):
         task_id = request.task_id
         task_status = self.dispatch.get_task_status(task_id)

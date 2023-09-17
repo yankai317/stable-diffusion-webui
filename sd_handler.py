@@ -7,7 +7,7 @@ import asyncio
 from PIL import Image
 import base64
 from io import BytesIO
-from threading import Thread
+from threading import Thread, Lock
 import torch
 
 class SdServiceHandler(object):
@@ -51,6 +51,7 @@ class SdClientHandler(object):
         ])
         self.sd_client = sd_pb2_grpc.SdEngineStub(channel=conn)
         self.isFree = True
+        self.lock = Lock()
         
     def run_txt2img(self, kwargs = {}):
 
@@ -77,7 +78,8 @@ class SdClientHandler(object):
                                             hr_scale = hr_scale,
                                             hr_upscaler = hr_upscaler
                                             )
-        response = self.sd_client.text2img(request)
+        with self.lock:
+            response = self.sd_client.text2img(request)
         return response
 
     def run_img2img(self, kwargs = {}):
@@ -105,9 +107,30 @@ class SdClientHandler(object):
             seed = seed,
             steps = steps,
             batch_size = batch_size)
-        response = self.sd_client.img2img(request)
-        return response
         
+        with self.lock:
+            response = self.sd_client.img2img(request)
+        return response
+    
+    def run_upscale(self, kwargs = {}):
+        '''
+        模拟请求服务方法信息
+        :return:
+        '''
+        base64_image = kwargs['base64_image'] if 'base64_image' in kwargs.keys() else ""
+        upscaling_resize = kwargs['upscaling_resize'] if 'upscaling_resize' in kwargs.keys() else 2
+        upscaler_1 = kwargs['upscaler_1'] if 'upscaler_1' in kwargs.keys() else "R-ESRGAN 4x+"
+        
+        request = sd_pb2.SdUpscaleRequest(
+            base64_image = base64_image,
+            upscaling_resize = upscaling_resize,
+            upscaler_1 = upscaler_1)
+        
+        with self.lock:
+            response = self.sd_client.upscale(request)
+        
+        return response
+    
     def __enter__(self):
         self.isFree = False
 
