@@ -4,17 +4,17 @@ package proto;
 public final class Sd {
   private Sd() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
+          com.google.protobuf.ExtensionRegistryLite registry) {
   }
 
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+          com.google.protobuf.ExtensionRegistry registry) {
     registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
+            (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface SdText2ImgRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:SdText2ImgRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:SdText2ImgRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>string prompt = 1;</code>
@@ -26,7 +26,7 @@ public final class Sd {
      * @return The bytes for prompt.
      */
     com.google.protobuf.ByteString
-        getPromptBytes();
+    getPromptBytes();
 
     /**
      * <code>string negative_prompt = 2;</code>
@@ -38,7 +38,7 @@ public final class Sd {
      * @return The bytes for negativePrompt.
      */
     com.google.protobuf.ByteString
-        getNegativePromptBytes();
+    getNegativePromptBytes();
 
     /**
      * <code>int32 width = 3;</code>
@@ -92,7 +92,7 @@ public final class Sd {
      * @return The bytes for hrUpscaler.
      */
     com.google.protobuf.ByteString
-        getHrUpscalerBytes();
+    getHrUpscalerBytes();
   }
   /**
    * <pre>
@@ -102,10 +102,10 @@ public final class Sd {
    * Protobuf type {@code SdText2ImgRequest}
    */
   public static final class SdText2ImgRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:SdText2ImgRequest)
-      SdText2ImgRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:SdText2ImgRequest)
+          SdText2ImgRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
     // Use SdText2ImgRequest.newBuilder() to construct.
     private SdText2ImgRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -119,7 +119,7 @@ public final class Sd {
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
+            UnusedPrivateParameter unused) {
       return new SdText2ImgRequest();
     }
 
@@ -129,16 +129,16 @@ public final class Sd {
       return this.unknownFields;
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+    getDescriptor() {
       return Sd.internal_static_SdText2ImgRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
+    internalGetFieldAccessorTable() {
       return Sd.internal_static_SdText2ImgRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Sd.SdText2ImgRequest.class, Sd.SdText2ImgRequest.Builder.class);
+              .ensureFieldAccessorsInitialized(
+                      Sd.SdText2ImgRequest.class, Sd.SdText2ImgRequest.Builder.class);
     }
 
     public static final int PROMPT_FIELD_NUMBER = 1;
@@ -153,8 +153,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         prompt_ = s;
         return s;
@@ -166,12 +166,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getPromptBytes() {
+    getPromptBytes() {
       java.lang.Object ref = prompt_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         prompt_ = b;
         return b;
       } else {
@@ -191,8 +191,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         negativePrompt_ = s;
         return s;
@@ -204,12 +204,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getNegativePromptBytes() {
+    getNegativePromptBytes() {
       java.lang.Object ref = negativePrompt_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         negativePrompt_ = b;
         return b;
       } else {
@@ -306,8 +306,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         hrUpscaler_ = s;
         return s;
@@ -319,12 +319,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getHrUpscalerBytes() {
+    getHrUpscalerBytes() {
       java.lang.Object ref = hrUpscaler_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         hrUpscaler_ = b;
         return b;
       } else {
@@ -345,7 +345,7 @@ public final class Sd {
 
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(prompt_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, prompt_);
       }
@@ -393,31 +393,31 @@ public final class Sd {
       }
       if (width_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, width_);
+                .computeInt32Size(3, width_);
       }
       if (height_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, height_);
+                .computeInt32Size(4, height_);
       }
       if (seed_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, seed_);
+                .computeInt32Size(5, seed_);
       }
       if (steps_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, steps_);
+                .computeInt32Size(6, steps_);
       }
       if (batchSize_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, batchSize_);
+                .computeInt32Size(7, batchSize_);
       }
       if (enableHr_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(8, enableHr_);
+                .computeBoolSize(8, enableHr_);
       }
       if (java.lang.Float.floatToRawIntBits(hrScale_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(9, hrScale_);
+                .computeFloatSize(9, hrScale_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hrUpscaler_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, hrUpscaler_);
@@ -430,7 +430,7 @@ public final class Sd {
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-       return true;
+        return true;
       }
       if (!(obj instanceof Sd.SdText2ImgRequest)) {
         return super.equals(obj);
@@ -438,26 +438,26 @@ public final class Sd {
       Sd.SdText2ImgRequest other = (Sd.SdText2ImgRequest) obj;
 
       if (!getPrompt()
-          .equals(other.getPrompt())) return false;
+              .equals(other.getPrompt())) return false;
       if (!getNegativePrompt()
-          .equals(other.getNegativePrompt())) return false;
+              .equals(other.getNegativePrompt())) return false;
       if (getWidth()
-          != other.getWidth()) return false;
+              != other.getWidth()) return false;
       if (getHeight()
-          != other.getHeight()) return false;
+              != other.getHeight()) return false;
       if (getSeed()
-          != other.getSeed()) return false;
+              != other.getSeed()) return false;
       if (getSteps()
-          != other.getSteps()) return false;
+              != other.getSteps()) return false;
       if (getBatchSize()
-          != other.getBatchSize()) return false;
+              != other.getBatchSize()) return false;
       if (getEnableHr()
-          != other.getEnableHr()) return false;
+              != other.getEnableHr()) return false;
       if (java.lang.Float.floatToIntBits(getHrScale())
-          != java.lang.Float.floatToIntBits(
+              != java.lang.Float.floatToIntBits(
               other.getHrScale())) return false;
       if (!getHrUpscaler()
-          .equals(other.getHrUpscaler())) return false;
+              .equals(other.getHrUpscaler())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -485,10 +485,10 @@ public final class Sd {
       hash = (53 * hash) + getBatchSize();
       hash = (37 * hash) + ENABLE_HR_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getEnableHr());
+              getEnableHr());
       hash = (37 * hash) + HR_SCALE_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getHrScale());
+              getHrScale());
       hash = (37 * hash) + HR_UPSCALER_FIELD_NUMBER;
       hash = (53 * hash) + getHrUpscaler().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
@@ -497,73 +497,73 @@ public final class Sd {
     }
 
     public static Sd.SdText2ImgRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdText2ImgRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdText2ImgRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+              .parseWithIOException(PARSER, input);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+              .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static Sd.SdText2ImgRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+              .parseDelimitedWithIOException(PARSER, input);
     }
     public static Sd.SdText2ImgRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+              .parseWithIOException(PARSER, input);
     }
     public static Sd.SdText2ImgRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+              .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     @java.lang.Override
@@ -577,12 +577,12 @@ public final class Sd {
     @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
+              ? new Builder() : new Builder().mergeFrom(this);
     }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -594,20 +594,20 @@ public final class Sd {
      * Protobuf type {@code SdText2ImgRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:SdText2ImgRequest)
-        Sd.SdText2ImgRequestOrBuilder {
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:SdText2ImgRequest)
+            Sd.SdText2ImgRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
+      getDescriptor() {
         return Sd.internal_static_SdText2ImgRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
+      internalGetFieldAccessorTable() {
         return Sd.internal_static_SdText2ImgRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Sd.SdText2ImgRequest.class, Sd.SdText2ImgRequest.Builder.class);
+                .ensureFieldAccessorsInitialized(
+                        Sd.SdText2ImgRequest.class, Sd.SdText2ImgRequest.Builder.class);
       }
 
       // Construct using Sd.SdText2ImgRequest.newBuilder()
@@ -616,7 +616,7 @@ public final class Sd {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
 
       }
@@ -648,7 +648,7 @@ public final class Sd {
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
+      getDescriptorForType() {
         return Sd.internal_static_SdText2ImgRequest_descriptor;
       }
 
@@ -689,30 +689,30 @@ public final class Sd {
       }
       @java.lang.Override
       public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
         return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
         return super.addRepeatedField(field, value);
       }
       @java.lang.Override
@@ -772,9 +772,9 @@ public final class Sd {
 
       @java.lang.Override
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
         if (extensionRegistry == null) {
           throw new java.lang.NullPointerException();
         }
@@ -861,7 +861,7 @@ public final class Sd {
         java.lang.Object ref = prompt_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           prompt_ = s;
           return s;
@@ -874,12 +874,12 @@ public final class Sd {
        * @return The bytes for prompt.
        */
       public com.google.protobuf.ByteString
-          getPromptBytes() {
+      getPromptBytes() {
         java.lang.Object ref = prompt_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           prompt_ = b;
           return b;
         } else {
@@ -892,11 +892,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setPrompt(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         prompt_ = value;
         onChanged();
         return this;
@@ -906,7 +906,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearPrompt() {
-        
+
         prompt_ = getDefaultInstance().getPrompt();
         onChanged();
         return this;
@@ -917,12 +917,12 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setPromptBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         prompt_ = value;
         onChanged();
         return this;
@@ -937,7 +937,7 @@ public final class Sd {
         java.lang.Object ref = negativePrompt_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           negativePrompt_ = s;
           return s;
@@ -950,12 +950,12 @@ public final class Sd {
        * @return The bytes for negativePrompt.
        */
       public com.google.protobuf.ByteString
-          getNegativePromptBytes() {
+      getNegativePromptBytes() {
         java.lang.Object ref = negativePrompt_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           negativePrompt_ = b;
           return b;
         } else {
@@ -968,11 +968,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setNegativePrompt(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         negativePrompt_ = value;
         onChanged();
         return this;
@@ -982,7 +982,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearNegativePrompt() {
-        
+
         negativePrompt_ = getDefaultInstance().getNegativePrompt();
         onChanged();
         return this;
@@ -993,12 +993,12 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setNegativePromptBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         negativePrompt_ = value;
         onChanged();
         return this;
@@ -1019,7 +1019,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setWidth(int value) {
-        
+
         width_ = value;
         onChanged();
         return this;
@@ -1029,7 +1029,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearWidth() {
-        
+
         width_ = 0;
         onChanged();
         return this;
@@ -1050,7 +1050,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setHeight(int value) {
-        
+
         height_ = value;
         onChanged();
         return this;
@@ -1060,7 +1060,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearHeight() {
-        
+
         height_ = 0;
         onChanged();
         return this;
@@ -1081,7 +1081,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setSeed(int value) {
-        
+
         seed_ = value;
         onChanged();
         return this;
@@ -1091,7 +1091,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearSeed() {
-        
+
         seed_ = 0;
         onChanged();
         return this;
@@ -1112,7 +1112,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setSteps(int value) {
-        
+
         steps_ = value;
         onChanged();
         return this;
@@ -1122,7 +1122,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearSteps() {
-        
+
         steps_ = 0;
         onChanged();
         return this;
@@ -1143,7 +1143,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setBatchSize(int value) {
-        
+
         batchSize_ = value;
         onChanged();
         return this;
@@ -1153,7 +1153,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearBatchSize() {
-        
+
         batchSize_ = 0;
         onChanged();
         return this;
@@ -1174,7 +1174,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setEnableHr(boolean value) {
-        
+
         enableHr_ = value;
         onChanged();
         return this;
@@ -1184,7 +1184,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearEnableHr() {
-        
+
         enableHr_ = false;
         onChanged();
         return this;
@@ -1205,7 +1205,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setHrScale(float value) {
-        
+
         hrScale_ = value;
         onChanged();
         return this;
@@ -1215,7 +1215,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearHrScale() {
-        
+
         hrScale_ = 0F;
         onChanged();
         return this;
@@ -1230,7 +1230,7 @@ public final class Sd {
         java.lang.Object ref = hrUpscaler_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           hrUpscaler_ = s;
           return s;
@@ -1243,12 +1243,12 @@ public final class Sd {
        * @return The bytes for hrUpscaler.
        */
       public com.google.protobuf.ByteString
-          getHrUpscalerBytes() {
+      getHrUpscalerBytes() {
         java.lang.Object ref = hrUpscaler_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           hrUpscaler_ = b;
           return b;
         } else {
@@ -1261,11 +1261,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setHrUpscaler(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         hrUpscaler_ = value;
         onChanged();
         return this;
@@ -1275,7 +1275,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearHrUpscaler() {
-        
+
         hrUpscaler_ = getDefaultInstance().getHrUpscaler();
         onChanged();
         return this;
@@ -1286,25 +1286,25 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setHrUpscalerBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         hrUpscaler_ = value;
         onChanged();
         return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
       public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
       }
 
@@ -1323,12 +1323,12 @@ public final class Sd {
     }
 
     private static final com.google.protobuf.Parser<SdText2ImgRequest>
-        PARSER = new com.google.protobuf.AbstractParser<SdText2ImgRequest>() {
+            PARSER = new com.google.protobuf.AbstractParser<SdText2ImgRequest>() {
       @java.lang.Override
       public SdText2ImgRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         Builder builder = newBuilder();
         try {
           builder.mergeFrom(input, extensionRegistry);
@@ -1338,7 +1338,7 @@ public final class Sd {
           throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
         } catch (java.io.IOException e) {
           throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
+                  .setUnfinishedMessage(builder.buildPartial());
         }
         return builder.buildPartial();
       }
@@ -1361,15 +1361,15 @@ public final class Sd {
   }
 
   public interface SdImg2ImgRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:SdImg2ImgRequest)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:SdImg2ImgRequest)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>repeated string base64_images = 1;</code>
      * @return A list containing the base64Images.
      */
     java.util.List<java.lang.String>
-        getBase64ImagesList();
+    getBase64ImagesList();
     /**
      * <code>repeated string base64_images = 1;</code>
      * @return The count of base64Images.
@@ -1387,7 +1387,7 @@ public final class Sd {
      * @return The bytes of the base64Images at the given index.
      */
     com.google.protobuf.ByteString
-        getBase64ImagesBytes(int index);
+    getBase64ImagesBytes(int index);
 
     /**
      * <code>string mask = 2;</code>
@@ -1399,7 +1399,7 @@ public final class Sd {
      * @return The bytes for mask.
      */
     com.google.protobuf.ByteString
-        getMaskBytes();
+    getMaskBytes();
 
     /**
      * <code>string prompt = 3;</code>
@@ -1411,7 +1411,7 @@ public final class Sd {
      * @return The bytes for prompt.
      */
     com.google.protobuf.ByteString
-        getPromptBytes();
+    getPromptBytes();
 
     /**
      * <code>string negative_prompt = 4;</code>
@@ -1423,7 +1423,7 @@ public final class Sd {
      * @return The bytes for negativePrompt.
      */
     com.google.protobuf.ByteString
-        getNegativePromptBytes();
+    getNegativePromptBytes();
 
     /**
      * <code>int32 width = 5;</code>
@@ -1459,10 +1459,10 @@ public final class Sd {
    * Protobuf type {@code SdImg2ImgRequest}
    */
   public static final class SdImg2ImgRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:SdImg2ImgRequest)
-      SdImg2ImgRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:SdImg2ImgRequest)
+          SdImg2ImgRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
     // Use SdImg2ImgRequest.newBuilder() to construct.
     private SdImg2ImgRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -1477,7 +1477,7 @@ public final class Sd {
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
+            UnusedPrivateParameter unused) {
       return new SdImg2ImgRequest();
     }
 
@@ -1487,16 +1487,16 @@ public final class Sd {
       return this.unknownFields;
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+    getDescriptor() {
       return Sd.internal_static_SdImg2ImgRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
+    internalGetFieldAccessorTable() {
       return Sd.internal_static_SdImg2ImgRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Sd.SdImg2ImgRequest.class, Sd.SdImg2ImgRequest.Builder.class);
+              .ensureFieldAccessorsInitialized(
+                      Sd.SdImg2ImgRequest.class, Sd.SdImg2ImgRequest.Builder.class);
     }
 
     public static final int BASE64_IMAGES_FIELD_NUMBER = 1;
@@ -1506,7 +1506,7 @@ public final class Sd {
      * @return A list containing the base64Images.
      */
     public com.google.protobuf.ProtocolStringList
-        getBase64ImagesList() {
+    getBase64ImagesList() {
       return base64Images_;
     }
     /**
@@ -1530,7 +1530,7 @@ public final class Sd {
      * @return The bytes of the base64Images at the given index.
      */
     public com.google.protobuf.ByteString
-        getBase64ImagesBytes(int index) {
+    getBase64ImagesBytes(int index) {
       return base64Images_.getByteString(index);
     }
 
@@ -1546,8 +1546,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         mask_ = s;
         return s;
@@ -1559,12 +1559,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getMaskBytes() {
+    getMaskBytes() {
       java.lang.Object ref = mask_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         mask_ = b;
         return b;
       } else {
@@ -1584,8 +1584,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         prompt_ = s;
         return s;
@@ -1597,12 +1597,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getPromptBytes() {
+    getPromptBytes() {
       java.lang.Object ref = prompt_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         prompt_ = b;
         return b;
       } else {
@@ -1622,8 +1622,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         negativePrompt_ = s;
         return s;
@@ -1635,12 +1635,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getNegativePromptBytes() {
+    getNegativePromptBytes() {
       java.lang.Object ref = negativePrompt_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         negativePrompt_ = b;
         return b;
       } else {
@@ -1716,7 +1716,7 @@ public final class Sd {
 
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       for (int i = 0; i < base64Images_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, base64Images_.getRaw(i));
       }
@@ -1772,23 +1772,23 @@ public final class Sd {
       }
       if (width_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, width_);
+                .computeInt32Size(5, width_);
       }
       if (height_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, height_);
+                .computeInt32Size(6, height_);
       }
       if (seed_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, seed_);
+                .computeInt32Size(7, seed_);
       }
       if (steps_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, steps_);
+                .computeInt32Size(8, steps_);
       }
       if (batchSize_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, batchSize_);
+                .computeInt32Size(9, batchSize_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1798,7 +1798,7 @@ public final class Sd {
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-       return true;
+        return true;
       }
       if (!(obj instanceof Sd.SdImg2ImgRequest)) {
         return super.equals(obj);
@@ -1806,23 +1806,23 @@ public final class Sd {
       Sd.SdImg2ImgRequest other = (Sd.SdImg2ImgRequest) obj;
 
       if (!getBase64ImagesList()
-          .equals(other.getBase64ImagesList())) return false;
+              .equals(other.getBase64ImagesList())) return false;
       if (!getMask()
-          .equals(other.getMask())) return false;
+              .equals(other.getMask())) return false;
       if (!getPrompt()
-          .equals(other.getPrompt())) return false;
+              .equals(other.getPrompt())) return false;
       if (!getNegativePrompt()
-          .equals(other.getNegativePrompt())) return false;
+              .equals(other.getNegativePrompt())) return false;
       if (getWidth()
-          != other.getWidth()) return false;
+              != other.getWidth()) return false;
       if (getHeight()
-          != other.getHeight()) return false;
+              != other.getHeight()) return false;
       if (getSeed()
-          != other.getSeed()) return false;
+              != other.getSeed()) return false;
       if (getSteps()
-          != other.getSteps()) return false;
+              != other.getSteps()) return false;
       if (getBatchSize()
-          != other.getBatchSize()) return false;
+              != other.getBatchSize()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1860,73 +1860,73 @@ public final class Sd {
     }
 
     public static Sd.SdImg2ImgRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdImg2ImgRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdImg2ImgRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+              .parseWithIOException(PARSER, input);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+              .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static Sd.SdImg2ImgRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+              .parseDelimitedWithIOException(PARSER, input);
     }
     public static Sd.SdImg2ImgRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+              .parseWithIOException(PARSER, input);
     }
     public static Sd.SdImg2ImgRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+              .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     @java.lang.Override
@@ -1940,12 +1940,12 @@ public final class Sd {
     @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
+              ? new Builder() : new Builder().mergeFrom(this);
     }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1953,20 +1953,20 @@ public final class Sd {
      * Protobuf type {@code SdImg2ImgRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:SdImg2ImgRequest)
-        Sd.SdImg2ImgRequestOrBuilder {
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:SdImg2ImgRequest)
+            Sd.SdImg2ImgRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
+      getDescriptor() {
         return Sd.internal_static_SdImg2ImgRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
+      internalGetFieldAccessorTable() {
         return Sd.internal_static_SdImg2ImgRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Sd.SdImg2ImgRequest.class, Sd.SdImg2ImgRequest.Builder.class);
+                .ensureFieldAccessorsInitialized(
+                        Sd.SdImg2ImgRequest.class, Sd.SdImg2ImgRequest.Builder.class);
       }
 
       // Construct using Sd.SdImg2ImgRequest.newBuilder()
@@ -1975,7 +1975,7 @@ public final class Sd {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
 
       }
@@ -2005,7 +2005,7 @@ public final class Sd {
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
+      getDescriptorForType() {
         return Sd.internal_static_SdImg2ImgRequest_descriptor;
       }
 
@@ -2050,30 +2050,30 @@ public final class Sd {
       }
       @java.lang.Override
       public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
         return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
         return super.addRepeatedField(field, value);
       }
       @java.lang.Override
@@ -2137,9 +2137,9 @@ public final class Sd {
 
       @java.lang.Override
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
         if (extensionRegistry == null) {
           throw new java.lang.NullPointerException();
         }
@@ -2219,14 +2219,14 @@ public final class Sd {
         if (!((bitField0_ & 0x00000001) != 0)) {
           base64Images_ = new com.google.protobuf.LazyStringArrayList(base64Images_);
           bitField0_ |= 0x00000001;
-         }
+        }
       }
       /**
        * <code>repeated string base64_images = 1;</code>
        * @return A list containing the base64Images.
        */
       public com.google.protobuf.ProtocolStringList
-          getBase64ImagesList() {
+      getBase64ImagesList() {
         return base64Images_.getUnmodifiableView();
       }
       /**
@@ -2250,7 +2250,7 @@ public final class Sd {
        * @return The bytes of the base64Images at the given index.
        */
       public com.google.protobuf.ByteString
-          getBase64ImagesBytes(int index) {
+      getBase64ImagesBytes(int index) {
         return base64Images_.getByteString(index);
       }
       /**
@@ -2260,11 +2260,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setBase64Images(
-          int index, java.lang.String value) {
+              int index, java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureBase64ImagesIsMutable();
+          throw new NullPointerException();
+        }
+        ensureBase64ImagesIsMutable();
         base64Images_.set(index, value);
         onChanged();
         return this;
@@ -2275,11 +2275,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder addBase64Images(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureBase64ImagesIsMutable();
+          throw new NullPointerException();
+        }
+        ensureBase64ImagesIsMutable();
         base64Images_.add(value);
         onChanged();
         return this;
@@ -2290,10 +2290,10 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder addAllBase64Images(
-          java.lang.Iterable<java.lang.String> values) {
+              java.lang.Iterable<java.lang.String> values) {
         ensureBase64ImagesIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, base64Images_);
+                values, base64Images_);
         onChanged();
         return this;
       }
@@ -2313,11 +2313,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder addBase64ImagesBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
         ensureBase64ImagesIsMutable();
         base64Images_.add(value);
         onChanged();
@@ -2333,7 +2333,7 @@ public final class Sd {
         java.lang.Object ref = mask_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           mask_ = s;
           return s;
@@ -2346,12 +2346,12 @@ public final class Sd {
        * @return The bytes for mask.
        */
       public com.google.protobuf.ByteString
-          getMaskBytes() {
+      getMaskBytes() {
         java.lang.Object ref = mask_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           mask_ = b;
           return b;
         } else {
@@ -2364,11 +2364,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setMask(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         mask_ = value;
         onChanged();
         return this;
@@ -2378,7 +2378,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearMask() {
-        
+
         mask_ = getDefaultInstance().getMask();
         onChanged();
         return this;
@@ -2389,12 +2389,12 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setMaskBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         mask_ = value;
         onChanged();
         return this;
@@ -2409,7 +2409,7 @@ public final class Sd {
         java.lang.Object ref = prompt_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           prompt_ = s;
           return s;
@@ -2422,12 +2422,12 @@ public final class Sd {
        * @return The bytes for prompt.
        */
       public com.google.protobuf.ByteString
-          getPromptBytes() {
+      getPromptBytes() {
         java.lang.Object ref = prompt_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           prompt_ = b;
           return b;
         } else {
@@ -2440,11 +2440,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setPrompt(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         prompt_ = value;
         onChanged();
         return this;
@@ -2454,7 +2454,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearPrompt() {
-        
+
         prompt_ = getDefaultInstance().getPrompt();
         onChanged();
         return this;
@@ -2465,12 +2465,12 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setPromptBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         prompt_ = value;
         onChanged();
         return this;
@@ -2485,7 +2485,7 @@ public final class Sd {
         java.lang.Object ref = negativePrompt_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           negativePrompt_ = s;
           return s;
@@ -2498,12 +2498,12 @@ public final class Sd {
        * @return The bytes for negativePrompt.
        */
       public com.google.protobuf.ByteString
-          getNegativePromptBytes() {
+      getNegativePromptBytes() {
         java.lang.Object ref = negativePrompt_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           negativePrompt_ = b;
           return b;
         } else {
@@ -2516,11 +2516,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setNegativePrompt(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         negativePrompt_ = value;
         onChanged();
         return this;
@@ -2530,7 +2530,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearNegativePrompt() {
-        
+
         negativePrompt_ = getDefaultInstance().getNegativePrompt();
         onChanged();
         return this;
@@ -2541,12 +2541,12 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setNegativePromptBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         negativePrompt_ = value;
         onChanged();
         return this;
@@ -2567,7 +2567,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setWidth(int value) {
-        
+
         width_ = value;
         onChanged();
         return this;
@@ -2577,7 +2577,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearWidth() {
-        
+
         width_ = 0;
         onChanged();
         return this;
@@ -2598,7 +2598,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setHeight(int value) {
-        
+
         height_ = value;
         onChanged();
         return this;
@@ -2608,7 +2608,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearHeight() {
-        
+
         height_ = 0;
         onChanged();
         return this;
@@ -2629,7 +2629,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setSeed(int value) {
-        
+
         seed_ = value;
         onChanged();
         return this;
@@ -2639,7 +2639,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearSeed() {
-        
+
         seed_ = 0;
         onChanged();
         return this;
@@ -2660,7 +2660,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setSteps(int value) {
-        
+
         steps_ = value;
         onChanged();
         return this;
@@ -2670,7 +2670,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearSteps() {
-        
+
         steps_ = 0;
         onChanged();
         return this;
@@ -2691,7 +2691,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setBatchSize(int value) {
-        
+
         batchSize_ = value;
         onChanged();
         return this;
@@ -2701,20 +2701,20 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearBatchSize() {
-        
+
         batchSize_ = 0;
         onChanged();
         return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
       public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
       }
 
@@ -2733,12 +2733,12 @@ public final class Sd {
     }
 
     private static final com.google.protobuf.Parser<SdImg2ImgRequest>
-        PARSER = new com.google.protobuf.AbstractParser<SdImg2ImgRequest>() {
+            PARSER = new com.google.protobuf.AbstractParser<SdImg2ImgRequest>() {
       @java.lang.Override
       public SdImg2ImgRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         Builder builder = newBuilder();
         try {
           builder.mergeFrom(input, extensionRegistry);
@@ -2748,7 +2748,7 @@ public final class Sd {
           throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
         } catch (java.io.IOException e) {
           throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
+                  .setUnfinishedMessage(builder.buildPartial());
         }
         return builder.buildPartial();
       }
@@ -2770,9 +2770,777 @@ public final class Sd {
 
   }
 
+  public interface SdUpscaleRequestOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:SdUpscaleRequest)
+          com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string base64_image = 1;</code>
+     * @return The base64Image.
+     */
+    java.lang.String getBase64Image();
+    /**
+     * <code>string base64_image = 1;</code>
+     * @return The bytes for base64Image.
+     */
+    com.google.protobuf.ByteString
+    getBase64ImageBytes();
+
+    /**
+     * <code>int32 upscaling_resize = 2;</code>
+     * @return The upscalingResize.
+     */
+    int getUpscalingResize();
+
+    /**
+     * <code>string upscaler_1 = 3;</code>
+     * @return The upscaler1.
+     */
+    java.lang.String getUpscaler1();
+    /**
+     * <code>string upscaler_1 = 3;</code>
+     * @return The bytes for upscaler1.
+     */
+    com.google.protobuf.ByteString
+    getUpscaler1Bytes();
+  }
+  /**
+   * Protobuf type {@code SdUpscaleRequest}
+   */
+  public static final class SdUpscaleRequest extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:SdUpscaleRequest)
+          SdUpscaleRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
+    // Use SdUpscaleRequest.newBuilder() to construct.
+    private SdUpscaleRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SdUpscaleRequest() {
+      base64Image_ = "";
+      upscaler1_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+            UnusedPrivateParameter unused) {
+      return new SdUpscaleRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+    getDescriptor() {
+      return Sd.internal_static_SdUpscaleRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return Sd.internal_static_SdUpscaleRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      Sd.SdUpscaleRequest.class, Sd.SdUpscaleRequest.Builder.class);
+    }
+
+    public static final int BASE64_IMAGE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object base64Image_;
+    /**
+     * <code>string base64_image = 1;</code>
+     * @return The base64Image.
+     */
+    @java.lang.Override
+    public java.lang.String getBase64Image() {
+      java.lang.Object ref = base64Image_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        base64Image_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string base64_image = 1;</code>
+     * @return The bytes for base64Image.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+    getBase64ImageBytes() {
+      java.lang.Object ref = base64Image_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
+        base64Image_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UPSCALING_RESIZE_FIELD_NUMBER = 2;
+    private int upscalingResize_;
+    /**
+     * <code>int32 upscaling_resize = 2;</code>
+     * @return The upscalingResize.
+     */
+    @java.lang.Override
+    public int getUpscalingResize() {
+      return upscalingResize_;
+    }
+
+    public static final int UPSCALER_1_FIELD_NUMBER = 3;
+    private volatile java.lang.Object upscaler1_;
+    /**
+     * <code>string upscaler_1 = 3;</code>
+     * @return The upscaler1.
+     */
+    @java.lang.Override
+    public java.lang.String getUpscaler1() {
+      java.lang.Object ref = upscaler1_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        upscaler1_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string upscaler_1 = 3;</code>
+     * @return The bytes for upscaler1.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+    getUpscaler1Bytes() {
+      java.lang.Object ref = upscaler1_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
+        upscaler1_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+            throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(base64Image_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, base64Image_);
+      }
+      if (upscalingResize_ != 0) {
+        output.writeInt32(2, upscalingResize_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(upscaler1_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, upscaler1_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(base64Image_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, base64Image_);
+      }
+      if (upscalingResize_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+                .computeInt32Size(2, upscalingResize_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(upscaler1_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, upscaler1_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof Sd.SdUpscaleRequest)) {
+        return super.equals(obj);
+      }
+      Sd.SdUpscaleRequest other = (Sd.SdUpscaleRequest) obj;
+
+      if (!getBase64Image()
+              .equals(other.getBase64Image())) return false;
+      if (getUpscalingResize()
+              != other.getUpscalingResize()) return false;
+      if (!getUpscaler1()
+              .equals(other.getUpscaler1())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + BASE64_IMAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getBase64Image().hashCode();
+      hash = (37 * hash) + UPSCALING_RESIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getUpscalingResize();
+      hash = (37 * hash) + UPSCALER_1_FIELD_NUMBER;
+      hash = (53 * hash) + getUpscaler1().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static Sd.SdUpscaleRequest parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Sd.SdUpscaleRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static Sd.SdUpscaleRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+    public static Sd.SdUpscaleRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(Sd.SdUpscaleRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SdUpscaleRequest}
+     */
+    public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:SdUpscaleRequest)
+            Sd.SdUpscaleRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+      getDescriptor() {
+        return Sd.internal_static_SdUpscaleRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return Sd.internal_static_SdUpscaleRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        Sd.SdUpscaleRequest.class, Sd.SdUpscaleRequest.Builder.class);
+      }
+
+      // Construct using Sd.SdUpscaleRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        base64Image_ = "";
+
+        upscalingResize_ = 0;
+
+        upscaler1_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+      getDescriptorForType() {
+        return Sd.internal_static_SdUpscaleRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public Sd.SdUpscaleRequest getDefaultInstanceForType() {
+        return Sd.SdUpscaleRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public Sd.SdUpscaleRequest build() {
+        Sd.SdUpscaleRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public Sd.SdUpscaleRequest buildPartial() {
+        Sd.SdUpscaleRequest result = new Sd.SdUpscaleRequest(this);
+        result.base64Image_ = base64Image_;
+        result.upscalingResize_ = upscalingResize_;
+        result.upscaler1_ = upscaler1_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof Sd.SdUpscaleRequest) {
+          return mergeFrom((Sd.SdUpscaleRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(Sd.SdUpscaleRequest other) {
+        if (other == Sd.SdUpscaleRequest.getDefaultInstance()) return this;
+        if (!other.getBase64Image().isEmpty()) {
+          base64Image_ = other.base64Image_;
+          onChanged();
+        }
+        if (other.getUpscalingResize() != 0) {
+          setUpscalingResize(other.getUpscalingResize());
+        }
+        if (!other.getUpscaler1().isEmpty()) {
+          upscaler1_ = other.upscaler1_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                base64Image_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 10
+              case 16: {
+                upscalingResize_ = input.readInt32();
+
+                break;
+              } // case 16
+              case 26: {
+                upscaler1_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private java.lang.Object base64Image_ = "";
+      /**
+       * <code>string base64_image = 1;</code>
+       * @return The base64Image.
+       */
+      public java.lang.String getBase64Image() {
+        java.lang.Object ref = base64Image_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          base64Image_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string base64_image = 1;</code>
+       * @return The bytes for base64Image.
+       */
+      public com.google.protobuf.ByteString
+      getBase64ImageBytes() {
+        java.lang.Object ref = base64Image_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
+          base64Image_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string base64_image = 1;</code>
+       * @param value The base64Image to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBase64Image(
+              java.lang.String value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        base64Image_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string base64_image = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBase64Image() {
+
+        base64Image_ = getDefaultInstance().getBase64Image();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string base64_image = 1;</code>
+       * @param value The bytes for base64Image to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBase64ImageBytes(
+              com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
+        base64Image_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int upscalingResize_ ;
+      /**
+       * <code>int32 upscaling_resize = 2;</code>
+       * @return The upscalingResize.
+       */
+      @java.lang.Override
+      public int getUpscalingResize() {
+        return upscalingResize_;
+      }
+      /**
+       * <code>int32 upscaling_resize = 2;</code>
+       * @param value The upscalingResize to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpscalingResize(int value) {
+
+        upscalingResize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 upscaling_resize = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpscalingResize() {
+
+        upscalingResize_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object upscaler1_ = "";
+      /**
+       * <code>string upscaler_1 = 3;</code>
+       * @return The upscaler1.
+       */
+      public java.lang.String getUpscaler1() {
+        java.lang.Object ref = upscaler1_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          upscaler1_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string upscaler_1 = 3;</code>
+       * @return The bytes for upscaler1.
+       */
+      public com.google.protobuf.ByteString
+      getUpscaler1Bytes() {
+        java.lang.Object ref = upscaler1_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
+          upscaler1_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string upscaler_1 = 3;</code>
+       * @param value The upscaler1 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpscaler1(
+              java.lang.String value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        upscaler1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string upscaler_1 = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUpscaler1() {
+
+        upscaler1_ = getDefaultInstance().getUpscaler1();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string upscaler_1 = 3;</code>
+       * @param value The bytes for upscaler1 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUpscaler1Bytes(
+              com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
+        upscaler1_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:SdUpscaleRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:SdUpscaleRequest)
+    private static final Sd.SdUpscaleRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new Sd.SdUpscaleRequest();
+    }
+
+    public static Sd.SdUpscaleRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SdUpscaleRequest>
+            PARSER = new com.google.protobuf.AbstractParser<SdUpscaleRequest>() {
+      @java.lang.Override
+      public SdUpscaleRequest parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                  .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SdUpscaleRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SdUpscaleRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public Sd.SdUpscaleRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface SdResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:SdResponse)
-      com.google.protobuf.MessageOrBuilder {
+          // @@protoc_insertion_point(interface_extends:SdResponse)
+          com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>string message = 1;</code>
@@ -2784,7 +3552,7 @@ public final class Sd {
      * @return The bytes for message.
      */
     com.google.protobuf.ByteString
-        getMessageBytes();
+    getMessageBytes();
 
     /**
      * <code>int32 status = 2;</code>
@@ -2797,7 +3565,7 @@ public final class Sd {
      * @return A list containing the base64.
      */
     java.util.List<java.lang.String>
-        getBase64List();
+    getBase64List();
     /**
      * <code>repeated string base64 = 3;</code>
      * @return The count of base64.
@@ -2815,7 +3583,7 @@ public final class Sd {
      * @return The bytes of the base64 at the given index.
      */
     com.google.protobuf.ByteString
-        getBase64Bytes(int index);
+    getBase64Bytes(int index);
   }
   /**
    * <pre>
@@ -2825,10 +3593,10 @@ public final class Sd {
    * Protobuf type {@code SdResponse}
    */
   public static final class SdResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:SdResponse)
-      SdResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:SdResponse)
+          SdResponseOrBuilder {
+    private static final long serialVersionUID = 0L;
     // Use SdResponse.newBuilder() to construct.
     private SdResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
@@ -2841,7 +3609,7 @@ public final class Sd {
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
+            UnusedPrivateParameter unused) {
       return new SdResponse();
     }
 
@@ -2851,16 +3619,16 @@ public final class Sd {
       return this.unknownFields;
     }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+    getDescriptor() {
       return Sd.internal_static_SdResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
+    internalGetFieldAccessorTable() {
       return Sd.internal_static_SdResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Sd.SdResponse.class, Sd.SdResponse.Builder.class);
+              .ensureFieldAccessorsInitialized(
+                      Sd.SdResponse.class, Sd.SdResponse.Builder.class);
     }
 
     public static final int MESSAGE_FIELD_NUMBER = 1;
@@ -2875,8 +3643,8 @@ public final class Sd {
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         message_ = s;
         return s;
@@ -2888,12 +3656,12 @@ public final class Sd {
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getMessageBytes() {
+    getMessageBytes() {
       java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
         message_ = b;
         return b;
       } else {
@@ -2919,7 +3687,7 @@ public final class Sd {
      * @return A list containing the base64.
      */
     public com.google.protobuf.ProtocolStringList
-        getBase64List() {
+    getBase64List() {
       return base64_;
     }
     /**
@@ -2943,7 +3711,7 @@ public final class Sd {
      * @return The bytes of the base64 at the given index.
      */
     public com.google.protobuf.ByteString
-        getBase64Bytes(int index) {
+    getBase64Bytes(int index) {
       return base64_.getByteString(index);
     }
 
@@ -2960,7 +3728,7 @@ public final class Sd {
 
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
       }
@@ -2984,7 +3752,7 @@ public final class Sd {
       }
       if (status_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, status_);
+                .computeInt32Size(2, status_);
       }
       {
         int dataSize = 0;
@@ -3002,7 +3770,7 @@ public final class Sd {
     @java.lang.Override
     public boolean equals(final java.lang.Object obj) {
       if (obj == this) {
-       return true;
+        return true;
       }
       if (!(obj instanceof Sd.SdResponse)) {
         return super.equals(obj);
@@ -3010,11 +3778,11 @@ public final class Sd {
       Sd.SdResponse other = (Sd.SdResponse) obj;
 
       if (!getMessage()
-          .equals(other.getMessage())) return false;
+              .equals(other.getMessage())) return false;
       if (getStatus()
-          != other.getStatus()) return false;
+              != other.getStatus()) return false;
       if (!getBase64List()
-          .equals(other.getBase64List())) return false;
+              .equals(other.getBase64List())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -3040,73 +3808,73 @@ public final class Sd {
     }
 
     public static Sd.SdResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
     public static Sd.SdResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
     public static Sd.SdResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+              .parseWithIOException(PARSER, input);
     }
     public static Sd.SdResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+              .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static Sd.SdResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+              .parseDelimitedWithIOException(PARSER, input);
     }
     public static Sd.SdResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static Sd.SdResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+              .parseWithIOException(PARSER, input);
     }
     public static Sd.SdResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+              .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
     @java.lang.Override
@@ -3120,12 +3888,12 @@ public final class Sd {
     @java.lang.Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
+              ? new Builder() : new Builder().mergeFrom(this);
     }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3137,20 +3905,20 @@ public final class Sd {
      * Protobuf type {@code SdResponse}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:SdResponse)
-        Sd.SdResponseOrBuilder {
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:SdResponse)
+            Sd.SdResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
+      getDescriptor() {
         return Sd.internal_static_SdResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
+      internalGetFieldAccessorTable() {
         return Sd.internal_static_SdResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Sd.SdResponse.class, Sd.SdResponse.Builder.class);
+                .ensureFieldAccessorsInitialized(
+                        Sd.SdResponse.class, Sd.SdResponse.Builder.class);
       }
 
       // Construct using Sd.SdResponse.newBuilder()
@@ -3159,7 +3927,7 @@ public final class Sd {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
 
       }
@@ -3177,7 +3945,7 @@ public final class Sd {
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
+      getDescriptorForType() {
         return Sd.internal_static_SdResponse_descriptor;
       }
 
@@ -3216,30 +3984,30 @@ public final class Sd {
       }
       @java.lang.Override
       public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
         return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
         return super.addRepeatedField(field, value);
       }
       @java.lang.Override
@@ -3283,9 +4051,9 @@ public final class Sd {
 
       @java.lang.Override
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
         if (extensionRegistry == null) {
           throw new java.lang.NullPointerException();
         }
@@ -3339,7 +4107,7 @@ public final class Sd {
         java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
+                  (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           message_ = s;
           return s;
@@ -3352,12 +4120,12 @@ public final class Sd {
        * @return The bytes for message.
        */
       public com.google.protobuf.ByteString
-          getMessageBytes() {
+      getMessageBytes() {
         java.lang.Object ref = message_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
           message_ = b;
           return b;
         } else {
@@ -3370,11 +4138,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setMessage(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  
+          throw new NullPointerException();
+        }
+
         message_ = value;
         onChanged();
         return this;
@@ -3384,7 +4152,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearMessage() {
-        
+
         message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
@@ -3395,12 +4163,12 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setMessageBytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
         message_ = value;
         onChanged();
         return this;
@@ -3421,7 +4189,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setStatus(int value) {
-        
+
         status_ = value;
         onChanged();
         return this;
@@ -3431,7 +4199,7 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
-        
+
         status_ = 0;
         onChanged();
         return this;
@@ -3442,14 +4210,14 @@ public final class Sd {
         if (!((bitField0_ & 0x00000001) != 0)) {
           base64_ = new com.google.protobuf.LazyStringArrayList(base64_);
           bitField0_ |= 0x00000001;
-         }
+        }
       }
       /**
        * <code>repeated string base64 = 3;</code>
        * @return A list containing the base64.
        */
       public com.google.protobuf.ProtocolStringList
-          getBase64List() {
+      getBase64List() {
         return base64_.getUnmodifiableView();
       }
       /**
@@ -3473,7 +4241,7 @@ public final class Sd {
        * @return The bytes of the base64 at the given index.
        */
       public com.google.protobuf.ByteString
-          getBase64Bytes(int index) {
+      getBase64Bytes(int index) {
         return base64_.getByteString(index);
       }
       /**
@@ -3483,11 +4251,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder setBase64(
-          int index, java.lang.String value) {
+              int index, java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureBase64IsMutable();
+          throw new NullPointerException();
+        }
+        ensureBase64IsMutable();
         base64_.set(index, value);
         onChanged();
         return this;
@@ -3498,11 +4266,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder addBase64(
-          java.lang.String value) {
+              java.lang.String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureBase64IsMutable();
+          throw new NullPointerException();
+        }
+        ensureBase64IsMutable();
         base64_.add(value);
         onChanged();
         return this;
@@ -3513,10 +4281,10 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder addAllBase64(
-          java.lang.Iterable<java.lang.String> values) {
+              java.lang.Iterable<java.lang.String> values) {
         ensureBase64IsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, base64_);
+                values, base64_);
         onChanged();
         return this;
       }
@@ -3536,11 +4304,11 @@ public final class Sd {
        * @return This builder for chaining.
        */
       public Builder addBase64Bytes(
-          com.google.protobuf.ByteString value) {
+              com.google.protobuf.ByteString value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
         ensureBase64IsMutable();
         base64_.add(value);
         onChanged();
@@ -3548,13 +4316,13 @@ public final class Sd {
       }
       @java.lang.Override
       public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
       public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
       }
 
@@ -3573,12 +4341,12 @@ public final class Sd {
     }
 
     private static final com.google.protobuf.Parser<SdResponse>
-        PARSER = new com.google.protobuf.AbstractParser<SdResponse>() {
+            PARSER = new com.google.protobuf.AbstractParser<SdResponse>() {
       @java.lang.Override
       public SdResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
         Builder builder = newBuilder();
         try {
           builder.mergeFrom(input, extensionRegistry);
@@ -3588,7 +4356,7 @@ public final class Sd {
           throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
         } catch (java.io.IOException e) {
           throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
+                  .setUnfinishedMessage(builder.buildPartial());
         }
         return builder.buildPartial();
       }
@@ -3610,70 +4378,1433 @@ public final class Sd {
 
   }
 
+  public interface SdAsynTaskResponseOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:SdAsynTaskResponse)
+          com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string message = 1;</code>
+     * @return The message.
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>string message = 1;</code>
+     * @return The bytes for message.
+     */
+    com.google.protobuf.ByteString
+    getMessageBytes();
+
+    /**
+     * <code>int32 status = 2;</code>
+     * @return The status.
+     */
+    int getStatus();
+
+    /**
+     * <code>string task_id = 3;</code>
+     * @return The taskId.
+     */
+    java.lang.String getTaskId();
+    /**
+     * <code>string task_id = 3;</code>
+     * @return The bytes for taskId.
+     */
+    com.google.protobuf.ByteString
+    getTaskIdBytes();
+  }
+  /**
+   * Protobuf type {@code SdAsynTaskResponse}
+   */
+  public static final class SdAsynTaskResponse extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:SdAsynTaskResponse)
+          SdAsynTaskResponseOrBuilder {
+    private static final long serialVersionUID = 0L;
+    // Use SdAsynTaskResponse.newBuilder() to construct.
+    private SdAsynTaskResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SdAsynTaskResponse() {
+      message_ = "";
+      taskId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+            UnusedPrivateParameter unused) {
+      return new SdAsynTaskResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+    getDescriptor() {
+      return Sd.internal_static_SdAsynTaskResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return Sd.internal_static_SdAsynTaskResponse_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      Sd.SdAsynTaskResponse.class, Sd.SdAsynTaskResponse.Builder.class);
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object message_;
+    /**
+     * <code>string message = 1;</code>
+     * @return The message.
+     */
+    @java.lang.Override
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string message = 1;</code>
+     * @return The bytes for message.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+    getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private int status_;
+    /**
+     * <code>int32 status = 2;</code>
+     * @return The status.
+     */
+    @java.lang.Override
+    public int getStatus() {
+      return status_;
+    }
+
+    public static final int TASK_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object taskId_;
+    /**
+     * <code>string task_id = 3;</code>
+     * @return The taskId.
+     */
+    @java.lang.Override
+    public java.lang.String getTaskId() {
+      java.lang.Object ref = taskId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        taskId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string task_id = 3;</code>
+     * @return The bytes for taskId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+    getTaskIdBytes() {
+      java.lang.Object ref = taskId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
+        taskId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+            throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
+      }
+      if (status_ != 0) {
+        output.writeInt32(2, status_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(taskId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, taskId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
+      }
+      if (status_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+                .computeInt32Size(2, status_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(taskId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, taskId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof Sd.SdAsynTaskResponse)) {
+        return super.equals(obj);
+      }
+      Sd.SdAsynTaskResponse other = (Sd.SdAsynTaskResponse) obj;
+
+      if (!getMessage()
+              .equals(other.getMessage())) return false;
+      if (getStatus()
+              != other.getStatus()) return false;
+      if (!getTaskId()
+              .equals(other.getTaskId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getStatus();
+      hash = (37 * hash) + TASK_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTaskId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static Sd.SdAsynTaskResponse parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Sd.SdAsynTaskResponse parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static Sd.SdAsynTaskResponse parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+    public static Sd.SdAsynTaskResponse parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(Sd.SdAsynTaskResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SdAsynTaskResponse}
+     */
+    public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:SdAsynTaskResponse)
+            Sd.SdAsynTaskResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+      getDescriptor() {
+        return Sd.internal_static_SdAsynTaskResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return Sd.internal_static_SdAsynTaskResponse_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        Sd.SdAsynTaskResponse.class, Sd.SdAsynTaskResponse.Builder.class);
+      }
+
+      // Construct using Sd.SdAsynTaskResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        message_ = "";
+
+        status_ = 0;
+
+        taskId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+      getDescriptorForType() {
+        return Sd.internal_static_SdAsynTaskResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public Sd.SdAsynTaskResponse getDefaultInstanceForType() {
+        return Sd.SdAsynTaskResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public Sd.SdAsynTaskResponse build() {
+        Sd.SdAsynTaskResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public Sd.SdAsynTaskResponse buildPartial() {
+        Sd.SdAsynTaskResponse result = new Sd.SdAsynTaskResponse(this);
+        result.message_ = message_;
+        result.status_ = status_;
+        result.taskId_ = taskId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof Sd.SdAsynTaskResponse) {
+          return mergeFrom((Sd.SdAsynTaskResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(Sd.SdAsynTaskResponse other) {
+        if (other == Sd.SdAsynTaskResponse.getDefaultInstance()) return this;
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
+          onChanged();
+        }
+        if (other.getStatus() != 0) {
+          setStatus(other.getStatus());
+        }
+        if (!other.getTaskId().isEmpty()) {
+          taskId_ = other.taskId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                message_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 10
+              case 16: {
+                status_ = input.readInt32();
+
+                break;
+              } // case 16
+              case 26: {
+                taskId_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>string message = 1;</code>
+       * @return The message.
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          message_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string message = 1;</code>
+       * @return The bytes for message.
+       */
+      public com.google.protobuf.ByteString
+      getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string message = 1;</code>
+       * @param value The message to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMessage(
+              java.lang.String value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMessage() {
+
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message = 1;</code>
+       * @param value The bytes for message to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMessageBytes(
+              com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
+        message_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ ;
+      /**
+       * <code>int32 status = 2;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public int getStatus() {
+        return status_;
+      }
+      /**
+       * <code>int32 status = 2;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(int value) {
+
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 status = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object taskId_ = "";
+      /**
+       * <code>string task_id = 3;</code>
+       * @return The taskId.
+       */
+      public java.lang.String getTaskId() {
+        java.lang.Object ref = taskId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          taskId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string task_id = 3;</code>
+       * @return The bytes for taskId.
+       */
+      public com.google.protobuf.ByteString
+      getTaskIdBytes() {
+        java.lang.Object ref = taskId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
+          taskId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string task_id = 3;</code>
+       * @param value The taskId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaskId(
+              java.lang.String value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        taskId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string task_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTaskId() {
+
+        taskId_ = getDefaultInstance().getTaskId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string task_id = 3;</code>
+       * @param value The bytes for taskId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaskIdBytes(
+              com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
+        taskId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:SdAsynTaskResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:SdAsynTaskResponse)
+    private static final Sd.SdAsynTaskResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new Sd.SdAsynTaskResponse();
+    }
+
+    public static Sd.SdAsynTaskResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SdAsynTaskResponse>
+            PARSER = new com.google.protobuf.AbstractParser<SdAsynTaskResponse>() {
+      @java.lang.Override
+      public SdAsynTaskResponse parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                  .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SdAsynTaskResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SdAsynTaskResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public Sd.SdAsynTaskResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SdQueryRequestOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:SdQueryRequest)
+          com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string task_id = 1;</code>
+     * @return The taskId.
+     */
+    java.lang.String getTaskId();
+    /**
+     * <code>string task_id = 1;</code>
+     * @return The bytes for taskId.
+     */
+    com.google.protobuf.ByteString
+    getTaskIdBytes();
+  }
+  /**
+   * Protobuf type {@code SdQueryRequest}
+   */
+  public static final class SdQueryRequest extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:SdQueryRequest)
+          SdQueryRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
+    // Use SdQueryRequest.newBuilder() to construct.
+    private SdQueryRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SdQueryRequest() {
+      taskId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+            UnusedPrivateParameter unused) {
+      return new SdQueryRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+    getDescriptor() {
+      return Sd.internal_static_SdQueryRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return Sd.internal_static_SdQueryRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      Sd.SdQueryRequest.class, Sd.SdQueryRequest.Builder.class);
+    }
+
+    public static final int TASK_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object taskId_;
+    /**
+     * <code>string task_id = 1;</code>
+     * @return The taskId.
+     */
+    @java.lang.Override
+    public java.lang.String getTaskId() {
+      java.lang.Object ref = taskId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        taskId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string task_id = 1;</code>
+     * @return The bytes for taskId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+    getTaskIdBytes() {
+      java.lang.Object ref = taskId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (java.lang.String) ref);
+        taskId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+            throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(taskId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, taskId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(taskId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, taskId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof Sd.SdQueryRequest)) {
+        return super.equals(obj);
+      }
+      Sd.SdQueryRequest other = (Sd.SdQueryRequest) obj;
+
+      if (!getTaskId()
+              .equals(other.getTaskId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TASK_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTaskId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static Sd.SdQueryRequest parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdQueryRequest parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Sd.SdQueryRequest parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Sd.SdQueryRequest parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static Sd.SdQueryRequest parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+    public static Sd.SdQueryRequest parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(Sd.SdQueryRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SdQueryRequest}
+     */
+    public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:SdQueryRequest)
+            Sd.SdQueryRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+      getDescriptor() {
+        return Sd.internal_static_SdQueryRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return Sd.internal_static_SdQueryRequest_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        Sd.SdQueryRequest.class, Sd.SdQueryRequest.Builder.class);
+      }
+
+      // Construct using Sd.SdQueryRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+              com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        taskId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+      getDescriptorForType() {
+        return Sd.internal_static_SdQueryRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public Sd.SdQueryRequest getDefaultInstanceForType() {
+        return Sd.SdQueryRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public Sd.SdQueryRequest build() {
+        Sd.SdQueryRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public Sd.SdQueryRequest buildPartial() {
+        Sd.SdQueryRequest result = new Sd.SdQueryRequest(this);
+        result.taskId_ = taskId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof Sd.SdQueryRequest) {
+          return mergeFrom((Sd.SdQueryRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(Sd.SdQueryRequest other) {
+        if (other == Sd.SdQueryRequest.getDefaultInstance()) return this;
+        if (!other.getTaskId().isEmpty()) {
+          taskId_ = other.taskId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                taskId_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private java.lang.Object taskId_ = "";
+      /**
+       * <code>string task_id = 1;</code>
+       * @return The taskId.
+       */
+      public java.lang.String getTaskId() {
+        java.lang.Object ref = taskId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          taskId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string task_id = 1;</code>
+       * @return The bytes for taskId.
+       */
+      public com.google.protobuf.ByteString
+      getTaskIdBytes() {
+        java.lang.Object ref = taskId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (java.lang.String) ref);
+          taskId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string task_id = 1;</code>
+       * @param value The taskId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaskId(
+              java.lang.String value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        taskId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string task_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTaskId() {
+
+        taskId_ = getDefaultInstance().getTaskId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string task_id = 1;</code>
+       * @param value The bytes for taskId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaskIdBytes(
+              com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
+        taskId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:SdQueryRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:SdQueryRequest)
+    private static final Sd.SdQueryRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new Sd.SdQueryRequest();
+    }
+
+    public static Sd.SdQueryRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SdQueryRequest>
+            PARSER = new com.google.protobuf.AbstractParser<SdQueryRequest>() {
+      @java.lang.Override
+      public SdQueryRequest parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                  .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SdQueryRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SdQueryRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public Sd.SdQueryRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_SdText2ImgRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_SdText2ImgRequest_fieldAccessorTable;
+          internal_static_SdText2ImgRequest_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_SdText2ImgRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_SdImg2ImgRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_SdImg2ImgRequest_fieldAccessorTable;
+          internal_static_SdImg2ImgRequest_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_SdImg2ImgRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_SdResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_SdResponse_fieldAccessorTable;
+          internal_static_SdUpscaleRequest_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_SdUpscaleRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+          internal_static_SdResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_SdResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+          internal_static_SdAsynTaskResponse_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_SdAsynTaskResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+          internal_static_SdQueryRequest_descriptor;
+  private static final
+  com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internal_static_SdQueryRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
+  getDescriptor() {
     return descriptor;
   }
   private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
+          descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\010sd.proto\"\306\001\n\021SdText2ImgRequest\022\016\n\006prom" +
-      "pt\030\001 \001(\t\022\027\n\017negative_prompt\030\002 \001(\t\022\r\n\005wid" +
-      "th\030\003 \001(\005\022\016\n\006height\030\004 \001(\005\022\014\n\004seed\030\005 \001(\005\022\r" +
-      "\n\005steps\030\006 \001(\005\022\022\n\nbatch_size\030\007 \001(\005\022\021\n\tena" +
-      "ble_hr\030\010 \001(\010\022\020\n\010hr_scale\030\t \001(\002\022\023\n\013hr_ups" +
-      "caler\030\n \001(\t\"\260\001\n\020SdImg2ImgRequest\022\025\n\rbase" +
-      "64_images\030\001 \003(\t\022\014\n\004mask\030\002 \001(\t\022\016\n\006prompt\030" +
-      "\003 \001(\t\022\027\n\017negative_prompt\030\004 \001(\t\022\r\n\005width\030" +
-      "\005 \001(\005\022\016\n\006height\030\006 \001(\005\022\014\n\004seed\030\007 \001(\005\022\r\n\005s" +
-      "teps\030\010 \001(\005\022\022\n\nbatch_size\030\t \001(\005\"=\n\nSdResp" +
-      "onse\022\017\n\007message\030\001 \001(\t\022\016\n\006status\030\002 \001(\005\022\016\n" +
-      "\006base64\030\003 \003(\t2g\n\tSdService\022-\n\010text2img\022\022" +
-      ".SdText2ImgRequest\032\013.SdResponse\"\000\022+\n\007img" +
-      "2img\022\021.SdImg2ImgRequest\032\013.SdResponse\"\0002f" +
-      "\n\010SdEngine\022-\n\010text2img\022\022.SdText2ImgReque" +
-      "st\032\013.SdResponse\"\000\022+\n\007img2img\022\021.SdImg2Img" +
-      "Request\032\013.SdResponse\"\000B\003\200\001\001b\006proto3"
+            "\n\010sd.proto\"\306\001\n\021SdText2ImgRequest\022\016\n\006prom" +
+                    "pt\030\001 \001(\t\022\027\n\017negative_prompt\030\002 \001(\t\022\r\n\005wid" +
+                    "th\030\003 \001(\005\022\016\n\006height\030\004 \001(\005\022\014\n\004seed\030\005 \001(\005\022\r" +
+                    "\n\005steps\030\006 \001(\005\022\022\n\nbatch_size\030\007 \001(\005\022\021\n\tena" +
+                    "ble_hr\030\010 \001(\010\022\020\n\010hr_scale\030\t \001(\002\022\023\n\013hr_ups" +
+                    "caler\030\n \001(\t\"\260\001\n\020SdImg2ImgRequest\022\025\n\rbase" +
+                    "64_images\030\001 \003(\t\022\014\n\004mask\030\002 \001(\t\022\016\n\006prompt\030" +
+                    "\003 \001(\t\022\027\n\017negative_prompt\030\004 \001(\t\022\r\n\005width\030" +
+                    "\005 \001(\005\022\016\n\006height\030\006 \001(\005\022\014\n\004seed\030\007 \001(\005\022\r\n\005s" +
+                    "teps\030\010 \001(\005\022\022\n\nbatch_size\030\t \001(\005\"V\n\020SdUpsc" +
+                    "aleRequest\022\024\n\014base64_image\030\001 \001(\t\022\030\n\020upsc" +
+                    "aling_resize\030\002 \001(\005\022\022\n\nupscaler_1\030\003 \001(\t\"=" +
+                    "\n\nSdResponse\022\017\n\007message\030\001 \001(\t\022\016\n\006status\030" +
+                    "\002 \001(\005\022\016\n\006base64\030\003 \003(\t\"F\n\022SdAsynTaskRespo" +
+                    "nse\022\017\n\007message\030\001 \001(\t\022\016\n\006status\030\002 \001(\005\022\017\n\007" +
+                    "task_id\030\003 \001(\t\"!\n\016SdQueryRequest\022\017\n\007task_" +
+                    "id\030\001 \001(\t2\355\002\n\tSdService\022-\n\010text2img\022\022.SdT" +
+                    "ext2ImgRequest\032\013.SdResponse\"\000\022+\n\007img2img" +
+                    "\022\021.SdImg2ImgRequest\032\013.SdResponse\"\000\022+\n\007up" +
+                    "scale\022\021.SdUpscaleRequest\032\013.SdResponse\"\000\022" +
+                    ":\n\rtext2img_asyn\022\022.SdText2ImgRequest\032\023.S" +
+                    "dAsynTaskResponse\"\000\0228\n\014img2img_asyn\022\021.Sd" +
+                    "Img2ImgRequest\032\023.SdAsynTaskResponse\"\000\0228\n" +
+                    "\014upscale_asyn\022\021.SdUpscaleRequest\032\023.SdAsy" +
+                    "nTaskResponse\"\000\022\'\n\005query\022\017.SdQueryReques" +
+                    "t\032\013.SdResponse\"\0002\223\001\n\010SdEngine\022-\n\010text2im" +
+                    "g\022\022.SdText2ImgRequest\032\013.SdResponse\"\000\022+\n\007" +
+                    "img2img\022\021.SdImg2ImgRequest\032\013.SdResponse\"" +
+                    "\000\022+\n\007upscale\022\021.SdUpscaleRequest\032\013.SdResp" +
+                    "onse\"\000B\003\200\001\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
+            .internalBuildGeneratedFileFrom(descriptorData,
+                    new com.google.protobuf.Descriptors.FileDescriptor[] {
+                    });
     internal_static_SdText2ImgRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
+            getDescriptor().getMessageTypes().get(0);
     internal_static_SdText2ImgRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_SdText2ImgRequest_descriptor,
-        new java.lang.String[] { "Prompt", "NegativePrompt", "Width", "Height", "Seed", "Steps", "BatchSize", "EnableHr", "HrScale", "HrUpscaler", });
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_SdText2ImgRequest_descriptor,
+            new java.lang.String[] { "Prompt", "NegativePrompt", "Width", "Height", "Seed", "Steps", "BatchSize", "EnableHr", "HrScale", "HrUpscaler", });
     internal_static_SdImg2ImgRequest_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+            getDescriptor().getMessageTypes().get(1);
     internal_static_SdImg2ImgRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_SdImg2ImgRequest_descriptor,
-        new java.lang.String[] { "Base64Images", "Mask", "Prompt", "NegativePrompt", "Width", "Height", "Seed", "Steps", "BatchSize", });
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_SdImg2ImgRequest_descriptor,
+            new java.lang.String[] { "Base64Images", "Mask", "Prompt", "NegativePrompt", "Width", "Height", "Seed", "Steps", "BatchSize", });
+    internal_static_SdUpscaleRequest_descriptor =
+            getDescriptor().getMessageTypes().get(2);
+    internal_static_SdUpscaleRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_SdUpscaleRequest_descriptor,
+            new java.lang.String[] { "Base64Image", "UpscalingResize", "Upscaler1", });
     internal_static_SdResponse_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+            getDescriptor().getMessageTypes().get(3);
     internal_static_SdResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_SdResponse_descriptor,
-        new java.lang.String[] { "Message", "Status", "Base64", });
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_SdResponse_descriptor,
+            new java.lang.String[] { "Message", "Status", "Base64", });
+    internal_static_SdAsynTaskResponse_descriptor =
+            getDescriptor().getMessageTypes().get(4);
+    internal_static_SdAsynTaskResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_SdAsynTaskResponse_descriptor,
+            new java.lang.String[] { "Message", "Status", "TaskId", });
+    internal_static_SdQueryRequest_descriptor =
+            getDescriptor().getMessageTypes().get(5);
+    internal_static_SdQueryRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_SdQueryRequest_descriptor,
+            new java.lang.String[] { "TaskId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

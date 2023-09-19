@@ -63,6 +63,16 @@ public class SdClient {
         return resp.getBase64List();
     }
 
+    public List<String> upscale(String base64_image, int upscale_resize) {
+        Sd.SdUpscaleRequest request = Sd.SdUpscaleRequest.newBuilder()
+                .setBase64Image(base64_image)
+                .setUpscalingResize(upscale_resize)
+                .build();
+
+        Sd.SdResponse resp = blockingStub.upscale(request);
+
+        return resp.getBase64List();
+    }
     public void shutdown() {
         managedChannel.shutdown();
     }

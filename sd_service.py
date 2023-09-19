@@ -3,6 +3,7 @@ from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
 from sd_dispatch import SdDispatch
 import time
+import datetime
 
 class SdService(sd_pb2_grpc.SdServiceServicer):
     '''
@@ -40,15 +41,18 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "hr_scale": hr_scale,
             "hr_upscaler":hr_upscaler
         }
-        task_id = self.dispatch.txt2img_in_queue(args)
         
+        task_id = self.dispatch.txt2img_in_queue(args)
+
+        print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: txt2img, task_id: {task_id}, args: {args}")
+
         while True:
             time.sleep(0.5)
             task_status = self.dispatch.get_task_status(task_id)
             if task_status == 2 or task_status == -1:
                 result = self.dispatch.get_task_result(task_id)
                 break
-            
+        
         if task_status == 2:
             return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
         else:
@@ -65,11 +69,14 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         steps = request.steps if request.steps != 0 else 25
         batch_size = request.batch_size if request.batch_size != 0 else 1
 
+        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        default_negative_prompt = ""
+        
         args = {
             "base64_images":base64_images,
             "mask": mask,
-            "prompt": prompt,
-            "negative_prompt": negative_prompt,
+            "prompt":default_prompt + prompt,
+            "negative_prompt": default_negative_prompt,
             "width": width,
             "height": height,
             "seed":seed,
@@ -77,7 +84,16 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "batch_size":batch_size
         }
         task_id = self.dispatch.img2img_in_queue(args)
-        
+        show_dict = {
+            "prompt":default_prompt + prompt,
+            "negative_prompt": default_negative_prompt,
+            "width": width,
+            "height": height,
+            "seed":seed,
+            "steps": steps,
+            "batch_size":batch_size
+        }
+        print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: txt2img, task_id: {task_id}, args: {show_dict}")
         while True:
             time.sleep(0.5)
             task_status = self.dispatch.get_task_status(task_id)
@@ -101,7 +117,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "upscaler_1": upscaler_1
         }
         task_id = self.dispatch.upscale_in_queue(args)
-        
+        print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: upscale, task_id: {task_id}")
         while True:
             time.sleep(0.5)
             task_status = self.dispatch.get_task_status(task_id)
@@ -226,12 +242,12 @@ def run(configs, host="0.0.0.0", port=7860, max_messave_length=256 * 1024 * 1024
 if __name__ == "__main__":
     configs = [
         {"host": "127.0.0.1", "port": 8001, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_0.txt","err_log_save_path":"logs/log_err_0.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8002, "device_id": 1, "config_path":"setting_configs/config_1.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8003, "device_id": 2, "config_path":"setting_configs/config_2.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8004, "device_id": 3, "config_path":"setting_configs/config_3.json","log_save_path":"logs/log_3.txt","err_log_save_path":"logs/log_err_3.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8005, "device_id": 4, "config_path":"setting_configs/config_4.json","log_save_path":"logs/log_4.txt","err_log_save_path":"logs/log_err_4.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8006, "device_id": 5, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_5.txt","err_log_save_path":"logs/log_err_5.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8007, "device_id": 6, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_6.txt","err_log_save_path":"logs/log_err_6.txt", "task_type": "img2img"},
-        {"host": "127.0.0.1", "port": 8008, "device_id": 7, "config_path":"setting_configs/config_5.json","log_save_path":"logs/log_7.txt","err_log_save_path":"logs/log_err_7.txt", "task_type": "img2img"}
+        {"host": "127.0.0.1", "port": 8002, "device_id": 1, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8003, "device_id": 2, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8004, "device_id": 3, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_3.txt","err_log_save_path":"logs/log_err_3.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8005, "device_id": 4, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_4.txt","err_log_save_path":"logs/log_err_4.txt", "task_type": "txt2img"},
+        # {"host": "127.0.0.1", "port": 8006, "device_id": 5, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_5.txt","err_log_save_path":"logs/log_err_5.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8007, "device_id": 6, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_6.txt","err_log_save_path":"logs/log_err_6.txt", "task_type": "txt2img"},
+        {"host": "127.0.0.1", "port": 8008, "device_id": 7, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_7.txt","err_log_save_path":"logs/log_err_7.txt", "task_type": "txt2img"}
     ]
     run(configs)

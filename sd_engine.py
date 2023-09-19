@@ -431,6 +431,7 @@ class SdInference:
                     seed: int = -1,
                     steps: int = 20,
                     batch_size: int = 1,
+                    inpaint_full_res: bool = False,
                     **kwargs):
         init_images = []
         for base64_image in base64_images:
@@ -444,6 +445,7 @@ class SdInference:
                                                          height=height,
                                                          seed=seed,
                                                          steps=steps,
+                                                         inpaint_full_res=inpaint_full_res,
                                                          batch_size=batch_size, **kwargs)
         try:
             response = self.api.img2imgapi(img2imgreq)
