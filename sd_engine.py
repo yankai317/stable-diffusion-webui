@@ -431,14 +431,10 @@ class SdInference:
                     seed: int = -1,
                     steps: int = 20,
                     batch_size: int = 1,
-<<<<<<< HEAD
-                    inpaint_full_res: bool = False,
-=======
                     sampler_index: str = "Euler a",
                     inpaint_full_res: bool = False,
                     denoising_strength: float = 0.75,
                     inpainting_fill: int = 1,
->>>>>>> 2bfbc726b7c36e820b3d755e31e58e32d1c85af2
                     **kwargs):
         init_images = []
         for base64_image in base64_images:
@@ -452,14 +448,10 @@ class SdInference:
                                                          height=height,
                                                          seed=seed,
                                                          steps=steps,
-<<<<<<< HEAD
-                                                         inpaint_full_res=inpaint_full_res,
-=======
                                                          sampler_index=sampler_index,
                                                          inpaint_full_res=inpaint_full_res,
                                                          denoising_strength=denoising_strength,
                                                          inpainting_fill = inpainting_fill,
->>>>>>> 2bfbc726b7c36e820b3d755e31e58e32d1c85af2
                                                          batch_size=batch_size, **kwargs)
         try:
             response = self.api.img2imgapi(img2imgreq)

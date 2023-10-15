@@ -77,7 +77,7 @@ def run_txt2img():
     ])
     client = sd_pb2_grpc.SdServiceStub(channel=conn)
     # client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    request = sd_pb2.SdText2ImgRequest(prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,down jacket",
+    request = sd_pb2.SdText2ImgRequest(prompt = "Cantaloupe,cardigan,V-neck,Ultra short sweater jacket,Soft and delicate sweater",
         negative_prompt = "",
         width = 512,
         height = 512,
@@ -85,7 +85,7 @@ def run_txt2img():
         steps = 20,
         batch_size = 4,
         enable_hr = True,
-        hr_scale = 2,
+        hr_scale = 1,
         hr_upscaler = "R-ESRGAN 4x+"
         )
     respnse = client.text2img(request)
@@ -182,25 +182,23 @@ def run_img2img():
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
     ])
     client = sd_pb2_grpc.SdServiceStub(channel=conn)
-    img_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/00318-297029471.png"
+    img_path = "/dev/stable-diffusion-webui/00318-297029471.png"
     with open(img_path,'rb') as f:
         image_base64 = base64.b64encode(f.read())
-    mask_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/mask_test.png"
+    mask_path = "/dev/stable-diffusion-webui/mask_test.png"
     with open(mask_path,'rb') as f:
         mask_base64 = base64.b64encode(f.read())
 
     request = sd_pb2.SdImg2ImgRequest(
         base64_images = [image_base64],
-        mask = None,
-        prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,clothes,rose pocket",
+        mask = mask_base64,
+        prompt = "clothes,yellow pocket",
         negative_prompt = None,
-        width = 512,
-        height = 512,
-        seed = -1,
+        width = 1024,
+        height = 1024,
+        seed = 482283685,
         steps = 20,
-        batch_size = 1,
-        denoising_strength = 0.1
-        )
+        batch_size = 4)
     respnse = client.img2img(request)
     print(respnse.status, respnse.message)
     for i, img_base64 in enumerate(respnse.base64):
@@ -401,7 +399,8 @@ def run_imgfuse():
         
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_imgfuse()
-
+    run_txt2img()
+    while True:
+        time.sleep(1)
     
         
