@@ -365,6 +365,16 @@ class SimpleApi:
 
         return models.ImageToImageResponse(images=b64images, parameters=vars(img2imgreq), info=processed.js())
 
+    def imgfuseapi(self, img2imgreq: models.StableDiffusionImg2ImgProcessingAPI):
+        init_images = img2imgreq.init_images
+        assert len(init_images) >= 2, "input image must greater or equal to 2"
+        img2imgreq.init_images = img2imgreq.init_images[:1]
+        for init_image in init_images[1:]:
+            with self.queue_lock:
+                processed = shared.interrogator.interrogate(init_image)
+                img2imgreq.prompt += f",{processed}"
+        return self.img2imgapi(img2imgreq)
+    
     def extras_single_image_api(self, req: models.ExtrasSingleImageRequest):
         reqDict = setUpscalers(req)
 

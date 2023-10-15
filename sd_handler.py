@@ -96,7 +96,7 @@ class SdClientHandler(object):
         seed = kwargs['seed'] if 'seed' in kwargs.keys() else -1
         steps = kwargs['steps'] if 'steps' in kwargs.keys() else 20
         batch_size = kwargs['batch_size'] if 'batch_size' in kwargs.keys() else 1
-        
+        denoising_strength = kwargs['denoising_strength'] if 'denoising_strength' in kwargs.keys() else 0.75
         request = sd_pb2.SdImg2ImgRequest(
             base64_images = base64_images,
             mask = mask_base64,
@@ -106,7 +106,8 @@ class SdClientHandler(object):
             height = height,
             seed = seed,
             steps = steps,
-            batch_size = batch_size)
+            batch_size = batch_size,
+            denoising_strength = denoising_strength)
         
         with self.lock:
             response = self.sd_client.img2img(request)
@@ -129,6 +130,36 @@ class SdClientHandler(object):
         with self.lock:
             response = self.sd_client.upscale(request)
         
+        return response
+
+    def run_imgfuse(self, kwargs = {}):
+        '''
+        模拟请求服务方法信息
+        :return:
+        '''
+        base64_images = kwargs['base64_images'] if 'base64_images' in kwargs.keys() else ""
+        prompt = kwargs['prompt'] if 'prompt' in kwargs.keys() else ""
+        negative_prompt = kwargs['negative_prompt'] if 'negative_prompt' in kwargs.keys() else None
+        width = kwargs['width'] if 'width' in kwargs.keys() else 512
+        height = kwargs['height'] if 'height' in kwargs.keys() else 512
+        seed = kwargs['seed'] if 'seed' in kwargs.keys() else -1
+        steps = kwargs['steps'] if 'steps' in kwargs.keys() else 20
+        batch_size = kwargs['batch_size'] if 'batch_size' in kwargs.keys() else 1
+        denoising_strength = kwargs['denoising_strength'] if 'denoising_strength' in kwargs.keys() else 0.75
+        
+        request = sd_pb2.SdImgFuseRequest(
+            base64_images = base64_images,
+            prompt = prompt,
+            negative_prompt = negative_prompt,
+            width = width,
+            height = height,
+            seed = seed,
+            steps = steps,
+            batch_size = batch_size,
+            denoising_strength = denoising_strength)
+        
+        with self.lock:
+            response = self.sd_client.imgfuse(request)
         return response
     
     def __enter__(self):

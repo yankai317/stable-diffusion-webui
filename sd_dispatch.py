@@ -16,10 +16,13 @@ class SdDispatch(object):
     def __init__(self, max_queue_size=100, sd_node_service_configs = []) -> None:
         self.sd_service_handlers_queue = Queue()
         self.sd_client_handlers_queue = Queue()
+        self.sd_client_inpaint_handlers_queue = Queue()
         
         self.txt2img_task_queue = Queue()
         self.img2img_task_queue = Queue()
+        self.imginpaint_task_queue = Queue()
         self.upscale_task_queue = Queue()
+        self.imgfuse_task_queue = Queue()
         
         self.task_status = {}
         self.task_timest = {}
@@ -39,11 +42,16 @@ class SdDispatch(object):
             sd_client_handler = SdClientHandler(host=host, port=port)
             
             self.sd_service_handlers_queue.put(sd_service_handler)
-            self.sd_client_handlers_queue.put(sd_client_handler)
+            if task_type == 'inpaint':
+                self.sd_client_inpaint_handlers_queue.put(sd_client_handler)
+            else:
+                self.sd_client_handlers_queue.put(sd_client_handler)
                 
         self.txt2img_dispatch()
         self.img2img_dispatch()
+        self.imginpaint_dispatch()
         self.upscale_dispatch()
+        self.imgfuse_dispatch()
         self.clean_timeout_result()
         
     def get_task_status(self, task_id):
@@ -114,7 +122,17 @@ class SdDispatch(object):
                 self.img2img_task_queue.put(data)
                 self.task_status[task_id] = 0
                 return task_id
-            
+
+    def imginpaint_in_queue(self, args):
+        task_id = str(uuid.uuid1())
+        data = {"task_id": task_id, "args": args}
+        while True:
+            time.sleep(1)
+            if self.imginpaint_task_queue.qsize() < self.max_queue_size:
+                self.imginpaint_task_queue.put(data)
+                self.task_status[task_id] = 0
+                return task_id
+                
     @async_infer
     def img2img(self, sd_client_handler, data, callback):
         task_id = data['task_id']
@@ -145,8 +163,17 @@ class SdDispatch(object):
                 sd_client_handler = self.sd_client_handlers_queue.get()
                 self.img2img(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
                 self.task_status[data['task_id']] = 1
-
-
+                
+    @async_infer
+    def imginpaint_dispatch(self):
+        while True:
+            time.sleep(1)
+            if not self.sd_client_inpaint_handlers_queue.empty() and not self.imginpaint_task_queue.empty():
+                data = self.imginpaint_task_queue.get()
+                sd_client_handler = self.sd_client_inpaint_handlers_queue.get()
+                self.img2img(sd_client_handler, data, lambda x: self.sd_client_inpaint_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
+                
     def upscale_in_queue(self, args):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
@@ -157,6 +184,16 @@ class SdDispatch(object):
                 self.task_status[task_id] = 0
                 return task_id
     
+    def imgfuse_in_queue(self, args):
+        task_id = str(uuid.uuid1())
+        data = {"task_id": task_id, "args": args}
+        while True:
+            time.sleep(1)
+            if self.imgfuse_task_queue.qsize() < self.max_queue_size:
+                self.imgfuse_task_queue.put(data)
+                self.task_status[task_id] = 0
+                return task_id
+            
     @async_infer
     def upscale(self, sd_client_handler, data, callback):
         task_id = data['task_id']
@@ -189,6 +226,37 @@ class SdDispatch(object):
                 self.task_status[data['task_id']] = 1
     
     @async_infer
+    def imgfuse(self, sd_client_handler, data, callback):
+        task_id = data['task_id']
+        args = data['args']
+        try:
+            with sd_client_handler:
+                result = sd_client_handler.run_imgfuse(args)
+            if result.status == 200:
+                self.task_status[task_id] = 2
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+            else:
+                self.task_status[task_id] = -1
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+        except Exception as e:
+            self.task_status[task_id] = -1
+            self.results[task_id] = e
+            self.task_timest[task_id] = time.time()
+        callback(sd_client_handler)
+        
+    @async_infer
+    def imgfuse_dispatch(self):
+        while True:
+            time.sleep(1)
+            if not self.sd_client_handlers_queue.empty() and not self.imgfuse_task_queue.empty():
+                data = self.imgfuse_task_queue.get()
+                sd_client_handler = self.sd_client_handlers_queue.get()
+                self.imgfuse(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
+    
+    @async_infer
     def clean_timeout_result(self):
         while True:
             time.sleep(2)
@@ -211,8 +279,8 @@ def base64_to_image(base64_str):  # 用 b.show()可以展示
 
 if __name__ == '__main__':
     configs = [
-        {"host": "127.0.0.1", "port": 8000, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8001, "device_id": 1, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "img2img"}
+        {"host": "127.0.0.1", "port": 8000, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "normal"},
+        {"host": "127.0.0.1", "port": 8001, "device_id": 1, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "inpaint"}
     ]
     sd_dis = SdDispatch(max_queue_size=100, sd_node_service_configs=configs)
 
