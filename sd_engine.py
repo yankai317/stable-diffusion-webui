@@ -431,7 +431,10 @@ class SdInference:
                     seed: int = -1,
                     steps: int = 20,
                     batch_size: int = 1,
+                    sampler_index: str = "Euler a",
                     inpaint_full_res: bool = False,
+                    denoising_strength: float = 0.75,
+                    inpainting_fill: int = 1,
                     **kwargs):
         init_images = []
         for base64_image in base64_images:
@@ -445,7 +448,10 @@ class SdInference:
                                                          height=height,
                                                          seed=seed,
                                                          steps=steps,
+                                                         sampler_index=sampler_index,
                                                          inpaint_full_res=inpaint_full_res,
+                                                         denoising_strength=denoising_strength,
+                                                         inpainting_fill = inpainting_fill,
                                                          batch_size=batch_size, **kwargs)
         try:
             response = self.api.img2imgapi(img2imgreq)
@@ -492,6 +498,42 @@ class SdInference:
         except Exception as e:
             raise e
         return response.image
+
+    def run_imgfuse(self,
+                    base64_images : list,
+                    mask: str = None,
+                    prompt: str = "",
+                    negative_prompt: str = None,
+                    width: int = 512,
+                    height: int = 512,
+                    seed: int = -1,
+                    steps: int = 20,
+                    batch_size: int = 1,
+                    sampler_index: str = "Euler a",
+                    inpaint_full_res: bool = False,
+                    denoising_strength: float = 0.75,
+                    **kwargs):
+        init_images = []
+        for base64_image in base64_images:
+            init_images.append(decode_base64_to_image(base64_image))
+        # in_mask = base64_to_image(mask)
+        img2imgreq = StableDiffusionImg2ImgProcessingAPI(init_images=init_images,
+                                                         mask=mask,
+                                                         prompt=prompt,
+                                                         negative_prompt=negative_prompt,
+                                                         width=width,
+                                                         height=height,
+                                                         seed=seed,
+                                                         steps=steps,
+                                                         sampler_index=sampler_index,
+                                                         inpaint_full_res=inpaint_full_res,
+                                                         denoising_strength=denoising_strength,
+                                                         batch_size=batch_size, **kwargs)
+        try:
+            response = self.api.imgfuseapi(img2imgreq)
+        except Exception as e:
+            raise e
+        return response.images
     
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
@@ -537,11 +579,11 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
         seed = request.seed if request.seed != 0 else -1
         steps = request.steps if request.steps != 0 else 20
         batch_size = request.batch_size if request.batch_size != 0 else 1
-
+        denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
         try:
             status = 200
             message = "success"
-            imgs_base64 = self.sd_inference.run_img2img(base64_images, mask, prompt, negative_prompt, width, height, seed, steps, batch_size)
+            imgs_base64 = self.sd_inference.run_img2img(base64_images, mask, prompt, negative_prompt, width, height, seed, steps, batch_size, denoising_strength=denoising_strength)
         except Exception as e:
             status = 500
             message = e.__str__()
@@ -563,6 +605,26 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             img_base64 = ""
         return sd_pb2.SdResponse(status=status, message=message, base64=[img_base64])
 
+    def imgfuse(self, request, context):
+        base64_images = request.base64_images
+        prompt = request.prompt
+        negative_prompt = request.negative_prompt
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
+        denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
+        try:
+            status = 200
+            message = "success"
+            imgs_base64 = self.sd_inference.run_imgfuse(base64_images, None, prompt, negative_prompt, width, height, seed, steps, batch_size, denoising_strength=denoising_strength)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            imgs_base64 = ""
+        return sd_pb2.SdResponse(status=status, message=message, base64=imgs_base64)
+        
 def run(host="127.0.0.1", port=8000, max_messave_length=256 * 1024 * 1024):
 
     MAX_MESSAGE_LENGTH = max_messave_length

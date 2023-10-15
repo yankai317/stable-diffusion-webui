@@ -61,7 +61,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         seed = request.seed if request.seed != 0 else -1
         steps = request.steps if request.steps != 0 else 20
         batch_size = request.batch_size if request.batch_size != 0 else 1
-
+        denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
+        
         args = {
             "base64_images":base64_images,
             "mask": mask,
@@ -71,10 +72,14 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "height": height,
             "seed":seed,
             "steps": steps,
-            "batch_size":batch_size
+            "batch_size":batch_size,
+            "denoising_strength":denoising_strength
         }
-        task_id = self.dispatch.img2img_in_queue(args)
-        
+        if mask is None:
+            task_id = self.dispatch.img2img_in_queue(args)
+        else:
+            task_id = self.dispatch.imginpaint_in_queue(args)
+            
         while True:
             time.sleep(0.5)
             task_status = self.dispatch.get_task_status(task_id)
@@ -110,6 +115,41 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         else:
             return sd_pb2.SdResponse(status=500, message=result.message, base64="")
     
+    def imgfuse(self, request, context):
+        base64_images = request.base64_images
+        prompt = request.prompt
+        negative_prompt = request.negative_prompt
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
+        denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
+        
+        args = {
+            "base64_images":base64_images,
+            "prompt": prompt,
+            "negative_prompt": negative_prompt,
+            "width": width,
+            "height": height,
+            "seed":seed,
+            "steps": steps,
+            "batch_size":batch_size,
+            "denoising_strength":denoising_strength
+        }
+        task_id = self.dispatch.imgfuse_in_queue(args)
+        
+        while True:
+            time.sleep(0.5)
+            task_status = self.dispatch.get_task_status(task_id)
+            if task_status == 2 or task_status == -1:
+                result = self.dispatch.get_task_result(task_id)
+                break
+        if task_status == 2:
+            return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
+        else:
+            return sd_pb2.SdResponse(status=500, message=result.message, base64="")
+        
     def text2img_asyn(self, request, context):
         prompt = request.prompt
         negative_prompt = request.negative_prompt
@@ -151,7 +191,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         seed = request.seed if request.seed != 0 else -1
         steps = request.steps if request.steps != 0 else 20
         batch_size = request.batch_size if request.batch_size != 0 else 1
-
+        denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
         args = {
             "base64_images":base64_images,
             "mask": mask,
@@ -161,7 +201,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "height": height,
             "seed":seed,
             "steps": steps,
-            "batch_size":batch_size
+            "batch_size":batch_size,
+            "denoising_strength":denoising_strength
         }
         try:
             task_id = self.dispatch.img2img_in_queue(args)
@@ -184,7 +225,35 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
         except Exception as e:
             return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+    
+    def imgfuse_asyn(self, request, context):
+        base64_images = request.base64_images
+        prompt = request.prompt
+        negative_prompt = request.negative_prompt
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
+        denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
         
+        args = {
+            "base64_images":base64_images,
+            "prompt": prompt,
+            "negative_prompt": negative_prompt,
+            "width": width,
+            "height": height,
+            "seed":seed,
+            "steps": steps,
+            "batch_size":batch_size,
+            "denoising_strength":denoising_strength
+        }
+        try:
+            task_id = self.dispatch.imgfuse_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+    
     def query(self, request, context):
         task_id = request.task_id
         task_status = self.dispatch.get_task_status(task_id)
@@ -222,7 +291,7 @@ def run(configs, host="127.0.0.1", port=7860, max_messave_length=256 * 1024 * 10
 
 if __name__ == "__main__":
     configs = [
-        {"host": "127.0.0.1", "port": 8000, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "txt2img"},
-        {"host": "127.0.0.1", "port": 8001, "device_id": 1, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "img2img"}
+        {"host": "127.0.0.1", "port": 8000, "device_id": 0, "config_path":"setting_configs/config_0.json","log_save_path":"logs/log_1.txt","err_log_save_path":"logs/log_err_1.txt", "task_type": "general"},
+        {"host": "127.0.0.1", "port": 8001, "device_id": 1, "config_path":"setting_configs/config_7.json","log_save_path":"logs/log_2.txt","err_log_save_path":"logs/log_err_2.txt", "task_type": "inpaint"},
     ]
     run(configs)

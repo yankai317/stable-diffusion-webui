@@ -29,7 +29,7 @@ def run_txt2img_asyn():
     模拟请求服务方法信息
     :return:
     '''
-    conn=grpc.insecure_channel('62.234.25.67:7860',
+    conn=grpc.insecure_channel('127.0.0.1:7860',
                                options=[ 
         ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
@@ -70,14 +70,14 @@ def run_txt2img():
     模拟请求服务方法信息
     :return:
     '''
-    conn=grpc.insecure_channel('62.234.25.67:7860',
+    conn=grpc.insecure_channel('127.0.0.1:7860',
                                options=[ 
         ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
     ])
     client = sd_pb2_grpc.SdServiceStub(channel=conn)
     # client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    request = sd_pb2.SdText2ImgRequest(prompt = "down jacket",
+    request = sd_pb2.SdText2ImgRequest(prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,down jacket",
         negative_prompt = "",
         width = 512,
         height = 512,
@@ -130,7 +130,7 @@ def run_img2img_asyn():
     模拟请求服务方法信息
     :return:
     '''
-    conn=grpc.insecure_channel('62.234.25.67:7860',
+    conn=grpc.insecure_channel('127.0.0.1:7860',
                                options=[ 
         ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
@@ -176,7 +176,7 @@ def run_img2img():
     模拟请求服务方法信息
     :return:
     '''
-    conn=grpc.insecure_channel('62.234.25.67:7860',
+    conn=grpc.insecure_channel('127.0.0.1:7860',
                                options=[ 
         ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
@@ -185,25 +185,27 @@ def run_img2img():
     img_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/00318-297029471.png"
     with open(img_path,'rb') as f:
         image_base64 = base64.b64encode(f.read())
-    mask_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/mask.png"
+    mask_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/mask_test.png"
     with open(mask_path,'rb') as f:
         mask_base64 = base64.b64encode(f.read())
 
     request = sd_pb2.SdImg2ImgRequest(
         base64_images = [image_base64],
-        mask = mask_base64,
-        prompt = "red fur fur collar",
+        mask = None,
+        prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,clothes,rose pocket",
         negative_prompt = None,
-        width = 1024,
-        height = 1024,
+        width = 512,
+        height = 512,
         seed = -1,
-        steps = 30,
-        batch_size = 4)
+        steps = 20,
+        batch_size = 1,
+        denoising_strength = 0.1
+        )
     respnse = client.img2img(request)
     print(respnse.status, respnse.message)
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
-        img.save(f'result_img2img_{i}_{time.time()}.jpg')
+        img.save(f'result_inpaint_{i}_{time.time()}.jpg')
 
 def run_img2img_engine():
     '''
@@ -219,20 +221,20 @@ def run_img2img_engine():
     img_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/00318-297029471.png"
     with open(img_path,'rb') as f:
         image_base64 = base64.b64encode(f.read())
-    mask_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/mask.png"
+    mask_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/mask_test.png"
     with open(mask_path,'rb') as f:
         mask_base64 = base64.b64encode(f.read())
     
     request = sd_pb2.SdImg2ImgRequest(
         base64_images = [image_base64],
-        mask = mask_base64,
-        prompt = "",
+        mask = None,
+        prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,clothes,yellow pocket",
         negative_prompt = None,
-        width = 512,
-        height = 512,
-        seed = -1,
-        steps = 30,
-        batch_size = 4)
+        width = 1024,
+        height = 1024,
+        seed = 482283685,
+        steps = 20,
+        batch_size = 1)
     respnse = client.img2img(request)
     print(respnse.status, respnse.message)
     for i, img_base64 in enumerate(respnse.base64):
@@ -245,14 +247,14 @@ def run_upscale():
     模拟请求服务方法信息
     :return:
     '''
-    conn=grpc.insecure_channel('62.234.25.67:7860',
+    conn=grpc.insecure_channel('127.0.0.1:7860',
                                  options=[
         ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH),
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
     ])
     
     client = sd_pb2_grpc.SdServiceStub(channel=conn)
-    img_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/IMG_1757.PNG"
+    img_path = "/workspace/mnt/storage/yankai/openimage/debug/stable-diffusion-webui/6b9a3275df244d37aefc100009151303.jpg"
     with open(img_path,'rb') as f:
         image_base64 = base64.b64encode(f.read())
     request = sd_pb2.SdUpscaleRequest(
@@ -271,7 +273,7 @@ def run_upscale_asyn():
     模拟请求服务方法信息
     :return:
     '''
-    conn=grpc.insecure_channel('62.234.25.67:7860',
+    conn=grpc.insecure_channel('127.0.0.1:7860',
                                  options=[
         ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH),
         ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
@@ -324,11 +326,82 @@ def run_upscale_engine():
         img = base64_to_image(img_base64)
         img.save(f'result_upscale_{i}_{time.time()}.jpg')
 
+def run_imgfuse_engine():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                               options=[ 
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+    ])
+    client = sd_pb2_grpc.SdEngineStub(channel=conn)
+    img_path = "/workspace/mnt/storage/yankai/openimage/debug/stable-diffusion-webui/6b9a3275df244d37aefc100009151303.jpg"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    img_fuse_path = "/workspace/mnt/storage/yankai/openimage/debug/stable-diffusion-webui/buliao.png"
+    with open(img_fuse_path,'rb') as f:
+        image_base64_fuse = base64.b64encode(f.read())
+    mask_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/mask_test.png"
+    with open(mask_path,'rb') as f:
+        mask_base64 = base64.b64encode(f.read())
+    
+    request = sd_pb2.SdFuseRequest(
+        base64_images = [image_base64, image_base64_fuse],
+        prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,",
+        negative_prompt = None,
+        width = 512,
+        height = 512,
+        seed = -1,
+        steps = 20,
+        batch_size = 4,
+        denoising_strength = 0.5)
+    respnse = client.fuse(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_fuse_{i}_{time.time()}.jpg')
+
+@async_infer
+def run_imgfuse():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                               options=[ 
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+    ])
+    client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    img_path = "/workspace/mnt/storage/yankai/openimage/stable-diffusion-webui/00318-297029471.png"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    fuse_path = "/workspace/mnt/storage/yankai/openimage/debug/stable-diffusion-webui/7ed6eff8068715a4591e8e3c8f5814d0.jpg"
+    with open(fuse_path,'rb') as f:
+        fuse_base64 = base64.b64encode(f.read())
+
+    request = sd_pb2.SdImgFuseRequest(
+        base64_images = [image_base64, fuse_base64],
+        prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,",
+        negative_prompt = None,
+        width = 1024,
+        height = 1024,
+        seed = -1,
+        steps = 20,
+        batch_size = 4,
+        denoising_strength = 0.5
+        )
+    respnse = client.imgfuse(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_fuse_{i}_{time.time()}.jpg')
+        
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_upscale()
-    while True:
-        time.sleep(1)
+    run_imgfuse()
 
     
         

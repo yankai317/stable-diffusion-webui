@@ -76,4 +76,4 @@ def run_img2img():
 
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_txt2img()
+    run_img2img()
