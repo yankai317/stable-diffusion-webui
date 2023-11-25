@@ -161,6 +161,45 @@ class SdClientHandler(object):
         with self.lock:
             response = self.sd_client.imgfuse(request)
         return response
+
+    def run_ctrl2img(self, kwargs = {}):
+
+        base64_image = kwargs['base64_image'] if 'base64_image' in kwargs.keys() else None
+        perference = kwargs['perference'] if 'perference' in kwargs.keys() else "BALANCED"
+        ctrl_type = kwargs['ctrl_type'] if 'ctrl_type' in kwargs.keys() else "canny"
+        resize_mode = kwargs['resize_mode'] if 'resize_mode' in kwargs.keys() else "Resize and Fill"
+        threshold_a = kwargs['threshold_a'] if 'threshold_a' in kwargs.keys() else 100
+        threshold_b = kwargs['threshold_b'] if 'threshold_b' in kwargs.keys() else 200
+        
+        prompt = kwargs['prompt'] if 'prompt' in kwargs.keys() else ""
+        negative_prompt = kwargs['negative_prompt'] if 'negative_prompt' in kwargs.keys() else None
+        width = kwargs['width'] if 'width' in kwargs.keys() else 512
+        height = kwargs['height'] if 'height' in kwargs.keys() else 512
+        seed = kwargs['seed'] if 'seed' in kwargs.keys() else -1
+        steps = kwargs['steps'] if 'steps' in kwargs.keys() else 20
+        batch_size = kwargs['batch_size'] if 'batch_size' in kwargs.keys() else 1
+        
+        enable_hr = kwargs['enable_hr'] if 'enable_hr' in kwargs.keys() else False
+        hr_scale = kwargs['hr_scale'] if 'hr_scale' in kwargs.keys() else 2
+        hr_upscaler = kwargs['hr_upscaler'] if 'hr_upscaler' in kwargs.keys() else "Latent"
+        
+        request = sd_pb2.SdCtrl2ImgRequest(
+                                            base64_image = base64_image,
+                                            perference = perference,
+                                            prompt = prompt,
+                                            negative_prompt = negative_prompt,
+                                            width = width,
+                                            height = height,
+                                            seed = seed,
+                                            steps = steps,
+                                            batch_size = batch_size,
+                                            enable_hr = enable_hr,
+                                            hr_scale = hr_scale,
+                                            hr_upscaler = hr_upscaler
+                                            )
+        with self.lock:
+            response = self.sd_client.ctrl2img(request)
+        return response
     
     def __enter__(self):
         self.isFree = False

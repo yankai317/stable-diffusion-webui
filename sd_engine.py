@@ -15,8 +15,10 @@ import base64
 from io import BytesIO
 from PIL import Image
 from packaging import version
-
+import numpy as np
 import logging
+import cv2
+from enum import Enum
 
 # We can't use cmd_opts for this because it will not have been initialized at this point.
 log_level = os.environ.get("SD_WEBUI_LOG_LEVEL")
@@ -344,11 +346,39 @@ def base64_to_image(base64_str):  # 用 b.show()可以展示
     image = Image.open(image)
     return image
 
+class HashableNpArray(np.ndarray):
+    def __new__(cls, input_array):
+        # Input array is an instance of ndarray.
+        # The view makes the input array and returned array share the same data.
+        obj = np.asarray(input_array).view(cls)
+        return obj
+
+    def __eq__(self, other) -> bool:
+        return np.array_equal(self, other)
+
+    def __hash__(self):
+        # Hash the bytes representing the data of the array.
+        return hash(self.tobytes())
+
+class ControlMode(Enum):
+    """
+    The improved guess mode.
+    """
+
+    BALANCED = "Balanced"
+    PROMPT = "My prompt is more important"
+    CONTROL = "ControlNet is more important"
+    
 class SdInference:
     def __init__(self):
         initialize()
         self.api = SimpleApi(queue_lock)
-
+        scripts = modules.scripts
+        self.script_runner = scripts.scripts_txt2img
+        if not self.script_runner.scripts:
+            self.script_runner.initialize_scripts(False)
+            modules.ui.create_ui()
+            
     def run_text2img(self,
                     prompt: str = "",
                     negative_prompt: str = None,
@@ -535,6 +565,111 @@ class SdInference:
             raise e
         return response.images
     
+    def run_ctrl2img(self, 
+                    base_image: str,
+                    ctrl_type: str = 'canny',
+                    perference: str = 'BALANCED',
+                    resize_mode: str = "Resize and Fill",
+                    threshold_a: int = 100,
+                    threshold_b: int = 200,
+                    prompt: str = "",
+                    negative_prompt: str = None,
+                    width: int = 512,
+                    height: int = 512,
+                    seed: int = -1,
+                    steps: int = 20,
+                    batch_size: int = 1,
+                    enable_hr: bool = False,
+                    hr_scale: float = 2.0,
+                    hr_upscaler: str = "R-ESRGAN 4x+",
+                    sampler_index: str = "Euler a",
+                    denoising_strength: float = 0.2,
+                    hr_second_pass_steps: int = 20,
+                    prompt_styles: list = [],
+                    restore_faces: bool = False,
+                    tiling: bool = False,
+                    n_iter: int = 1,
+                    cfg_scale: float = 7, 
+                    subseed: int = -1, 
+                    subseed_strength: float = 0, 
+                    seed_resize_from_h: int = 0, 
+                    seed_resize_from_w: int = 0, 
+                    seed_enable_extras: bool = False, 
+                    hr_resize_x: int = 0, 
+                    hr_resize_y: int = 0, 
+                    hr_sampler_index: int = 0, 
+                    hr_prompt: str = "", 
+                    hr_negative_prompt: str = "", 
+                    override_settings_texts = None,
+                    **kwargs):
+        controlnet_unit_module_map = {
+            'canny' : 'control_v11p_sd15_canny [d14c016b]',
+        }
+        controlnet_unit_mode_map = {
+            'BALANCED': ControlMode.BALANCED,
+            'PROMPT' : ControlMode.PROMPT,
+            "CONTROL" : ControlMode.CONTROL
+        }
+        ctrl_image = decode_base64_to_image(base_image)
+        for script in self.script_runner.alwayson_scripts:
+            if "controlnet.py.Script" in script.__str__():
+                controlnet_unit = script.get_default_ui_unit(False)
+                ctrl_image_array = np.asarray(ctrl_image)
+                ctrl_image_array = ctrl_image_array[..., 0] if ctrl_image_array.shape[-1] == 2 else ctrl_image_array
+                ctrl_image_np_hash = HashableNpArray(ctrl_image_array)
+                ctrl_image_preprocessed = script.preprocessor[ctrl_type](ctrl_image_np_hash)[0]
+                controlnet_unit.image = {'image': ctrl_image_preprocessed, 'mask':None}
+                controlnet_unit.enabled = True
+                controlnet_unit.model = controlnet_unit_module_map[ctrl_type]
+                controlnet_unit.module = ctrl_type
+                controlnet_unit.resize_mode = resize_mode
+                controlnet_unit.threshold_a = threshold_a
+                controlnet_unit.threshold_b = threshold_b
+                controlnet_unit.control_mode = controlnet_unit_mode_map[perference].value
+        alwayson_scripts = {
+            'controlnet':{
+                'args': [controlnet_unit]
+            }
+
+        }
+        txt2imgreq = StableDiffusionTxt2ImgProcessingAPI(prompt=prompt, 
+                                                         negative_prompt=negative_prompt,
+                                                         width=width, 
+                                                         height=height, 
+                                                         seed=seed, 
+                                                         steps=steps, 
+                                                         batch_size=batch_size, 
+                                                         sampler_index=sampler_index, 
+                                                         enable_hr=enable_hr, 
+                                                         hr_scale=hr_scale, 
+                                                         hr_upscaler=hr_upscaler, 
+                                                         denoising_strength = denoising_strength,
+                                                         hr_second_pass_steps = hr_second_pass_steps,
+                                                         prompt_styles = prompt_styles,
+                                                         restore_faces = restore_faces,
+                                                         tiling = tiling,
+                                                         n_iter = n_iter,
+                                                         cfg_scale = cfg_scale, 
+                                                         subseed = subseed, 
+                                                         subseed_strength = subseed_strength, 
+                                                         seed_resize_from_h = seed_resize_from_h, 
+                                                         seed_resize_from_w = seed_resize_from_h, 
+                                                         seed_enable_extras = seed_enable_extras, 
+                                                         hr_resize_x = hr_resize_x, 
+                                                         hr_resize_y = hr_resize_y, 
+                                                         hr_sampler_index = hr_sampler_index, 
+                                                         hr_prompt = hr_prompt, 
+                                                         hr_negative_prompt = hr_negative_prompt, 
+                                                         override_settings_texts = override_settings_texts,
+                                                         alwayson_scripts = alwayson_scripts,
+                                                         **kwargs)
+
+        try:
+            response = self.api.text2imgapi(txt2imgreq)
+        except Exception as e:
+            raise e
+        return response.images
+    
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
@@ -619,6 +754,36 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             status = 200
             message = "success"
             imgs_base64 = self.sd_inference.run_imgfuse(base64_images, None, prompt, negative_prompt, width, height, seed, steps, batch_size, denoising_strength=denoising_strength)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            imgs_base64 = ""
+        return sd_pb2.SdResponse(status=status, message=message, base64=imgs_base64)
+    
+    def ctrl2img(self, request, context):
+        base64_image = request.base64_image
+        ctrl_type = "canny"
+        resize_mode = "Resize and Fill"
+        threshold_a = 100
+        threshold_b = 200
+        perference = request.perference
+        prompt = request.prompt
+        negative_prompt = request.negative_prompt
+        width = request.width if request.width != 0 else 512
+        height = request.height if request.height != 0 else 512
+        seed = request.seed if request.seed != 0 else -1
+        steps = request.steps if request.steps != 0 else 20
+        batch_size = request.batch_size if request.batch_size != 0 else 1
+
+        enable_hr = request.enable_hr
+        hr_scale = request.hr_scale if request.hr_scale != 0 else 2
+        hr_upscaler = request.hr_upscaler if request.hr_upscaler else "Latent"
+        
+        try:
+            status = 200
+            message = "success"
+            imgs_base64 = self.sd_inference.run_ctrl2img(base64_image, ctrl_type, perference, resize_mode,  threshold_a, threshold_b, prompt, negative_prompt, width, height, seed, steps, batch_size, enable_hr, hr_scale, hr_upscaler)
+            imgs_base64 = imgs_base64[:batch_size]
         except Exception as e:
             status = 500
             message = e.__str__()

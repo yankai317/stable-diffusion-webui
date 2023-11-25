@@ -35,6 +35,11 @@ class SdServiceStub(object):
                 request_serializer=proto_dot_sd__pb2.SdImgFuseRequest.SerializeToString,
                 response_deserializer=proto_dot_sd__pb2.SdResponse.FromString,
                 )
+        self.ctrl2img = channel.unary_unary(
+                '/SdService/ctrl2img',
+                request_serializer=proto_dot_sd__pb2.SdCtrl2ImgRequest.SerializeToString,
+                response_deserializer=proto_dot_sd__pb2.SdResponse.FromString,
+                )
         self.text2img_asyn = channel.unary_unary(
                 '/SdService/text2img_asyn',
                 request_serializer=proto_dot_sd__pb2.SdText2ImgRequest.SerializeToString,
@@ -53,6 +58,11 @@ class SdServiceStub(object):
         self.imgfuse_asyn = channel.unary_unary(
                 '/SdService/imgfuse_asyn',
                 request_serializer=proto_dot_sd__pb2.SdImgFuseRequest.SerializeToString,
+                response_deserializer=proto_dot_sd__pb2.SdAsynTaskResponse.FromString,
+                )
+        self.ctrl2img_asyn = channel.unary_unary(
+                '/SdService/ctrl2img_asyn',
+                request_serializer=proto_dot_sd__pb2.SdCtrl2ImgRequest.SerializeToString,
                 response_deserializer=proto_dot_sd__pb2.SdAsynTaskResponse.FromString,
                 )
         self.query = channel.unary_unary(
@@ -90,6 +100,12 @@ class SdServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ctrl2img(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def text2img_asyn(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -109,6 +125,12 @@ class SdServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def imgfuse_asyn(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ctrl2img_asyn(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -143,6 +165,11 @@ def add_SdServiceServicer_to_server(servicer, server):
                     request_deserializer=proto_dot_sd__pb2.SdImgFuseRequest.FromString,
                     response_serializer=proto_dot_sd__pb2.SdResponse.SerializeToString,
             ),
+            'ctrl2img': grpc.unary_unary_rpc_method_handler(
+                    servicer.ctrl2img,
+                    request_deserializer=proto_dot_sd__pb2.SdCtrl2ImgRequest.FromString,
+                    response_serializer=proto_dot_sd__pb2.SdResponse.SerializeToString,
+            ),
             'text2img_asyn': grpc.unary_unary_rpc_method_handler(
                     servicer.text2img_asyn,
                     request_deserializer=proto_dot_sd__pb2.SdText2ImgRequest.FromString,
@@ -161,6 +188,11 @@ def add_SdServiceServicer_to_server(servicer, server):
             'imgfuse_asyn': grpc.unary_unary_rpc_method_handler(
                     servicer.imgfuse_asyn,
                     request_deserializer=proto_dot_sd__pb2.SdImgFuseRequest.FromString,
+                    response_serializer=proto_dot_sd__pb2.SdAsynTaskResponse.SerializeToString,
+            ),
+            'ctrl2img_asyn': grpc.unary_unary_rpc_method_handler(
+                    servicer.ctrl2img_asyn,
+                    request_deserializer=proto_dot_sd__pb2.SdCtrl2ImgRequest.FromString,
                     response_serializer=proto_dot_sd__pb2.SdAsynTaskResponse.SerializeToString,
             ),
             'query': grpc.unary_unary_rpc_method_handler(
@@ -248,6 +280,23 @@ class SdService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ctrl2img(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SdService/ctrl2img',
+            proto_dot_sd__pb2.SdCtrl2ImgRequest.SerializeToString,
+            proto_dot_sd__pb2.SdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def text2img_asyn(request,
             target,
             options=(),
@@ -316,6 +365,23 @@ class SdService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ctrl2img_asyn(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SdService/ctrl2img_asyn',
+            proto_dot_sd__pb2.SdCtrl2ImgRequest.SerializeToString,
+            proto_dot_sd__pb2.SdAsynTaskResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def query(request,
             target,
             options=(),
@@ -362,6 +428,11 @@ class SdEngineStub(object):
                 request_serializer=proto_dot_sd__pb2.SdImgFuseRequest.SerializeToString,
                 response_deserializer=proto_dot_sd__pb2.SdResponse.FromString,
                 )
+        self.ctrl2img = channel.unary_unary(
+                '/SdEngine/ctrl2img',
+                request_serializer=proto_dot_sd__pb2.SdCtrl2ImgRequest.SerializeToString,
+                response_deserializer=proto_dot_sd__pb2.SdResponse.FromString,
+                )
 
 
 class SdEngineServicer(object):
@@ -391,6 +462,12 @@ class SdEngineServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ctrl2img(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SdEngineServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -412,6 +489,11 @@ def add_SdEngineServicer_to_server(servicer, server):
             'imgfuse': grpc.unary_unary_rpc_method_handler(
                     servicer.imgfuse,
                     request_deserializer=proto_dot_sd__pb2.SdImgFuseRequest.FromString,
+                    response_serializer=proto_dot_sd__pb2.SdResponse.SerializeToString,
+            ),
+            'ctrl2img': grpc.unary_unary_rpc_method_handler(
+                    servicer.ctrl2img,
+                    request_deserializer=proto_dot_sd__pb2.SdCtrl2ImgRequest.FromString,
                     response_serializer=proto_dot_sd__pb2.SdResponse.SerializeToString,
             ),
     }
@@ -488,6 +570,23 @@ class SdEngine(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/SdEngine/imgfuse',
             proto_dot_sd__pb2.SdImgFuseRequest.SerializeToString,
+            proto_dot_sd__pb2.SdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ctrl2img(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SdEngine/ctrl2img',
+            proto_dot_sd__pb2.SdCtrl2ImgRequest.SerializeToString,
             proto_dot_sd__pb2.SdResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
