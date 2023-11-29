@@ -8,11 +8,13 @@ service SdService {
     rpc img2img (SdImg2ImgRequest) returns (SdResponse) {};
     rpc upscale (SdUpscaleRequest) returns (SdResponse) {};
     rpc imgfuse (SdImgFuseRequest) returns (SdResponse) {};
+    rpc ctrl2img (SdCtrl2ImgRequest) returns (SdResponse) {};
 
     rpc text2img_asyn (SdText2ImgRequest) returns (SdAsynTaskResponse) {};
     rpc img2img_asyn (SdImg2ImgRequest) returns (SdAsynTaskResponse) {};
     rpc upscale_asyn (SdUpscaleRequest) returns (SdAsynTaskResponse) {};
     rpc imgfuse_asyn (SdImgFuseRequest) returns (SdAsynTaskResponse) {};
+    rpc ctrl2img_asyn (SdCtrl2ImgRequest) returns (SdAsynTaskResponse) {};
 
     rpc query(SdQueryRequest) returns (SdResponse) {};
 }
@@ -21,6 +23,7 @@ service SdEngine {
     rpc img2img (SdImg2ImgRequest) returns (SdResponse) {};
     rpc upscale (SdUpscaleRequest) returns (SdResponse) {};
     rpc imgfuse (SdImgFuseRequest) returns (SdResponse) {}
+    rpc ctrl2img (SdCtrl2ImgRequest) returns (SdResponse) {};
 }
 //请求的参数
 message SdText2ImgRequest {
@@ -65,6 +68,21 @@ message SdImgFuseRequest {
     int32 steps = 7;
     int32 batch_size = 8;
     float denoising_strength = 9;
+};
+
+message SdCtrl2ImgRequest {
+    string base64_image = 1;
+    string perference = 2;
+    string prompt = 3;
+    string negative_prompt = 4;
+    int32 width = 5;
+    int32 height= 6;
+    int32 seed = 7;
+    int32 steps = 8;
+    int32 batch_size = 9;
+    bool enable_hr = 10;
+    float hr_scale = 11;
+    string hr_upscaler = 12;
 };
 
 //返回的对象
