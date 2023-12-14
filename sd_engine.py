@@ -465,6 +465,7 @@ class SdInference:
                     inpaint_full_res: bool = False,
                     denoising_strength: float = 0.75,
                     inpainting_fill: int = 1,
+                    cfg_scale: float = 7, 
                     **kwargs):
         init_images = []
         for base64_image in base64_images:
@@ -482,7 +483,7 @@ class SdInference:
                                                          inpaint_full_res=inpaint_full_res,
                                                          denoising_strength=denoising_strength,
                                                          inpainting_fill = inpainting_fill,
-                                                         batch_size=batch_size, **kwargs)
+                                                         batch_size=batch_size, cfg_scale=cfg_scale, **kwargs)
         try:
             response = self.api.img2imgapi(img2imgreq)
         except Exception as e:
@@ -689,7 +690,7 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
         seed = request.seed if request.seed != 0 else -1
         steps = request.steps if request.steps != 0 else 20
         batch_size = request.batch_size if request.batch_size != 0 else 1
-
+        cfg_scale = request.cfg_scale if request.cfg_scale != 0 else 7
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
         hr_upscaler = request.hr_upscaler if request.hr_upscaler else "Latent"
@@ -697,7 +698,7 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
         try:
             status = 200
             message = "success"
-            imgs_base64 = self.sd_inference.run_text2img(prompt, negative_prompt, width, height, seed, steps, batch_size, enable_hr, hr_scale, hr_upscaler)
+            imgs_base64 = self.sd_inference.run_text2img(prompt, negative_prompt, width, height, seed, steps, batch_size, enable_hr, hr_scale, hr_upscaler, cfg_scale=cfg_scale)
         except Exception as e:
             status = 500
             message = e.__str__()
@@ -714,11 +715,12 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
         seed = request.seed if request.seed != 0 else -1
         steps = request.steps if request.steps != 0 else 20
         batch_size = request.batch_size if request.batch_size != 0 else 1
+        cfg_scale = request.cfg_scale if request.cfg_scale != 0 else 7
         denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
         try:
             status = 200
             message = "success"
-            imgs_base64 = self.sd_inference.run_img2img(base64_images, mask, prompt, negative_prompt, width, height, seed, steps, batch_size, denoising_strength=denoising_strength)
+            imgs_base64 = self.sd_inference.run_img2img(base64_images, mask, prompt, negative_prompt, width, height, seed, steps, batch_size, denoising_strength=denoising_strength, cfg_scale=cfg_scale)
         except Exception as e:
             status = 500
             message = e.__str__()

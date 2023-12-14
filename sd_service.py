@@ -24,9 +24,10 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
 
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
+        cfg_scale = request.cfg_scale if request.cfg_scale != 0 else 7
         hr_upscaler = request.hr_upscaler if request.hr_upscaler else "R-ESRGAN 4x+"
-        
-        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        disable_default_prompt = request.disable_default_prompt
+        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         
         args = {
@@ -39,7 +40,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "batch_size":batch_size,
             "enable_hr":enable_hr,
             "hr_scale": hr_scale,
-            "hr_upscaler":hr_upscaler
+            "hr_upscaler":hr_upscaler,
+            "cfg_scale": cfg_scale
         }
         
         task_id = self.dispatch.txt2img_in_queue(args)
@@ -69,10 +71,10 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         steps = request.steps if request.steps != 0 else 25
         batch_size = request.batch_size if request.batch_size != 0 else 1
         denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
-        
-        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        disable_default_prompt = request.disable_default_prompt
+        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
-        
+        cfg_scale = request.cfg_scale if request.cfg_scale != 0 else 7
         args = {
             "base64_images":base64_images,
             "mask": mask,
@@ -83,7 +85,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             "seed":seed,
             "steps": steps,
             "batch_size":batch_size,
-            "denoising_strength":denoising_strength
+            "denoising_strength":denoising_strength,
+            "cfg_scale": cfg_scale
         }
         task_id = self.dispatch.img2img_in_queue(args)
         show_dict = {
@@ -146,8 +149,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         steps = request.steps if request.steps != 0 else 20
         batch_size = request.batch_size if request.batch_size != 0 else 1
         denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
-        
-        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        disable_default_prompt = request.disable_default_prompt
+        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         
         args = {
@@ -198,7 +201,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
         hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
 
-        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        disable_default_prompt = request.disable_default_prompt
+        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         
         args = {
@@ -255,7 +259,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
         hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
-        default_prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,"
+        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,mjstyle,"
         default_negative_prompt = ""
         
         args = {

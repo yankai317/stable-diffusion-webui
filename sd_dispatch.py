@@ -107,7 +107,7 @@ class SdDispatch(object):
     @async_infer
     def txt2img_dispatch(self):
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if not self.sd_client_handlers_queue.empty() and not self.txt2img_task_queue.empty():
                 data = self.txt2img_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
@@ -119,7 +119,7 @@ class SdDispatch(object):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if self.img2img_task_queue.qsize() < self.max_queue_size:
                 self.img2img_task_queue.put(data)
                 self.task_status[task_id] = 0
@@ -129,7 +129,7 @@ class SdDispatch(object):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if self.imginpaint_task_queue.qsize() < self.max_queue_size:
                 self.imginpaint_task_queue.put(data)
                 self.task_status[task_id] = 0
@@ -159,7 +159,7 @@ class SdDispatch(object):
     @async_infer
     def img2img_dispatch(self):
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if not self.sd_client_handlers_queue.empty() and not self.img2img_task_queue.empty():
                 data = self.img2img_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
@@ -169,7 +169,7 @@ class SdDispatch(object):
     @async_infer
     def imginpaint_dispatch(self):
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if not self.sd_client_inpaint_handlers_queue.empty() and not self.imginpaint_task_queue.empty():
                 data = self.imginpaint_task_queue.get()
                 sd_client_handler = self.sd_client_inpaint_handlers_queue.get()
@@ -180,7 +180,7 @@ class SdDispatch(object):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if self.upscale_task_queue.qsize() < self.max_queue_size:
                 self.upscale_task_queue.put(data)
                 self.task_status[task_id] = 0
@@ -190,7 +190,7 @@ class SdDispatch(object):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if self.imgfuse_task_queue.qsize() < self.max_queue_size:
                 self.imgfuse_task_queue.put(data)
                 self.task_status[task_id] = 0
@@ -220,7 +220,7 @@ class SdDispatch(object):
     @async_infer
     def upscale_dispatch(self):
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if not self.sd_client_handlers_queue.empty() and not self.upscale_task_queue.empty():
                 data = self.upscale_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
@@ -251,7 +251,7 @@ class SdDispatch(object):
     @async_infer
     def imgfuse_dispatch(self):
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if not self.sd_client_handlers_queue.empty() and not self.imgfuse_task_queue.empty():
                 data = self.imgfuse_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
@@ -263,7 +263,7 @@ class SdDispatch(object):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if self.ctrl2img_task_queue.qsize() < self.max_queue_size:
                 self.ctrl2img_task_queue.put(data)
                 self.task_status[task_id] = 0
@@ -293,7 +293,7 @@ class SdDispatch(object):
     @async_infer
     def ctrl2img_dispatch(self):
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if not self.sd_client_handlers_queue.empty() and not self.ctrl2img_task_queue.empty():
                 data = self.ctrl2img_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
@@ -303,7 +303,7 @@ class SdDispatch(object):
     @async_infer
     def clean_timeout_result(self):
         while True:
-            time.sleep(2)
+            time.sleep(1)
             for task_id in list(self.task_timest.keys()):
                 timest = self.task_timest[task_id]
                 if time.time() - timest > 30:

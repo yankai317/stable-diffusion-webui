@@ -37,6 +37,8 @@ message SdText2ImgRequest {
     bool enable_hr = 8;
     float hr_scale = 9;
     string hr_upscaler = 10;
+    float cfg_scale = 11;
+    bool disable_default_prompt = 12;
 };
 
 message SdImg2ImgRequest {
@@ -50,6 +52,8 @@ message SdImg2ImgRequest {
     int32 steps = 8;
     int32 batch_size = 9;
     float denoising_strength = 10;
+    float cfg_scale = 11;
+    bool disable_default_prompt = 12;
 };
 
 message SdUpscaleRequest {
@@ -68,6 +72,7 @@ message SdImgFuseRequest {
     int32 steps = 7;
     int32 batch_size = 8;
     float denoising_strength = 9;
+    bool disable_default_prompt = 10;
 };
 
 message SdCtrl2ImgRequest {
@@ -83,6 +88,7 @@ message SdCtrl2ImgRequest {
     bool enable_hr = 10;
     float hr_scale = 11;
     string hr_upscaler = 12;
+    bool disable_default_prompt = 13;
 };
 
 //返回的对象

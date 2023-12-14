@@ -77,16 +77,18 @@ def run_txt2img():
     ])
     client = sd_pb2_grpc.SdServiceStub(channel=conn)
     # client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    request = sd_pb2.SdText2ImgRequest(prompt = "Cantaloupe,cardigan,V-neck,Ultra short sweater jacket,Soft and delicate sweater",
+    request = sd_pb2.SdText2ImgRequest(prompt = "down jacket,black",
         negative_prompt = "",
         width = 512,
         height = 512,
         seed = -1,
-        steps = 20,
+        steps = 25,
         batch_size = 4,
         enable_hr = True,
-        hr_scale = 1,
-        hr_upscaler = "R-ESRGAN 4x+"
+        hr_scale = 2,
+        hr_upscaler = "R-ESRGAN 4x+",
+        cfg_scale = 10,
+        disable_default_prompt=False
         )
     respnse = client.text2img(request)
     print(respnse.status, respnse.message)
@@ -106,16 +108,18 @@ def run_txt2img_engine():
     ])
     # client = sd_pb2_grpc.SdServiceStub(channel=conn)
     client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    request = sd_pb2.SdText2ImgRequest(prompt = "<hypernet:jiangyi_v0-100000-200000-320000:1>,<lora:OLD_oneitemV1:0.8>,<lora:add_detail:0.8>,[(white background:0.5),::5],(volumetric lighting:1.2),(8k,hdr,hd:1.1),(sharp focus:1.2),(oneitem:1.2),(simple_background:1.2),mid-shot,post-processing,extremely hyperdetailed,concept art,yellow",
-        negative_prompt = "(worst quality:2),(low quality:2),(normal quality:2),overexposure,easynegative",
+    request = sd_pb2.SdText2ImgRequest(prompt = "down jacket",
+        negative_prompt = "",
         width = 512,
         height = 512,
         seed = -1,
-        steps = 25,
+        steps = 5,
         batch_size = 1,
         enable_hr = False,
         hr_scale = 2,
-        hr_upscaler = "R-ESRGAN 4x+"
+        hr_upscaler = "R-ESRGAN 4x+",
+        cfg_scale = 1.5,
+        disable_default_prompt=False
         )
     respnse = client.text2img(request)
     print(respnse.status, respnse.message)
@@ -191,14 +195,16 @@ def run_img2img():
 
     request = sd_pb2.SdImg2ImgRequest(
         base64_images = [image_base64],
-        mask = mask_base64,
-        prompt = "clothes,yellow pocket",
+        mask = None,
+        prompt = "<lora:LCM_LoRA_Weights_SD15:1>,clothes,yellow pocket",
         negative_prompt = None,
-        width = 1024,
-        height = 1024,
-        seed = 482283685,
-        steps = 20,
-        batch_size = 4)
+        width = 512,
+        height = 512,
+        seed = -1,
+        steps = 5,
+        batch_size = 4,
+        cfg_scale = 1.5,
+        )
     respnse = client.img2img(request)
     print(respnse.status, respnse.message)
     for i, img_base64 in enumerate(respnse.base64):
@@ -226,7 +232,7 @@ def run_img2img_engine():
     request = sd_pb2.SdImg2ImgRequest(
         base64_images = [image_base64],
         mask = None,
-        prompt = "<lora:mj_v1:0.4>,<lora:clothes_v1:0.8>,<lora:add_detail:0.5>,<lora:invisible:1>,mjstyle,clothes,yellow pocket",
+        prompt = "clothes,yellow pocket",
         negative_prompt = None,
         width = 1024,
         height = 1024,
@@ -451,9 +457,9 @@ def run_ctrl2img_engine():
         image_base64 = base64.b64encode(f.read())
     request = sd_pb2.SdCtrl2ImgRequest(
         base64_image = image_base64,
-        perference = "CONTROL",
-        prompt = "<hypernet:jiangyi_v0-100000-200000-320000:1>,<lora:OLD_oneitemV1:0.8>,<lora:add_detail:0.8>,[(white background:0.5),::5],(volumetric lighting:1.2),(8k,hdr,hd:1.1),(sharp focus:1.2),(oneitem:1.2),(simple_background:1.2),mid-shot,post-processing,extremely hyperdetailed,concept art,yellow",
-        negative_prompt = "(worst quality:2),(low quality:2),(normal quality:2),overexposure,easynegative",
+        perference = "CONTROL", # BALANCED、PROMPT、CONTROL
+        prompt = "",
+        negative_prompt = "",
         width = 512,
         height = 512,
         seed = -1,
@@ -471,13 +477,17 @@ def run_ctrl2img_engine():
                                
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_ctrl2img()
-    run_txt2img()
     run_txt2img()
     run_txt2img()
     run_img2img()
+    run_txt2img()
+    run_img2img()
+    run_txt2img()
+    run_img2img()
     run_imgfuse()
-    run_upscale()
+    run_ctrl2img()
+    run_ctrl2img()
+    run_imgfuse()
     # while True:
     #     time.sleep(1)
     

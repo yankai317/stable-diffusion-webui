@@ -62,7 +62,7 @@ class SdClientHandler(object):
         seed = kwargs['seed'] if 'seed' in kwargs.keys() else -1
         steps = kwargs['steps'] if 'steps' in kwargs.keys() else 20
         batch_size = kwargs['batch_size'] if 'batch_size' in kwargs.keys() else 1
-        
+        cfg_scale = kwargs['cfg_scale'] if 'cfg_scale' in kwargs.keys() else 7
         enable_hr = kwargs['enable_hr'] if 'enable_hr' in kwargs.keys() else False
         hr_scale = kwargs['hr_scale'] if 'hr_scale' in kwargs.keys() else 2
         hr_upscaler = kwargs['hr_upscaler'] if 'hr_upscaler' in kwargs.keys() else "Latent"
@@ -76,7 +76,8 @@ class SdClientHandler(object):
                                             batch_size = batch_size,
                                             enable_hr = enable_hr,
                                             hr_scale = hr_scale,
-                                            hr_upscaler = hr_upscaler
+                                            hr_upscaler = hr_upscaler,
+                                            cfg_scale = cfg_scale
                                             )
         with self.lock:
             response = self.sd_client.text2img(request)
@@ -96,6 +97,7 @@ class SdClientHandler(object):
         seed = kwargs['seed'] if 'seed' in kwargs.keys() else -1
         steps = kwargs['steps'] if 'steps' in kwargs.keys() else 20
         batch_size = kwargs['batch_size'] if 'batch_size' in kwargs.keys() else 1
+        cfg_scale = kwargs['cfg_scale'] if 'cfg_scale' in kwargs.keys() else 7
         denoising_strength = kwargs['denoising_strength'] if 'denoising_strength' in kwargs.keys() else 0.75
         request = sd_pb2.SdImg2ImgRequest(
             base64_images = base64_images,
@@ -107,7 +109,8 @@ class SdClientHandler(object):
             seed = seed,
             steps = steps,
             batch_size = batch_size,
-            denoising_strength = denoising_strength)
+            denoising_strength = denoising_strength,
+            cfg_scale = cfg_scale)
         
         with self.lock:
             response = self.sd_client.img2img(request)
