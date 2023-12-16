@@ -27,7 +27,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         cfg_scale = request.cfg_scale if request.cfg_scale != 0 else 7
         hr_upscaler = request.hr_upscaler if request.hr_upscaler else "R-ESRGAN 4x+"
         disable_default_prompt = request.disable_default_prompt
-        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
+        default_prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         
         args = {
@@ -72,7 +72,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         batch_size = request.batch_size if request.batch_size != 0 else 1
         denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
         disable_default_prompt = request.disable_default_prompt
-        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
+        default_prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         cfg_scale = request.cfg_scale if request.cfg_scale != 0 else 7
         args = {
@@ -150,7 +150,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         batch_size = request.batch_size if request.batch_size != 0 else 1
         denoising_strength = request.denoising_strength if request.denoising_strength != 0 else 0.75
         disable_default_prompt = request.disable_default_prompt
-        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,mjstyle," if not disable_default_prompt else ""
+        default_prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         
         args = {
@@ -202,7 +202,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
 
         disable_default_prompt = request.disable_default_prompt
-        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,mjstyle," if not disable_default_prompt else ""
+        default_prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle," if not disable_default_prompt else ""
         default_negative_prompt = ""
         
         args = {
@@ -259,7 +259,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         enable_hr = request.enable_hr
         hr_scale = request.hr_scale if request.hr_scale != 0 else 2
         hr_upscaler = request.hr_upscaler if not request.hr_upscaler else "R-ESRGAN 4x+"
-        default_prompt = "<lora:mj_3k:1.2>,<lora:clothes_v1:0.5>,mjstyle,"
+        default_prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle,"
         default_negative_prompt = ""
         
         args = {

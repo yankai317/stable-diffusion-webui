@@ -87,7 +87,7 @@ def run_txt2img():
         enable_hr = True,
         hr_scale = 2,
         hr_upscaler = "R-ESRGAN 4x+",
-        cfg_scale = 10,
+        cfg_scale = 7,
         disable_default_prompt=False
         )
     respnse = client.text2img(request)
