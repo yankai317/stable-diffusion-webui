@@ -203,6 +203,17 @@ class SdClientHandler(object):
         with self.lock:
             response = self.sd_client.ctrl2img(request)
         return response
+
+    def run_interrogate(self, kwargs = {}):
+
+        base64_image = kwargs['base64_image'] if 'base64_image' in kwargs.keys() else None
+        
+        request = sd_pb2.SdInterrogateRequest(
+                                            base64_image = base64_image
+                                            )
+        with self.lock:
+            response = self.sd_client.interrogate(request)
+        return response
     
     def __enter__(self):
         self.isFree = False

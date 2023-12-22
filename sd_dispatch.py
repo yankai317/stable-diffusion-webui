@@ -24,6 +24,7 @@ class SdDispatch(object):
         self.upscale_task_queue = Queue()
         self.imgfuse_task_queue = Queue()
         self.ctrl2img_task_queue = Queue()
+        self.interrogate_task_queue = Queue()
         
         self.task_status = {}
         self.task_timest = {}
@@ -54,6 +55,7 @@ class SdDispatch(object):
         self.upscale_dispatch()
         self.imgfuse_dispatch()
         self.ctrl2img_dispatch()
+        self.interrogate_dispatch()
         self.clean_timeout_result()
         
     def get_task_status(self, task_id):
@@ -298,6 +300,47 @@ class SdDispatch(object):
                 data = self.ctrl2img_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
                 self.ctrl2img(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
+    
+    def interrogate_in_queue(self, args):
+        task_id = str(uuid.uuid1())
+        data = {"task_id": task_id, "args": args}
+        while True:
+            time.sleep(0.1)
+            if self.interrogate_task_queue.qsize() < self.max_queue_size:
+                self.interrogate_task_queue.put(data)
+                self.task_status[task_id] = 0
+                return task_id
+    
+    @async_infer
+    def interrogate(self, sd_client_handler, data, callback):
+        task_id = data['task_id']
+        args = data['args']
+        try:
+            with sd_client_handler:
+                result = sd_client_handler.run_interrogate(args)
+            if result.status == 200:
+                self.task_status[task_id] = 2
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+            else:
+                self.task_status[task_id] = -1
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+        except Exception as e:
+            self.task_status[task_id] = -1
+            self.results[task_id] = e
+            self.task_timest[task_id] = time.time()
+        callback(sd_client_handler)
+    
+    @async_infer
+    def interrogate_dispatch(self):
+        while True:
+            time.sleep(0.1)
+            if not self.sd_client_handlers_queue.empty() and not self.interrogate_task_queue.empty():
+                data = self.interrogate_task_queue.get()
+                sd_client_handler = self.sd_client_handlers_queue.get()
+                self.interrogate(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
                 self.task_status[data['task_id']] = 1
     
     @async_infer

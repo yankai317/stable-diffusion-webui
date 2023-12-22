@@ -49,7 +49,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: txt2img, task_id: {task_id}, args: {args}")
 
         while True:
-            time.sleep(0.5)
+            time.sleep(0.1)
             task_status = self.dispatch.get_task_status(task_id)
             if task_status == 2 or task_status == -1:
                 result = self.dispatch.get_task_result(task_id)
@@ -105,7 +105,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             task_id = self.dispatch.imginpaint_in_queue(args)
             
         while True:
-            time.sleep(0.5)
+            time.sleep(0.1)
             task_status = self.dispatch.get_task_status(task_id)
             if task_status == 2 or task_status == -1:
                 result = self.dispatch.get_task_result(task_id)
@@ -176,7 +176,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         }
         print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: imgfuse, task_id: {task_id}, args: {show_dict}")
         while True:
-            time.sleep(0.5)
+            time.sleep(0.1)
             task_status = self.dispatch.get_task_status(task_id)
             if task_status == 2 or task_status == -1:
                 result = self.dispatch.get_task_result(task_id)
@@ -236,7 +236,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         task_id = self.dispatch.ctrl2img_in_queue(args)
         print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: ctrl2img, task_id: {task_id}, args: {show_dict}")
         while True:
-            time.sleep(0.5)
+            time.sleep(0.1)
             task_status = self.dispatch.get_task_status(task_id)
             if task_status == 2 or task_status == -1:
                 result = self.dispatch.get_task_result(task_id)
@@ -247,6 +247,22 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         else:
             return sd_pb2.SdResponse(status=500, message=result.message, base64="")
         
+    def interrogate(self, request, context):
+        base64_image = request.base64_image
+        args = {
+            "base64_image":base64_image
+        }
+        task_id = self.dispatch.interrogate_in_queue(args)
+        print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: interrogate, task_id: {task_id}")
+        while True:
+            time.sleep(0.1)
+            task_status = self.dispatch.get_task_status(task_id)
+            if task_status == 2 or task_status == -1:
+                result = self.dispatch.get_task_result(task_id)
+                break
+        if task_status == 2:
+            return sd_pb2.SdStrResponse(status=result.status, message=result.message, prompt=result.prompt)
+
     def text2img_asyn(self, request, context):
         prompt = request.prompt
         negative_prompt = request.negative_prompt
@@ -384,6 +400,17 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         }
         try:
             task_id = self.dispatch.ctrl2img_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+    
+    def interrogate_asyn(self, request, context):
+        base64_image = request.base64_image
+        args = {
+            "base64_image":base64_image
+        }
+        try:
+            task_id = self.dispatch.interrogate_in_queue(args)
             return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
         except Exception as e:
             return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")

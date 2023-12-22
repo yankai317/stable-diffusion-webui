@@ -671,6 +671,13 @@ class SdInference:
             raise e
         return response.images
     
+    def run_interrogate(self, base_image):
+        try:
+            prompt = self.api.interrogate(base_image)
+        except Exception as e:
+            raise e
+        return prompt
+        
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
@@ -791,6 +798,18 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             message = e.__str__()
             imgs_base64 = ""
         return sd_pb2.SdResponse(status=status, message=message, base64=imgs_base64)
+    
+    def interrogate(self, request, context):
+        base64_image = request.base64_image
+        try:
+            status = 200
+            message = "success"
+            prompt = self.sd_inference.run_interrogate(base64_image)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            prompt = ""
+        return sd_pb2.SdStrResponse(status=status, message=message, prompt=prompt)
         
 def run(host="127.0.0.1", port=8000, max_messave_length=256 * 1024 * 1024):
 

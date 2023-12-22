@@ -9,6 +9,7 @@ service SdService {
     rpc upscale (SdUpscaleRequest) returns (SdResponse) {};
     rpc imgfuse (SdImgFuseRequest) returns (SdResponse) {};
     rpc ctrl2img (SdCtrl2ImgRequest) returns (SdResponse) {};
+    rpc interrogate (SdInterrogateRequest) returns (SdStrResponse) {};
 
     rpc text2img_asyn (SdText2ImgRequest) returns (SdAsynTaskResponse) {};
     rpc img2img_asyn (SdImg2ImgRequest) returns (SdAsynTaskResponse) {};
@@ -24,6 +25,7 @@ service SdEngine {
     rpc upscale (SdUpscaleRequest) returns (SdResponse) {};
     rpc imgfuse (SdImgFuseRequest) returns (SdResponse) {}
     rpc ctrl2img (SdCtrl2ImgRequest) returns (SdResponse) {};
+    rpc interrogate (SdInterrogateRequest) returns (SdStrResponse) {};
 }
 //请求的参数
 message SdText2ImgRequest {
@@ -91,11 +93,21 @@ message SdCtrl2ImgRequest {
     bool disable_default_prompt = 13;
 };
 
+message SdInterrogateRequest {
+    string base64_image = 1;
+};
+
 //返回的对象
 message SdResponse {
     string message = 1;
     int32 status = 2;
     repeated string base64 = 3;
+}
+
+message SdStrResponse {
+    string message = 1;
+    int32 status = 2;
+    string prompt = 3;
 }
 
 message SdAsynTaskResponse {

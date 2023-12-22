@@ -375,6 +375,15 @@ class SimpleApi:
                 img2imgreq.prompt += f",{processed}"
         return self.img2imgapi(img2imgreq)
     
+    def interrogate(self, init_image):
+        init_image = decode_base64_to_image(init_image) if isinstance(init_image, str) else init_image
+        if len(init_image.size) < 3:
+            init_image = init_image.convert('RGB')
+        with self.queue_lock:
+            processed = shared.interrogator.interrogate(init_image)
+            prompt = f"{processed}"
+        return prompt
+    
     def extras_single_image_api(self, req: models.ExtrasSingleImageRequest):
         reqDict = setUpscalers(req)
 

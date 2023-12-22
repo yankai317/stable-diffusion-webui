@@ -474,20 +474,59 @@ def run_ctrl2img_engine():
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
         img.save(f'result_ctrl2img_{i}_{time.time()}.jpg')
-                               
+
+@async_infer
+def run_interrogate():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                               options=[ 
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+    ])
+    client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    # client = sd_pb2_grpc.SdEngineStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/0fd475db-502a-4d53-a7d8-043e9c6b971a.png"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    request = sd_pb2.SdInterrogateRequest(
+        base64_image = image_base64,
+        )
+    respnse = client.interrogate(request)
+    print(respnse.status, respnse.message, respnse.prompt)
+
+def run_interrogate_engine():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                               options=[ 
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+    ])
+    # client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    client = sd_pb2_grpc.SdEngineStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/0fd475db-502a-4d53-a7d8-043e9c6b971a.png"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    request = sd_pb2.SdInterrogateRequest(
+        base64_image = image_base64,
+        )
+    respnse = client.interrogate(request)
+    print(respnse.status, respnse.message, respnse.prompt)
+                             
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_txt2img()
-    run_txt2img()
-    run_img2img()
-    run_txt2img()
-    run_img2img()
-    run_txt2img()
-    run_img2img()
-    run_imgfuse()
-    run_ctrl2img()
-    run_ctrl2img()
-    run_imgfuse()
+    run_interrogate()
+    run_interrogate()
+    run_interrogate()
+    run_interrogate()
+    run_interrogate()
+    run_interrogate()
+    run_interrogate()
     # while True:
     #     time.sleep(1)
     
