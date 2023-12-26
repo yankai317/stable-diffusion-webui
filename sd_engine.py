@@ -614,18 +614,20 @@ class SdInference:
         ctrl_image = decode_base64_to_image(base_image)
         for script in self.script_runner.alwayson_scripts:
             if "controlnet.py.Script" in script.__str__():
-                controlnet_unit = script.get_default_ui_unit(False)
+                controlnet_unit = script.get_default_ui_unit(True)
+                ctrl_image = ctrl_image.convert('RGB')
                 ctrl_image_array = np.asarray(ctrl_image)
-                ctrl_image_array = ctrl_image_array[..., 0] if ctrl_image_array.shape[-1] == 2 else ctrl_image_array
-                ctrl_image_np_hash = HashableNpArray(ctrl_image_array)
-                ctrl_image_preprocessed = script.preprocessor[ctrl_type](ctrl_image_np_hash)[0]
-                controlnet_unit.image = {'image': ctrl_image_preprocessed, 'mask':None}
+                # ctrl_image_np_hash = HashableNpArray(ctrl_image_array)
+                # ctrl_image_preprocessed = script.preprocessor[ctrl_type](ctrl_image_np_hash)[0]
+                controlnet_unit.image = {'image': ctrl_image_array, 'mask':np.zeros_like(ctrl_image_array)}
                 controlnet_unit.enabled = True
                 controlnet_unit.model = controlnet_unit_module_map[ctrl_type]
                 controlnet_unit.module = ctrl_type
                 controlnet_unit.resize_mode = resize_mode
                 controlnet_unit.threshold_a = threshold_a
                 controlnet_unit.threshold_b = threshold_b
+                controlnet_unit.pixel_perfect = True
+                controlnet_unit.processor_res = 512
                 controlnet_unit.control_mode = controlnet_unit_mode_map[perference].value
         alwayson_scripts = {
             'controlnet':{

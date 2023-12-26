@@ -77,21 +77,22 @@ def run_txt2img():
     ])
     client = sd_pb2_grpc.SdServiceStub(channel=conn)
     # client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    request = sd_pb2.SdText2ImgRequest(prompt = "down jacket,black",
+    request = sd_pb2.SdText2ImgRequest(prompt = "<lora:LCM_LoRA_Weights_SD15:1>,down jacket",
         negative_prompt = "",
         width = 512,
         height = 512,
         seed = -1,
-        steps = 25,
-        batch_size = 4,
-        enable_hr = True,
+        steps = 5,
+        batch_size = 1,
+        enable_hr = False,
         hr_scale = 2,
         hr_upscaler = "R-ESRGAN 4x+",
-        cfg_scale = 7,
+        cfg_scale = 1.5,
         disable_default_prompt=False
         )
+    t = time.time()
     respnse = client.text2img(request)
-    print(respnse.status, respnse.message)
+    print(respnse.status, respnse.message, time.time() - t)
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
         img.save(f'result_text2img_{i}_{time.time()}.jpg')
@@ -108,7 +109,7 @@ def run_txt2img_engine():
     ])
     # client = sd_pb2_grpc.SdServiceStub(channel=conn)
     client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    request = sd_pb2.SdText2ImgRequest(prompt = "down jacket",
+    request = sd_pb2.SdText2ImgRequest(prompt = "<lora:LCM_LoRA_Weights_SD15:1>,down jacket",
         negative_prompt = "",
         width = 512,
         height = 512,
@@ -121,8 +122,9 @@ def run_txt2img_engine():
         cfg_scale = 1.5,
         disable_default_prompt=False
         )
+    t = time.time()
     respnse = client.text2img(request)
-    print(respnse.status, respnse.message)
+    print(respnse.status, respnse.message, time.time() - t)
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
         img.save(f'result_text2img_{i}_{time.time()}.jpg')
@@ -422,8 +424,8 @@ def run_ctrl2img():
         image_base64 = base64.b64encode(f.read())
     request = sd_pb2.SdCtrl2ImgRequest(
         base64_image = image_base64,
-        perference = "CONTROL",
-        prompt = "",
+        perference = "BALANCED",
+        prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle,",
         negative_prompt = "",
         width = 512,
         height = 512,
@@ -457,8 +459,8 @@ def run_ctrl2img_engine():
         image_base64 = base64.b64encode(f.read())
     request = sd_pb2.SdCtrl2ImgRequest(
         base64_image = image_base64,
-        perference = "CONTROL", # BALANCED、PROMPT、CONTROL
-        prompt = "",
+        perference = "BALANCED",
+        prompt = "<lora:mj_3k_clean:0.8>,<lora:clothes_v1:0.8>,<lora:invisible:1>,mjstyle,",
         negative_prompt = "",
         width = 512,
         height = 512,
@@ -520,13 +522,7 @@ def run_interrogate_engine():
                              
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_interrogate()
-    run_interrogate()
-    run_interrogate()
-    run_interrogate()
-    run_interrogate()
-    run_interrogate()
-    run_interrogate()
+    run_ctrl2img_engine()
     # while True:
     #     time.sleep(1)
     

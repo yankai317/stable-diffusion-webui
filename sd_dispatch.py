@@ -79,7 +79,7 @@ class SdDispatch(object):
         task_id = str(uuid.uuid1())
         data = {"task_id": task_id, "args": args}
         while True:
-            time.sleep(1)
+            time.sleep(0.1)
             if self.txt2img_task_queue.qsize() < self.max_queue_size:
                 self.txt2img_task_queue.put(data)
                 self.task_status[task_id] = 0
