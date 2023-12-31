@@ -32,7 +32,9 @@ from typing import Dict, List, Any
 import piexif
 import piexif.helper
 from contextlib import closing
-
+import rembg
+import cv2
+import numpy as np
 
 def script_name_to_index(name, scripts):
     try:
@@ -384,6 +386,67 @@ class SimpleApi:
             prompt = f"{processed}"
         return prompt
     
+    def normalizeapi(self, base64_image, 
+                     resize=True, 
+                     size=512,
+                     model="isnet-general-use", 
+                     threshold=10
+                     ):
+        
+        input_image = decode_base64_to_image(base64_image) if isinstance(base64_image, str) else base64_image
+        if len(input_image.size) < 3:
+            input_image = input_image.convert('RGB')
+        result = rembg.remove(
+            input_image,
+            session=rembg.new_session(model),
+            only_mask=False,
+            alpha_matting=False,
+            alpha_matting_foreground_threshold=240,
+            alpha_matting_background_threshold=10,
+            alpha_matting_erode_size=10,
+        )
+        result_np = np.array(result)
+        mask_np = result_np[..., -1].astype(np.uint8)
+        mask_np[mask_np < threshold] = 0
+        # image = result_np[..., :3].astype(np.uint8)
+        image = np.array(input_image).astype(np.uint8)
+        contours, hierarchy = cv2.findContours(mask_np, cv2.RETR_EXTERNAL,
+                                            cv2.CHAIN_APPROX_TC89_L1)
+        contours = sorted(contours, key=cv2.contourArea, reverse=True)
+        img_mask = cv2.fillPoly(np.zeros_like(mask_np), [contours[0]], (1))
+        
+        if resize:
+            nonzero = np.nonzero(img_mask)
+            x_min = nonzero[1].min()
+            y_min = nonzero[0].min()
+
+            x_max = nonzero[1].max()
+            y_max = nonzero[0].max()
+
+            image[img_mask == 0, ...] = 255
+            image_crop = image[y_min:y_max, x_min:x_max]
+            img_mask = img_mask[y_min:y_max, x_min:x_max]
+
+            long_edge = max(x_max - x_min, y_max - y_min)
+            short_edge = min(x_max - x_min, y_max - y_min)
+            left_pad = (long_edge - (x_max - x_min)) // 2
+            top_pad = (long_edge - (y_max - y_min)) // 2
+
+            expand_long_edge = int(long_edge * 1.1)
+            expand_pixel = (expand_long_edge - long_edge) // 2
+            top_pad += expand_pixel
+            left_pad += expand_pixel
+            new_image = np.ones([expand_long_edge , expand_long_edge , 3]) * 255
+            new_image[ top_pad:top_pad + (y_max - y_min), left_pad: left_pad+ (x_max - x_min)] = image_crop
+
+            new_image = cv2.resize(new_image, (size,size))
+            new_image = Image.fromarray(new_image.astype(np.uint8))
+        else:
+            image[img_mask==0] = 255
+            new_image = Image.fromarray(image.astype(np.uint8))
+        new_image_base64 = encode_pil_to_base64(new_image)
+        return new_image_base64
+        
     def extras_single_image_api(self, req: models.ExtrasSingleImageRequest):
         reqDict = setUpscalers(req)
 

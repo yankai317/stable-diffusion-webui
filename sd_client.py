@@ -519,10 +519,68 @@ def run_interrogate_engine():
         )
     respnse = client.interrogate(request)
     print(respnse.status, respnse.message, respnse.prompt)
-                             
+
+@async_infer        
+def run_normalize():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                                 options=[
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH),
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
+    ])
+    
+    client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/7e3ede3df712432b9eb1689f7d7063fc.jpg"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    request = sd_pb2.SdNormalizeRequest(
+        base64_image = image_base64,
+        resize = True,
+        size = 1024,
+        model = "isnet-general-use",
+        threshold = 100,
+        )
+    respnse = client.normalize(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_normalize_{i}_{time.time()}.jpg')
+
+def run_normalize_engine():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                               options=[ 
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+    ])
+    # client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    client = sd_pb2_grpc.SdEngineStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/1699421004666_85366217-1da5-4685-8fe3-8e13e6b8dd39.png"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    request = sd_pb2.SdNormalizeRequest(
+        base64_image = image_base64,
+        resize = True,
+        size = 1024,
+        model = "isnet-general-use",
+        threshold = 240,
+        )
+    respnse = client.normalize(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_normalize_{i}_{time.time()}.jpg')
+
+                      
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_ctrl2img_engine()
+    run_normalize()
     # while True:
     #     time.sleep(1)
     

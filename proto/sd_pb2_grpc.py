@@ -45,6 +45,11 @@ class SdServiceStub(object):
                 request_serializer=proto_dot_sd__pb2.SdInterrogateRequest.SerializeToString,
                 response_deserializer=proto_dot_sd__pb2.SdStrResponse.FromString,
                 )
+        self.normalize = channel.unary_unary(
+                '/SdService/normalize',
+                request_serializer=proto_dot_sd__pb2.SdNormalizeRequest.SerializeToString,
+                response_deserializer=proto_dot_sd__pb2.SdResponse.FromString,
+                )
         self.text2img_asyn = channel.unary_unary(
                 '/SdService/text2img_asyn',
                 request_serializer=proto_dot_sd__pb2.SdText2ImgRequest.SerializeToString,
@@ -112,6 +117,12 @@ class SdServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def interrogate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def normalize(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -185,6 +196,11 @@ def add_SdServiceServicer_to_server(servicer, server):
                     servicer.interrogate,
                     request_deserializer=proto_dot_sd__pb2.SdInterrogateRequest.FromString,
                     response_serializer=proto_dot_sd__pb2.SdStrResponse.SerializeToString,
+            ),
+            'normalize': grpc.unary_unary_rpc_method_handler(
+                    servicer.normalize,
+                    request_deserializer=proto_dot_sd__pb2.SdNormalizeRequest.FromString,
+                    response_serializer=proto_dot_sd__pb2.SdResponse.SerializeToString,
             ),
             'text2img_asyn': grpc.unary_unary_rpc_method_handler(
                     servicer.text2img_asyn,
@@ -330,6 +346,23 @@ class SdService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def normalize(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SdService/normalize',
+            proto_dot_sd__pb2.SdNormalizeRequest.SerializeToString,
+            proto_dot_sd__pb2.SdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def text2img_asyn(request,
             target,
             options=(),
@@ -471,6 +504,11 @@ class SdEngineStub(object):
                 request_serializer=proto_dot_sd__pb2.SdInterrogateRequest.SerializeToString,
                 response_deserializer=proto_dot_sd__pb2.SdStrResponse.FromString,
                 )
+        self.normalize = channel.unary_unary(
+                '/SdEngine/normalize',
+                request_serializer=proto_dot_sd__pb2.SdNormalizeRequest.SerializeToString,
+                response_deserializer=proto_dot_sd__pb2.SdResponse.FromString,
+                )
 
 
 class SdEngineServicer(object):
@@ -512,6 +550,12 @@ class SdEngineServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def normalize(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SdEngineServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -544,6 +588,11 @@ def add_SdEngineServicer_to_server(servicer, server):
                     servicer.interrogate,
                     request_deserializer=proto_dot_sd__pb2.SdInterrogateRequest.FromString,
                     response_serializer=proto_dot_sd__pb2.SdStrResponse.SerializeToString,
+            ),
+            'normalize': grpc.unary_unary_rpc_method_handler(
+                    servicer.normalize,
+                    request_deserializer=proto_dot_sd__pb2.SdNormalizeRequest.FromString,
+                    response_serializer=proto_dot_sd__pb2.SdResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -654,5 +703,22 @@ class SdEngine(object):
         return grpc.experimental.unary_unary(request, target, '/SdEngine/interrogate',
             proto_dot_sd__pb2.SdInterrogateRequest.SerializeToString,
             proto_dot_sd__pb2.SdStrResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def normalize(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/SdEngine/normalize',
+            proto_dot_sd__pb2.SdNormalizeRequest.SerializeToString,
+            proto_dot_sd__pb2.SdResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

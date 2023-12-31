@@ -215,6 +215,25 @@ class SdClientHandler(object):
             response = self.sd_client.interrogate(request)
         return response
     
+    def run_normalize(self, kwargs = {}):
+
+        base64_image = kwargs['base64_image'] if 'base64_image' in kwargs.keys() else None
+        resize = kwargs['resize'] if 'resize' in kwargs.keys() else False
+        size = kwargs['size'] if 'size' in kwargs.keys() else 512
+        model = kwargs['model'] if 'model' in kwargs.keys() else "isnet-general-use"
+        threshold = kwargs['threshold'] if 'threshold' in kwargs.keys() else 10
+        
+        request = sd_pb2.SdNormalizeRequest(
+                                            base64_image = base64_image,
+                                            resize = resize,
+                                            size = size,
+                                            model = model,
+                                            threshold = threshold
+                                            )
+        with self.lock:
+            response = self.sd_client.normalize(request)
+        return response
+    
     def __enter__(self):
         self.isFree = False
 

@@ -679,7 +679,20 @@ class SdInference:
         except Exception as e:
             raise e
         return prompt
-        
+    
+    def run_normalize(self, 
+                      base64_image : str,
+                      resize: bool = True,
+                      size: int = 512,
+                      model: str = "isnet-general-use",
+                      threshold: int = 0
+                      ):
+        try:
+            norm_img_base64 = self.api.normalizeapi(base64_image, resize, size, model, threshold)
+        except Exception as e:
+            raise e
+        return norm_img_base64
+    
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
@@ -812,6 +825,22 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             message = e.__str__()
             prompt = ""
         return sd_pb2.SdStrResponse(status=status, message=message, prompt=prompt)
+    
+    def normalize(self, request, context):
+        base64_image = request.base64_image
+        resize = request.resize
+        size = request.size
+        model = request.model
+        threshold = request.threshold
+        try:
+            status = 200
+            message = "success"
+            norm_img = self.sd_inference.run_normalize(base64_image, resize, size, model, threshold)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            norm_img = ""
+        return sd_pb2.SdResponse(status=status, message=message, base64=[norm_img])
         
 def run(host="127.0.0.1", port=8000, max_messave_length=256 * 1024 * 1024):
 

@@ -263,6 +263,40 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         if task_status == 2:
             return sd_pb2.SdStrResponse(status=result.status, message=result.message, prompt=result.prompt)
 
+    def normalize(self, request, context):
+
+        base64_image = request.base64_image
+        resize = request.resize
+        size = request.size if request.size != 0 else 512
+        model = request.model if not request.model else "u2net"
+        threshold = request.threshold if request.threshold != 0 else 100
+        
+        args = {
+            "base64_image":base64_image,
+            "resize": resize,
+            "size": size,
+            "model": model,
+            "threshold": threshold
+        }
+        show_dict = {
+            "resize": resize,
+            "size": size,
+            "model": model,
+            "threshold": threshold
+        }
+        task_id = self.dispatch.normalize_in_queue(args)
+        print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: normalize, task_id: {task_id}, args: {show_dict}")
+        while True:
+            time.sleep(0.1)
+            task_status = self.dispatch.get_task_status(task_id)
+            if task_status == 2 or task_status == -1:
+                result = self.dispatch.get_task_result(task_id)
+                break
+        if task_status == 2:
+            return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
+        else:
+            return sd_pb2.SdResponse(status=500, message=result.message, base64="")
+        
     def text2img_asyn(self, request, context):
         prompt = request.prompt
         negative_prompt = request.negative_prompt
@@ -411,6 +445,26 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         }
         try:
             task_id = self.dispatch.interrogate_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+    
+    def normalize_asyn(self, request, context):
+        base64_image = request.base64_image
+        resize = request.resize
+        size = request.size if request.size != 0 else 512
+        model = request.model if not request.model else "u2net"
+        threshold = request.threshold if request.threshold != 0 else 10
+        
+        args = {
+            "base64_image":base64_image,
+            "resize": resize,
+            "size": size,
+            "model": model,
+            "threshold": threshold
+        }
+        try:
+            task_id = self.dispatch.normalize_in_queue(args)
             return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
         except Exception as e:
             return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
