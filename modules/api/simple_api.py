@@ -33,6 +33,7 @@ import piexif
 import piexif.helper
 from contextlib import closing
 import rembg
+from transparent_background import Remover
 import cv2
 import numpy as np
 
@@ -175,6 +176,7 @@ class SimpleApi:
         self.default_script_arg_txt2img = []
         self.default_script_arg_img2img = []
         self.queue_lock = queue_lock
+        self.remover = Remover()
         
     def add_api_route(self, path: str, endpoint, **kwargs):
         if shared.cmd_opts.api_auth:
@@ -389,22 +391,25 @@ class SimpleApi:
     def normalizeapi(self, base64_image, 
                      resize=True, 
                      size=512,
-                     model="isnet-general-use", 
+                     model="transparent_background", 
                      threshold=10
                      ):
         
         input_image = decode_base64_to_image(base64_image) if isinstance(base64_image, str) else base64_image
         if len(input_image.size) < 3:
             input_image = input_image.convert('RGB')
-        result = rembg.remove(
-            input_image,
-            session=rembg.new_session(model),
-            only_mask=False,
-            alpha_matting=False,
-            alpha_matting_foreground_threshold=240,
-            alpha_matting_background_threshold=10,
-            alpha_matting_erode_size=10,
-        )
+        if model == "transparent_background":
+            result = self.remover.process(input_image)
+        else:
+            result = rembg.remove(
+                input_image,
+                session=rembg.new_session(model),
+                only_mask=False,
+                alpha_matting=False,
+                alpha_matting_foreground_threshold=240,
+                alpha_matting_background_threshold=10,
+                alpha_matting_erode_size=10,
+            )
         result_np = np.array(result)
         mask_np = result_np[..., -1].astype(np.uint8)
         mask_np[mask_np < threshold] = 0
@@ -414,7 +419,7 @@ class SimpleApi:
                                             cv2.CHAIN_APPROX_TC89_L1)
         contours = sorted(contours, key=cv2.contourArea, reverse=True)
         img_mask = cv2.fillPoly(np.zeros_like(mask_np), [contours[0]], (1))
-        
+        img_mask = mask_np * img_mask
         if resize:
             nonzero = np.nonzero(img_mask)
             x_min = nonzero[1].min()
@@ -436,14 +441,16 @@ class SimpleApi:
             expand_pixel = (expand_long_edge - long_edge) // 2
             top_pad += expand_pixel
             left_pad += expand_pixel
-            new_image = np.ones([expand_long_edge , expand_long_edge , 3]) * 255
-            new_image[ top_pad:top_pad + (y_max - y_min), left_pad: left_pad+ (x_max - x_min)] = image_crop
+            new_image = np.ones([expand_long_edge , expand_long_edge , 4]) * 255
+            new_image[..., 3] *= 0
+            new_image[ top_pad:top_pad + (y_max - y_min), left_pad: left_pad+ (x_max - x_min), :3] = image_crop
+            new_image[ top_pad:top_pad + (y_max - y_min), left_pad: left_pad+ (x_max - x_min), 3] = img_mask
 
             new_image = cv2.resize(new_image, (size,size))
             new_image = Image.fromarray(new_image.astype(np.uint8))
         else:
-            image[img_mask==0] = 255
-            new_image = Image.fromarray(image.astype(np.uint8))
+            result[img_mask==0] = 255
+            new_image = result
         new_image_base64 = encode_pil_to_base64(new_image)
         return new_image_base64
         

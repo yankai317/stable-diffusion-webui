@@ -540,14 +540,14 @@ def run_normalize():
         base64_image = image_base64,
         resize = True,
         size = 1024,
-        model = "isnet-general-use",
+        model = "transparent_background",
         threshold = 100,
         )
     respnse = client.normalize(request)
     print(respnse.status, respnse.message)
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
-        img.save(f'result_normalize_{i}_{time.time()}.jpg')
+        img.save(f'result_normalize_{i}_{time.time()}.png')
 
 def run_normalize_engine():
     '''
@@ -561,21 +561,21 @@ def run_normalize_engine():
     ])
     # client = sd_pb2_grpc.SdServiceStub(channel=conn)
     client = sd_pb2_grpc.SdEngineStub(channel=conn)
-    img_path = "/root/stable-diffusion-webui/1699421004666_85366217-1da5-4685-8fe3-8e13e6b8dd39.png"
+    img_path = "/root/stable-diffusion-webui/6eae70ffe204484dbaf9d50d596ce5b6.jpg"
     with open(img_path,'rb') as f:
         image_base64 = base64.b64encode(f.read())
     request = sd_pb2.SdNormalizeRequest(
         base64_image = image_base64,
         resize = True,
         size = 1024,
-        model = "isnet-general-use",
-        threshold = 240,
+        model = "transparent_background",
+        threshold = 100,
         )
     respnse = client.normalize(request)
     print(respnse.status, respnse.message)
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
-        img.save(f'result_normalize_{i}_{time.time()}.jpg')
+        img.save(f'result_normalize_{i}_{time.time()}.png')
 
                       
 if __name__ == '__main__':

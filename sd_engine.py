@@ -684,7 +684,7 @@ class SdInference:
                       base64_image : str,
                       resize: bool = True,
                       size: int = 512,
-                      model: str = "isnet-general-use",
+                      model: str = "transparent_background",
                       threshold: int = 0
                       ):
         try:

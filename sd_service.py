@@ -268,7 +268,7 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         base64_image = request.base64_image
         resize = request.resize
         size = request.size if request.size != 0 else 512
-        model = request.model if not request.model else "u2net"
+        model = request.model if not request.model else "transparent_background"
         threshold = request.threshold if request.threshold != 0 else 100
         
         args = {
@@ -453,8 +453,8 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         base64_image = request.base64_image
         resize = request.resize
         size = request.size if request.size != 0 else 512
-        model = request.model if not request.model else "u2net"
-        threshold = request.threshold if request.threshold != 0 else 10
+        model = request.model if not request.model else "transparent_background"
+        threshold = request.threshold if request.threshold != 0 else 100
         
         args = {
             "base64_image":base64_image,

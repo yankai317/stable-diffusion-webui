@@ -220,7 +220,7 @@ class SdClientHandler(object):
         base64_image = kwargs['base64_image'] if 'base64_image' in kwargs.keys() else None
         resize = kwargs['resize'] if 'resize' in kwargs.keys() else False
         size = kwargs['size'] if 'size' in kwargs.keys() else 512
-        model = kwargs['model'] if 'model' in kwargs.keys() else "isnet-general-use"
+        model = kwargs['model'] if 'model' in kwargs.keys() else "transparent_background"
         threshold = kwargs['threshold'] if 'threshold' in kwargs.keys() else 10
         
         request = sd_pb2.SdNormalizeRequest(
