@@ -449,8 +449,8 @@ class SimpleApi:
             new_image = cv2.resize(new_image, (size,size))
             new_image = Image.fromarray(new_image.astype(np.uint8))
         else:
-            result[img_mask==0] = 255
-            new_image = result
+            result_np[..., :3][img_mask==0] = 255
+            new_image = Image.fromarray(result_np)
         new_image_base64 = encode_pil_to_base64(new_image)
         return new_image_base64
         
