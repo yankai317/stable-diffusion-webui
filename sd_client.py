@@ -577,10 +577,70 @@ def run_normalize_engine():
         img = base64_to_image(img_base64)
         img.save(f'result_normalize_{i}_{time.time()}.png')
 
-                      
+
+@async_infer        
+def run_canny():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                                 options=[
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH),
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
+    ])
+    
+    client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/7e3ede3df712432b9eb1689f7d7063fc.jpg"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    request = sd_pb2.SdCannyRequest(
+        base64_image = image_base64,
+        low_threshold = 100,
+        high_threshold = 200,
+        reverse = False,
+        )
+    respnse = client.canny(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_canny_{i}_{time.time()}.png')
+
+def run_canny_engine():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                                 options=[ 
+          ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+          ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+     ])
+    # client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    client = sd_pb2_grpc.SdEngineStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/1699292621664_72f0a173-776d-4dbc-a0e9-acecb330f05f.png"
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+    request = sd_pb2.SdCannyRequest(
+        base64_image = image_base64,
+        low_threshold = 230,
+        high_threshold = 255,
+        reverse = False,
+        )
+    respnse = client.canny(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_canny_{i}_{time.time()}.png')
+        
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
+    run_canny()
     run_normalize()
+    run_interrogate()
+    run_img2img()
+    run_imgfuse()
+    run_txt2img()
     # while True:
     #     time.sleep(1)
     

@@ -296,7 +296,37 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
             return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
         else:
             return sd_pb2.SdResponse(status=500, message=result.message, base64="")
+
+    def canny(self, request, context):
+        base64_image = request.base64_image
+        low_threshold = request.low_threshold if request.low_threshold != 0 else 100
+        high_threshold = request.high_threshold if request.high_threshold != 0 else 200
+        reverse = request.reverse if request.reverse else False
+        args = {
+            "base64_image":base64_image,
+            "low_threshold": low_threshold,
+            "high_threshold": high_threshold,
+            "reverse": reverse,
+        }
+        task_id = self.dispatch.canny_in_queue(args)
+        show_dict = {
+            "low_threshold": low_threshold,
+            "high_threshold": high_threshold,
+            "reverse": reverse,
+        }
+        print(f"time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, task_type: canny, task_id: {task_id}, args: {show_dict}")
+        while True:
+            time.sleep(0.1)
+            task_status = self.dispatch.get_task_status(task_id)
+            if task_status == 2 or task_status == -1:
+                result = self.dispatch.get_task_result(task_id)
+                break
+        if task_status == 2:
+            return sd_pb2.SdResponse(status=result.status, message=result.message, base64=result.base64)
+        else:
+            return sd_pb2.SdResponse(status=500, message=result.message, base64="")
         
+# async
     def text2img_asyn(self, request, context):
         prompt = request.prompt
         negative_prompt = request.negative_prompt
@@ -465,6 +495,23 @@ class SdService(sd_pb2_grpc.SdServiceServicer):
         }
         try:
             task_id = self.dispatch.normalize_in_queue(args)
+            return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
+        except Exception as e:
+            return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")
+    
+    def canny_asyn(self, request, context):
+        base64_image = request.base64_image
+        low_threshold = request.low_threshold if request.low_threshold != 0 else 100
+        high_threshold = request.high_threshold if request.high_threshold != 0 else 200
+        reverse = request.reverse if request.reverse else False
+        args = {
+            "base64_image":base64_image,
+            "low_threshold": low_threshold,
+            "high_threshold": high_threshold,
+            "reverse": reverse,
+        }
+        try:
+            task_id = self.dispatch.canny_in_queue(args)
             return sd_pb2.SdAsynTaskResponse(status=200, message="success", task_id=task_id)
         except Exception as e:
             return sd_pb2.SdAsynTaskResponse(status=500, message=e.__str__(), task_id="")

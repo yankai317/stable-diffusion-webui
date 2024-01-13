@@ -234,6 +234,22 @@ class SdClientHandler(object):
             response = self.sd_client.normalize(request)
         return response
     
+    def run_canny(self, kwargs = {}):
+        base64_image = kwargs['base64_image'] if 'base64_image' in kwargs.keys() else None
+        low_threshold = kwargs['low_threshold'] if 'low_threshold' in kwargs.keys() else 100
+        high_threshold = kwargs['high_threshold'] if 'high_threshold' in kwargs.keys() else 200
+        reverse = kwargs['reverse'] if 'reverse' in kwargs.keys() else False
+        
+        request = sd_pb2.SdCannyRequest(
+                                            base64_image = base64_image,
+                                            low_threshold = low_threshold,
+                                            high_threshold = high_threshold,
+                                            reverse = reverse
+                                            )
+        with self.lock:
+            response = self.sd_client.canny(request)
+        return response
+    
     def __enter__(self):
         self.isFree = False
 

@@ -453,6 +453,29 @@ class SimpleApi:
             new_image = Image.fromarray(result_np)
         new_image_base64 = encode_pil_to_base64(new_image)
         return new_image_base64
+    
+    def cannyapi(self, base64_image, 
+                     low_threshold=100,
+                     high_threshold=200,
+                     reverse=False
+                     ):
+        input_image = decode_base64_to_image(base64_image) if isinstance(base64_image, str) else base64_image
+        if len(input_image.size) < 3:
+            input_image = input_image.convert('RGB')
+        result = self.remover.process(input_image)
+        cv_seg_image_np = np.array(result)
+        cv_seg_image = cv_seg_image_np[..., -1:] > low_threshold
+        
+        cv_image_wbg = (cv_seg_image_np[..., :3] * cv_seg_image + 255 * (1 - cv_seg_image)).astype(np.uint8)
+        cv_image_bbg = (cv_seg_image_np[..., :3] * cv_seg_image).astype(np.uint8)
+        canny_image_wbg = cv2.Canny(cv_image_wbg, low_threshold, high_threshold)
+        canny_image_bbg = cv2.Canny(cv_image_bbg, low_threshold, high_threshold)
+        canny_image = (canny_image_wbg + canny_image_bbg).astype(np.uint8)
+        if reverse:
+            canny_image = 255 - canny_image
+        canny_image = Image.fromarray(canny_image.astype(np.uint8))
+        new_image_base64 = encode_pil_to_base64(canny_image)
+        return new_image_base64
         
     def extras_single_image_api(self, req: models.ExtrasSingleImageRequest):
         reqDict = setUpscalers(req)

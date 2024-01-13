@@ -693,6 +693,17 @@ class SdInference:
             raise e
         return norm_img_base64
     
+    def run_canny(self, base_image,
+                  low_threshold: int = 100,
+                  high_threshold: int = 200,
+                  reverse: bool = False
+                  ):
+        try:
+            canny_img_base64 = self.api.cannyapi(base_image, low_threshold, high_threshold, reverse)
+        except Exception as e:
+            raise e
+        return canny_img_base64
+    
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
@@ -841,6 +852,21 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             message = e.__str__()
             norm_img = ""
         return sd_pb2.SdResponse(status=status, message=message, base64=[norm_img])
+    
+    def canny(self, request, context):
+        base64_image = request.base64_image
+        low_threshold = request.low_threshold
+        high_threshold = request.high_threshold
+        reverse = request.reverse
+        try:
+            status = 200
+            message = "success"
+            canny_img = self.sd_inference.run_canny(base64_image, low_threshold, high_threshold, reverse)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            canny_img = ""
+        return sd_pb2.SdResponse(status=status, message=message, base64=[canny_img])
         
 def run(host="127.0.0.1", port=8000, max_messave_length=256 * 1024 * 1024):
 
