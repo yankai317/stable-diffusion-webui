@@ -217,7 +217,7 @@ def inference_single_image(ref_image,
     raw_background[y1:y2, x1:x2, :] = tar_image[y1:y2, x1:x2, :]
     return raw_background
 
-def run_local(image,
+def run_anydoor(image,
               mask,
               ref_image,
               ref_mask,
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     ref_mask = Image.open(ref_mask_path).convert('L')
     tar_mask = Image.open(tar_mask_path).convert('L')
     
-    gen_image = run_local(ref_image, ref_mask, gt_image.copy(), tar_mask, 1, 30, 3, -1, False)
+    gen_image = run_anydoor(ref_image, ref_mask, gt_image.copy(), tar_mask, 1, 30, 3, -1, False)
     gen_path = os.path.join(save_dir, 'test.jpg')
 
     # vis_image = cv2.hconcat([ref_image, gt_image, gen_image])

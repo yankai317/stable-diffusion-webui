@@ -632,15 +632,100 @@ def run_canny_engine():
     for i, img_base64 in enumerate(respnse.base64):
         img = base64_to_image(img_base64)
         img.save(f'result_canny_{i}_{time.time()}.png')
+
+@async_infer
+def run_anydoor():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                                 options=[
+        ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH),
+        ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
+    ])
+    
+    client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    
+    img_path = "/root/stable-diffusion-webui/13.jpg"
+    mask_path = "/root/stable-diffusion-webui/model_mask.png"
+    
+    ref_img_path = "/root/stable-diffusion-webui/36.jpg"
+    ref_mask_path = "/root/stable-diffusion-webui/cloth_mask.png"
+    
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
         
+    with open(mask_path,'rb') as f:
+        mask_base64 = base64.b64encode(f.read())
+        
+    with open(ref_img_path,'rb') as f:
+        ref_image_base64 = base64.b64encode(f.read())
+        
+    with open(ref_mask_path,'rb') as f:
+        ref_mask_base64 = base64.b64encode(f.read())
+    
+    request = sd_pb2.SdAnydoorRequest(
+        image = image_base64,
+        mask = mask_base64,
+        ref_image = ref_image_base64,
+        ref_mask = ref_mask_base64
+    )
+    
+    respnse = client.anydoor(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_anydoor_{i}_{time.time()}.png')         
+                                     
+def run_anydoor_engine():
+    '''
+    模拟请求服务方法信息
+    :return:
+    '''
+    conn=grpc.insecure_channel('127.0.0.1:7860',
+                                 options=[ 
+          ('grpc.max_send_message_length', MAX_MESSAGE_LENGTH), 
+          ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH), 
+     ])
+    # client = sd_pb2_grpc.SdServiceStub(channel=conn)
+    client = sd_pb2_grpc.SdEngineStub(channel=conn)
+    img_path = "/root/stable-diffusion-webui/13.jpg"
+    mask_path = "/root/stable-diffusion-webui/model_mask.png"
+    
+    ref_img_path = "/root/stable-diffusion-webui/36.jpg"
+    ref_mask_path = "/root/stable-diffusion-webui/cloth_mask.png"
+    
+    with open(img_path,'rb') as f:
+        image_base64 = base64.b64encode(f.read())
+        
+    with open(mask_path,'rb') as f:
+        mask_base64 = base64.b64encode(f.read())
+        
+    with open(ref_img_path,'rb') as f:
+        ref_image_base64 = base64.b64encode(f.read())
+        
+    with open(ref_mask_path,'rb') as f:
+        ref_mask_base64 = base64.b64encode(f.read())
+    
+    request = sd_pb2.SdAnydoorRequest(
+        image = image_base64,
+        mask = mask_base64,
+        ref_image = ref_image_base64,
+        ref_mask = ref_mask_base64
+    )
+    
+    respnse = client.anydoor(request)
+    print(respnse.status, respnse.message)
+    for i, img_base64 in enumerate(respnse.base64):
+        img = base64_to_image(img_base64)
+        img.save(f'result_anydoor_{i}_{time.time()}.png')
+
+
 if __name__ == '__main__':
     MAX_MESSAGE_LENGTH = 256 * 1024 * 1024
-    run_canny()
-    run_normalize()
-    run_interrogate()
-    run_img2img()
-    run_imgfuse()
-    run_txt2img()
+    run_anydoor()
+
     # while True:
     #     time.sleep(1)
     

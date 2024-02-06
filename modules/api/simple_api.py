@@ -17,6 +17,7 @@ from secrets import compare_digest
 import modules.shared as shared
 from modules import sd_samplers, deepbooru, sd_hijack, images, scripts, ui, postprocessing, errors, restart
 from modules.api import models
+from modules.anydoor import run_anydoor
 from modules.shared import opts
 from modules.processing import StableDiffusionProcessingTxt2Img, StableDiffusionProcessingImg2Img, process_images
 from modules.textual_inversion.textual_inversion import create_embedding, train_embedding
@@ -561,6 +562,26 @@ class SimpleApi:
 
         return models.InterrogateResponse(caption=processed)
 
+    def anydoor(self, image, mask, ref_image, ref_mask, strength = 1, ddim_steps = 30, scale = 3, seed = -1, enable_shape_control = False):
+        image = decode_base64_to_image(image) if isinstance(image, str) else image
+        ref_image = decode_base64_to_image(ref_image) if isinstance(ref_image, str) else ref_image
+    
+        image = image.convert('RGB')
+        ref_image = ref_image.convert('RGB')
+        
+        mask = decode_base64_to_image(mask) if isinstance(mask, str) else mask
+        ref_mask = decode_base64_to_image(ref_mask) if isinstance(ref_mask, str) else ref_mask
+        
+        mask = mask.convert('L')
+        ref_mask = ref_mask.convert('L')
+        
+        gen_image = run_anydoor(image, mask, ref_image.copy(), ref_mask, strength, ddim_steps, scale, seed, enable_shape_control)
+        
+        gen_image = Image.fromarray(gen_image[0])
+        new_image_base64 = encode_pil_to_base64(gen_image)
+        
+        return new_image_base64
+    
     def interruptapi(self):
         shared.state.interrupt()
 

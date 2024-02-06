@@ -27,6 +27,8 @@ class SdDispatch(object):
         self.interrogate_task_queue = Queue()
         self.normalize_task_queue = Queue()
         self.canny_task_queue = Queue()
+        self.anydoor_task_queue = Queue()
+        
         
         self.task_status = {}
         self.task_timest = {}
@@ -60,6 +62,7 @@ class SdDispatch(object):
         self.interrogate_dispatch()
         self.normalize_dispatch()
         self.canny_dispatch()
+        self.anydoor_dispatch()
         self.clean_timeout_result()
         
     def get_task_status(self, task_id):
@@ -366,6 +369,17 @@ class SdDispatch(object):
                 self.canny_task_queue.put(data)
                 self.task_status[task_id] = 0
                 return task_id
+    
+    def anydoor_in_queue(self, args):
+        task_id = str(uuid.uuid1())
+        data = {"task_id": task_id, "args": args}
+        while True:
+            time.sleep(0.1)
+            if self.anydoor_task_queue.qsize() < self.max_queue_size:
+                self.anydoor_task_queue.put(data)
+                self.task_status[task_id] = 0
+                return task_id
+            
     @async_infer
     def normalize(self, sd_client_handler, data, callback):
         task_id = data['task_id']
@@ -426,6 +440,37 @@ class SdDispatch(object):
                 data = self.canny_task_queue.get()
                 sd_client_handler = self.sd_client_handlers_queue.get()
                 self.canny(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
+                self.task_status[data['task_id']] = 1
+    
+    @async_infer
+    def anydoor(self, sd_client_handler, data, callback):
+        task_id = data['task_id']
+        args = data['args']
+        try:
+            with sd_client_handler:
+                result = sd_client_handler.run_anydoor(args)
+            if result.status == 200:
+                self.task_status[task_id] = 2
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+            else:
+                self.task_status[task_id] = -1
+                self.results[task_id] = result
+                self.task_timest[task_id] = time.time()
+        except Exception as e:
+            self.task_status[task_id] = -1
+            self.results[task_id] = e
+            self.task_timest[task_id] = time.time()
+        callback(sd_client_handler)
+        
+    @async_infer
+    def anydoor_dispatch(self):
+        while True:
+            time.sleep(0.1)
+            if not self.sd_client_handlers_queue.empty() and not self.anydoor_task_queue.empty():
+                data = self.anydoor_task_queue.get()
+                sd_client_handler = self.sd_client_handlers_queue.get()
+                self.anydoor(sd_client_handler, data, lambda x: self.sd_client_handlers_queue.put(x))
                 self.task_status[data['task_id']] = 1
                 
     @async_infer

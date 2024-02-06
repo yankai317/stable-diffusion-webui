@@ -704,6 +704,13 @@ class SdInference:
             raise e
         return canny_img_base64
     
+    def run_anydoor(self, image, mask, ref_image, ref_mask, strength = 1, ddim_steps = 30, scale = 3, seed = -1, enable_shape_control = False):
+        try:
+            img_base64 = self.api.anydoor(image, mask, ref_image, ref_mask, strength, ddim_steps, scale, seed, enable_shape_control)
+        except Exception as e:
+            raise e
+        return img_base64
+    
 import grpc
 from proto import sd_pb2, sd_pb2_grpc
 from concurrent import futures
@@ -867,7 +874,27 @@ class SdEngine(sd_pb2_grpc.SdEngineServicer):
             message = e.__str__()
             canny_img = ""
         return sd_pb2.SdResponse(status=status, message=message, base64=[canny_img])
-        
+    
+    def anydoor(self, request, context):
+        image = request.image
+        mask = request.mask
+        ref_image = request.ref_image
+        ref_mask = request.ref_mask
+        strength = request.strength if request.strength != 0 else 1
+        ddim_steps = request.ddim_steps if request.ddim_steps != 0 else 30
+        scale = request.scale if request.scale != 0 else 3
+        seed = request.seed if request.seed != 0 else -1
+        enable_shape_control = request.enable_shape_control
+        try:
+            status = 200
+            message = "success"
+            img_base64 = self.sd_inference.run_anydoor(image, mask, ref_image, ref_mask, strength, ddim_steps, scale, seed, enable_shape_control)
+        except Exception as e:
+            status = 500
+            message = e.__str__()
+            img_base64 = ""
+        return sd_pb2.SdResponse(status=status, message=message, base64=[img_base64])
+    
 def run(host="127.0.0.1", port=8000, max_messave_length=256 * 1024 * 1024):
 
     MAX_MESSAGE_LENGTH = max_messave_length

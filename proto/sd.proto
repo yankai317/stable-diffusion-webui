@@ -12,6 +12,7 @@ service SdService {
     rpc interrogate (SdInterrogateRequest) returns (SdStrResponse) {};
     rpc normalize (SdNormalizeRequest) returns (SdResponse) {};
     rpc canny (SdCannyRequest) returns (SdResponse) {};
+    rpc anydoor (SdAnydoorRequest) returns (SdResponse) {};
 
     rpc text2img_asyn (SdText2ImgRequest) returns (SdAsynTaskResponse) {};
     rpc img2img_asyn (SdImg2ImgRequest) returns (SdAsynTaskResponse) {};
@@ -30,6 +31,7 @@ service SdEngine {
     rpc interrogate (SdInterrogateRequest) returns (SdStrResponse) {};
     rpc normalize (SdNormalizeRequest) returns (SdResponse) {};
     rpc canny (SdCannyRequest) returns (SdResponse) {};
+    rpc anydoor (SdAnydoorRequest) returns (SdResponse) {};
 }
 //请求的参数
 message SdText2ImgRequest {
@@ -114,6 +116,18 @@ message SdCannyRequest {
     int32 low_threshold = 2;
     int32 high_threshold = 3;
     bool reverse = 4;
+};
+
+message SdAnydoorRequest {
+    string image = 1;
+    string mask = 2;
+    string ref_image = 3;
+    string ref_mask = 4;
+    float strength = 5;
+    int32 ddim_steps = 6;
+    float scale = 7;
+    int32 seed = 8;
+    bool enable_shape_control = 9;
 };
 
 //返回的对象

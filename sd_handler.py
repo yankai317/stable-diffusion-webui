@@ -14,7 +14,7 @@ class SdServiceHandler(object):
     def __init__(self, host="127.0.0.1", port=8000, device_id=0, config_path="config.json", log_save_path="log.txt", err_log_save_path="log_err.txt", max_messave_length=256 * 1024 * 1024) -> None:
         with open(log_save_path, 'w') as log_write:
             with open(err_log_save_path, 'w') as err_log_wirte:
-                self.sd_server = subprocess.Popen(["python sd_engine.py --port {} --device-id {} --ui-settings-file {} --server-name {} --xformers".format(port, device_id, config_path, host)], shell=True, stdout=log_write, stderr=err_log_wirte)
+                self.sd_server = subprocess.Popen(["python sd_engine.py --port {} --device-id {} --ui-settings-file {} --server-name {} --xformers --disable-safe-unpickle".format(port, device_id, config_path, host)], shell=True, stdout=log_write, stderr=err_log_wirte)
         
         self.device_id = device_id
         self.port = port
@@ -250,6 +250,32 @@ class SdClientHandler(object):
             response = self.sd_client.canny(request)
         return response
     
+    def run_anydoor(self, kwargs = {}):
+        image = kwargs['image'] if 'image' in kwargs.keys() else None
+        mask = kwargs['mask'] if 'mask' in kwargs.keys() else None
+        ref_image = kwargs['ref_image'] if 'ref_image' in kwargs.keys() else None
+        ref_mask = kwargs['ref_mask'] if 'ref_mask' in kwargs.keys() else None
+        strength = kwargs['strength'] if 'strength' in kwargs.keys() else 1
+        ddim_steps = kwargs['ddim_steps'] if 'ddim_steps' in kwargs.keys() else 30
+        scale = kwargs['scale'] if 'scale' in kwargs.keys() else 3
+        seed = kwargs['seed'] if 'seed' in kwargs.keys() else -1
+        enable_shape_control = kwargs['enable_shape_control'] if 'enable_shape_control' in kwargs.keys() else False
+        
+        request = sd_pb2.SdAnydoorRequest(
+                                            image = image,
+                                            mask = mask,
+                                            ref_image = ref_image,
+                                            ref_mask = ref_mask,
+                                            strength = strength,
+                                            ddim_steps = ddim_steps,
+                                            scale = scale,
+                                            seed = seed,
+                                            enable_shape_control = enable_shape_control
+                                            )
+        with self.lock:
+            response = self.sd_client.anydoor(request)
+        return response
+        
     def __enter__(self):
         self.isFree = False
 
